@@ -1,6 +1,9 @@
 EXAMPLES
 ========
 
+DMX_PIN is shown as board.D0 to conform with the example wiring schematic
+you may wire any available microcontroller pin to your line driver.
+
 Interactive use
 ---------------
 

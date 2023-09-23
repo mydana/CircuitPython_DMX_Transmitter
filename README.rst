@@ -60,11 +60,11 @@ Example::
 
          ┌─────┐            ╔═════════════════╗
     ╔════╡USB-C╞════╗       ║                 ║
-    ║    └─────┘    ║    ┌──╫(6) VCC          ║       ╔═════════════╗
-    ║            3V ╫────┤  ║    __         Y ╫───────╫─>(3) Data + ║
-    ║               ║    ├──╫(1) RE           ║  ┌────╫─>(2) Data - ║
-    ║               ║    │  ║               Z ╫──┘ ┌──╫─>(1) Common ║
-    ║               ║    └──╫(4) DE           ║    │  ╚═════════════╝
+    ║    └─────┘    ║    ┌──╫(6) VCC          ║       ╔══════════════╗
+    ║            3V ╫────┤  ║    __         Y ╫───────╫─< (3) Data + ║
+    ║               ║    ├──╫(1) RE           ║  ┌────╫─< (2) Data - ║
+    ║               ║    │  ║               Z ╫──┘ ┌──╫─< (1) Common ║
+    ║               ║    └──╫(4) DE           ║    │  ╚══════════════╝
     ║         TX/DO ╫───┐   ║               A ╫ NC │   XLR Connector
     ║               ║   └───╫(2) TXD          ║    │   Female
     ║               ║       ║               B ╫ NC │
@@ -76,8 +76,8 @@ Example::
      Microcontroller         RS485 Line Driver       └──────┘
      Adafruit KB2040         Digilent PmodR485
 
-    Additional significant DMX wiring requirements are necessarily
-    out of scope in this document. Consult a qualified local expert.
+    Significant DMX wiring requirements are necessarily out of scope
+    in this document. Consult a qualified local expert.
 
 REQUIREMENTS
 ============

@@ -10,7 +10,7 @@ from dmx_transmitter import dmx_transmitter
 
 # Wire first_out_pin to the line driver.
 
-FIRST_PIN = board.D1
+FIRST_PIN = board.D0
 
 dmx = dmx_transmitter.DMXTransmitter(first_out_pin=FIRST_PIN)
 

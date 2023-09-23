@@ -8,11 +8,6 @@
     self
 
 .. toctree::
-    :caption: Overview
-
-    overview
-
-.. toctree::
     :caption: Basics
 
     basics
@@ -26,6 +21,11 @@
     :caption: Advanced
 
     advanced
+
+.. toctree::
+    :caption: Hardware Hackers
+
+    hackers
 
 .. toctree::
     :caption: API Reference
