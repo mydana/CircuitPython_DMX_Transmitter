@@ -14,7 +14,7 @@ Interactive use
    >>> dmx.run()
    >>> dmx[0] = 255
    >>> dmx[1] = 255
-   >>> 
+   >>>
 
 
 blink.py

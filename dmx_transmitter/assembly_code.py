@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: Copyright (c) 2023 Dana Runge
+#
+# SPDX-License-Identifier: MIT
 """Assemble code for CircuitPython_DMX512RP2040"""
 
 import adafruit_pioasm
@@ -114,8 +117,8 @@ frame_stop:
                 AssemblyCode.get_timing()
             )
         """
-        timing = dict()
-        intervals = dict()
+        timing = {}
+        intervals = {}
         for number, line in enumerate(cls.pre_process(1).split("\n")):
             code, _, comments = line.partition(";")
             # Find out what's not code.
@@ -187,6 +190,7 @@ def print_parameters():
         code = iter(AssemblyCode(universes=universes).assembled)
         try:
             while True:
+                # pylint: disable=consider-using-f-string
                 print("                    ", end="")
                 print("0x{:04X},".format(next(code)), end="")
                 for _ in range(7):

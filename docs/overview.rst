@@ -55,7 +55,7 @@ This library only works on microcontrollers built on the RP2040 chip.
 
 The RP20240 chip contains two programmable I/O adaptors. (PIO) Each PIO has
 four hardware state machines optimized for interfacing with serial protocols,
-such as DMX512. 
+such as DMX512.
 
 DMXTransmitter class
 --------------------

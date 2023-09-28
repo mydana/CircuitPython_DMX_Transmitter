@@ -97,7 +97,7 @@ Slicing is supported:
 
    >>> dmx[0:8]
    [0, 0, 0, 0, 0, 0, 0, 0]
-   >>> 
+   >>>
 
 Slice assignment is allowed if the source and destination slices are the same
 length:
@@ -119,7 +119,7 @@ fills the slice with the scalar.
    >>> dmx[0:3] = 42
    >>> dmx[0:8]
    [42, 42, 42, 3, 4, 0, 0, 0]
-   >>> 
+   >>>
 
 Slice assignment with a different source length and destination length would
 change the DMXTransmitter object length, and that is not allowed:
@@ -161,7 +161,7 @@ Take a snapshot of the DMXTransmitter object and send it down the wire.
    :meth:`show()`
 
 Continuously send data down the wire.
-   
+
    :meth:`run()`
 
 Turn off the state machine and release its resources.

@@ -14,7 +14,7 @@ GLOSSARY
   each byte is defined (11 * 4 microseconds) but the idle time beteen bytes
   is not defined.
 
-* Bit - the fundamental unit of binary data, 1 or 0, high or low, mark or space. 
+* Bit - the fundamental unit of binary data, 1 or 0, high or low, mark or space.
   Each DMX bit is 4 microseconds long.
 
 * Break - a term from telegraphy, and also used for asyncronous serial

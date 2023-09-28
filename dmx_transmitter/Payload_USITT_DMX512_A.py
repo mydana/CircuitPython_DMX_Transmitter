@@ -1,7 +1,22 @@
 # SPDX-FileCopyrightText: Copyright (c) 2023 Dana Runge
 #
 # SPDX-License-Identifier: MIT
-"""Container that has data and timings for the state machine.
+# pylint: disable=invalid-name
+# pylint: enable=invalid-name
+"""
+`dmx_transmitter.payload_USITT_DMX512_A`
+========================================
+
+Container that has data and timings for the state machine.
+
+Implements the USITT-DMX512-A standard's timings.
+
+Basic usage is handled via convenience methods provided by
+the dmx_transmitter.dmx_transmitter.DMXTransmitter class.
+
+This class can be used to adjust the DMX timing.
+
+* Author: Dana Runge
 """
 
 import array
@@ -57,7 +72,7 @@ def bit_deinterlace(integer: int, deinterlace: int) -> int:
     return output
 
 
-class Payload_USITT_DMX512_A:
+class Payload_USITT_DMX512_A:  # pylint: disable=too-many-instance-attributes
     """This object mimics a list of byte values, and stores it and timing
     parameters into a data structure suitable for sending into a DMX512TxEngine
     state machine.
@@ -90,6 +105,8 @@ class Payload_USITT_DMX512_A:
     :param USITT_DMX512_A_Payload clone_from: Clone this object.
     """
 
+    # pylint: disable=consider-using-f-string
+
     ##
     ## Index:  32 bits (2-3 universes)              16 bits (1 univ.)
     ##       +--------+--------+--------+--------+ +--------+--------+
@@ -116,7 +133,7 @@ class Payload_USITT_DMX512_A:
     ##
     slot_index = 5  # Index of first slot data
 
-    class _MinimumTiming:
+    class _MinimumTiming:  # pylint: disable=too-few-public-methods
         "Minimum timing from lib/dmx_transmitter/assembly_code.py"
         mark_after_frame = 5
         space_for_break = 4
@@ -543,10 +560,10 @@ class Payload_USITT_DMX512_A:
             ]
         try:
             ixes = int(ixes)
-        except TypeError:
+        except TypeError as exc:
             raise TypeError(
-                "list indices must be integers or slices, " f"not {str(type(ixes))}"
-            )
+                f"list indices must be integers or slices, not {str(type(ixes))}"
+            ) from exc
         if ixes < 0:
             ixes = ixes + len(self)
         if ixes < 0 or ixes > len(self):
@@ -564,36 +581,36 @@ class Payload_USITT_DMX512_A:
             try:
                 if len(val) != size:
                     raise ValueError(
-                        "Can only assign a slice of the same size. " f"({size})"
+                        f"Can only assign a slice of the same size. ({size})"
                     )
             except TypeError:
                 # Attempt a scalar to slice assignment.
                 val = int(val)
                 if val < 0 or val > 255:
+                    # pylint: disable=raise-missing-from
                     raise ValueError("Value out of range")
                 for index in range(*ixes.indices(len(self))):
                     self.array[index % slots + self.slot_index] = self._set_slot(
                         self.array[index % slots + self.slot_index], val, index // slots
                     )
                 return
-            else:
-                # Attempt a slice to slice assignment.
-                values = iter(val)
-                for index in range(*ixes.indices(len(self))):
-                    val = int(next(values))
-                    if val < 0 or val > 255:
-                        raise ValueError("Value out of range")
-                    self.array[index % slots + self.slot_index] = self._set_slot(
-                        self.array[index % slots + self.slot_index], val, index // slots
-                    )
+            # Attempt a slice to slice assignment.
+            values = iter(val)
+            for index in range(*ixes.indices(len(self))):
+                val = int(next(values))
+                if val < 0 or val > 255:
+                    raise ValueError("Value out of range")
+                self.array[index % slots + self.slot_index] = self._set_slot(
+                    self.array[index % slots + self.slot_index], val, index // slots
+                )
         else:
             # Attempt a scalar to scalar assignment.
             try:
                 ixes = int(ixes)
-            except TypeError:
+            except TypeError as exc:
                 raise TypeError(
-                    "list indices must be integers or slices, not " f"{str(type(ixes))}"
-                )
+                    f"list indices must be integers or slices, not {str(type(ixes))}"
+                ) from exc
             if ixes < 0:
                 ixes = ixes + len(self)
             if ixes < 0 or ixes > len(self):
