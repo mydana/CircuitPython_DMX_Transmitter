@@ -108,7 +108,7 @@ frame_stop:
     def get_timing(cls):
         """Minimum timing for the payload objects.
 
-        This function returns a dictionary, but USITT_DMX512_A_Payload
+        This function returns a dictionary, but Payload_USITT_DMX512_A
         wants a class. To use this online, just add this filter::
 
             _MinimumTiming = type(
@@ -165,7 +165,7 @@ def print_parameters():
 
     There isn't much of a memory savings, but it's much easier on the newbie
     because they don't need to import the assembler."""
-    print("# Timing parameters are constant used in USITT_DMX512_A_Payload.")
+    print("# Timing parameters are constant used in Payload_USITT_DMX512_A.")
     print("class _MinimumTiming:")
     print('    "Minimum timing from lib/dmx_transmitter/assembly_code.py"')
     for name, value in AssemblyCode.get_timing().items():
