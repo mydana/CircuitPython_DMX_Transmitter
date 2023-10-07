@@ -102,7 +102,7 @@ class Payload_USITT_DMX512_A:  # pylint: disable=too-many-instance-attributes
         Consumes two or four bytes per slot per buffer. 1-3 buffers.
         Minimum: 1. Default: 512. Maximum: 512.
 
-    :param USITT_DMX512_A_Payload clone_from: Clone this object.
+    :param Payload_USITT_DMX512_A clone_from: Clone this object.
     """
 
     # pylint: disable=consider-using-f-string
@@ -538,7 +538,7 @@ class Payload_USITT_DMX512_A:  # pylint: disable=too-many-instance-attributes
                 # Data slot data bits.
                 + 32
                 # Including the two stop bits & extra mark time.
-                + self._mark_between_slots
+                + self.mark_between_slots
             )
             # Terminal slot start bit.
             + 4
@@ -566,7 +566,7 @@ class Payload_USITT_DMX512_A:  # pylint: disable=too-many-instance-attributes
             ) from exc
         if ixes < 0:
             ixes = ixes + len(self)
-        if ixes < 0 or ixes > len(self):
+        if ixes < 0 or ixes >= len(self):
             raise IndexError("Index out of range")
         return self._get_slot(self.array[ixes % slots + self.slot_index], ixes // slots)
 

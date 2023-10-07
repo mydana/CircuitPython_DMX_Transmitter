@@ -78,6 +78,7 @@ class DMXTransmitter:
         timing_pins=(),
         payload_class=Payload_USITT_DMX512_A,
         clone_from=None,
+        exclusive_pin_use=True,
         **kwargs,
     ) -> None:
         # Bind a list-like object to a PIO state machine to send DMX.
@@ -112,6 +113,7 @@ class DMXTransmitter:
             out_pin_count=self.universes,
             first_out_pin=first_out_pin,
             first_sideset_pin=first_timing_pin,
+            exclusive_pin_use=exclusive_pin_use,
         )
 
     def clone(self, first_out_pin, first_timing_pin=None, **kwargs):

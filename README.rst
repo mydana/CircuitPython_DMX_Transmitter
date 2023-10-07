@@ -95,7 +95,7 @@ REQUIREMENTS
 * This library, dmx_transmitter, especially these files::
 
   * dmx_transmitter.mpy
-  * Payload_USITT_DMX512_A.mpy
+  * payload_USITT_DMX512_A.mpy
 
 
 Please ensure all dependencies are available on the CircuitPython filesystem.
