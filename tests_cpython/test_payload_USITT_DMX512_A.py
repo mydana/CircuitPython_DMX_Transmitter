@@ -16,9 +16,7 @@ class PayloadMixin:
         properties = {}
         #
         # This length is calculated
-        self.assertEqual(
-            len(self.payload), self.slots * self.universes, "incorrect array length"
-        )
+        self.assertEqual(len(self.payload), self.slots, "incorrect array length")
         #
         # This length is a property
         self.assertEqual(self.payload.slots, self.slots, "incorrect slot length")
@@ -86,31 +84,8 @@ class OneUniverseTestCase(PayloadMixin, unittest.TestCase):
 
     def setUp(self):
         self.slots = random.randint(2, 512)
-        self.universes = 1
         self.payload = Payload_USITT_DMX512_A(
-            slots=self.slots, universes=self.universes
-        )
-
-
-class TwoUniverseTestCase(PayloadMixin, unittest.TestCase):
-    """Test the case of two universes"""
-
-    def setUp(self):
-        self.slots = random.randint(2, 512)
-        self.universes = 2
-        self.payload = Payload_USITT_DMX512_A(
-            slots=self.slots, universes=self.universes
-        )
-
-
-class ThreeUniverseTestCase(PayloadMixin, unittest.TestCase):
-    """Test the case of three universes"""
-
-    def setUp(self):
-        self.slots = random.randint(2, 512)
-        self.universes = 3
-        self.payload = Payload_USITT_DMX512_A(
-            slots=self.slots, universes=self.universes
+            slots=self.slots,
         )
 
 
@@ -119,31 +94,8 @@ class MinimumSlotsOneUniverseTestCase(PayloadMixin, unittest.TestCase):
 
     def setUp(self):
         self.slots = 1
-        self.universes = 1
         self.payload = Payload_USITT_DMX512_A(
-            slots=self.slots, universes=self.universes
-        )
-
-
-class MinimumSlotsTwoUniverseTestCase(PayloadMixin, unittest.TestCase):
-    """Minimum slots allowed, two universes"""
-
-    def setUp(self):
-        self.slots = 1
-        self.universes = 2
-        self.payload = Payload_USITT_DMX512_A(
-            slots=self.slots, universes=self.universes
-        )
-
-
-class MinimumSlotsThreeUniverseTestCase(PayloadMixin, unittest.TestCase):
-    """Minimum slots allowed, three universes"""
-
-    def setUp(self):
-        self.slots = 1
-        self.universes = 3
-        self.payload = Payload_USITT_DMX512_A(
-            slots=self.slots, universes=self.universes
+            slots=self.slots,
         )
 
 
@@ -152,31 +104,8 @@ class MaximumSlotsOneUniverseTestCase(PayloadMixin, unittest.TestCase):
 
     def setUp(self):
         self.slots = 512
-        self.universes = 1
         self.payload = Payload_USITT_DMX512_A(
-            slots=self.slots, universes=self.universes
-        )
-
-
-class MaximumSlotsTwoUniverseTestCase(PayloadMixin, unittest.TestCase):
-    """Maximum slots allowed, two universes"""
-
-    def setUp(self):
-        self.slots = 512
-        self.universes = 2
-        self.payload = Payload_USITT_DMX512_A(
-            slots=self.slots, universes=self.universes
-        )
-
-
-class MaximumSlotsThreeUniverseTestCase(PayloadMixin, unittest.TestCase):
-    """Minimum slots allowed, three universes"""
-
-    def setUp(self):
-        self.slots = 512
-        self.universes = 3
-        self.payload = Payload_USITT_DMX512_A(
-            slots=self.slots, universes=self.universes
+            slots=self.slots,
         )
 
 
@@ -188,8 +117,4 @@ class ResourceLimitsTestCase(unittest.TestCase):
             Payload_USITT_DMX512_A(slots=0)
         with self.assertRaises(ValueError):
             Payload_USITT_DMX512_A(slots=513)
-        with self.assertRaises(ValueError):
-            Payload_USITT_DMX512_A(universes=0)
-        with self.assertRaises(ValueError):
-            Payload_USITT_DMX512_A(universes=4)
         Payload_USITT_DMX512_A()
