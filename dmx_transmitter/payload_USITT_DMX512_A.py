@@ -26,52 +26,6 @@ __version__ = "0.0.0+auto.0"
 __repo__ = "https://github.com/mydana/CircuitPython_DMX_Transmitter"
 
 
-def bit_interlace(integer: int, interlace: int) -> int:
-    """Interlace input bits with zero bits.
-
-    :param integer: The input non-zero integer.
-    :param interlace: Number of zero bits to interlace.
-
-    Would love this function as part of bitops.
-    """
-    integer = int(integer)
-    if integer < 0:
-        raise ValueError("Only non-negative integers.")
-    if interlace < 0:
-        raise ValueError("Only non-negative integers.")
-    output = 0
-    bit = 1
-    while integer:
-        if integer & 1:
-            output = output + bit
-        integer = integer >> 1
-        bit = bit << (interlace + 1)
-    return output
-
-
-def bit_deinterlace(integer: int, deinterlace: int) -> int:
-    """De-interlace input bits, skipping bits.
-
-    :param integer: The integer non-zero integer.
-    :param n: Number of bits to skip.
-
-    Would love this function as part of bitops.
-    """
-    integer = int(integer)
-    if integer < 0:
-        raise ValueError("Only non-negative integers.")
-    if deinterlace < 0:
-        raise ValueError("Only non-negative integers.")
-    output = 0
-    bit = 1
-    while integer:
-        if integer & 1:
-            output = output + bit
-        integer = integer >> (deinterlace + 1)
-        bit = bit << 1
-    return output
-
-
 class Payload_USITT_DMX512_A:  # pylint: disable=too-many-instance-attributes
     """This object mimics a list of byte values, and stores it and timing
     parameters into a data structure suitable for sending into a DMX512TxEngine
@@ -81,8 +35,7 @@ class Payload_USITT_DMX512_A:  # pylint: disable=too-many-instance-attributes
     Therefore, there is an inherent off-by-one error between DMX addresses and
     the list indexes.
 
-    This virtual list has a fixed size, the product of 'slots' and 'universes'.
-    Indexes are in slot major order.
+    This virtual list has a fixed size, the number of slots.
 
     Like Python lists, slicing is supported, but because of the fixed size,
     slice assignment is limited. A slice assignment from a list-like object
@@ -94,42 +47,36 @@ class Payload_USITT_DMX512_A:  # pylint: disable=too-many-instance-attributes
     Caution: Several timing parameters include the stop bits. To meet the
     DMX standards include at least 8 microseconds in these parameters.
 
-    :param int universes: how many output pins. (count)
-        Two universes use the same amount of memory as three.
-        Minimum: 1. Default: 1. Maximum: 3.
-
     :param int slots: number of slots of DMX data available. (count)
         Consumes two or four bytes per slot per buffer. 1-3 buffers.
         Minimum: 1. Default: 512. Maximum: 512.
-
-    :param Payload_USITT_DMX512_A clone_from: Clone this object.
     """
 
     # pylint: disable=consider-using-f-string
 
     ##
-    ## Index:  32 bits (2-3 universes)              16 bits (1 univ.)
-    ##       +--------+--------+--------+--------+ +--------+--------+
-    ##    0  | mark_before_break (microseconds)  | | MBB             |
-    ##       +--------+--------+--------+--------+ +--------+--------+
-    ##    1  | space_for_break (microseconds)    | | BREAK           |
-    ##       +--------+--------+--------+--------+ +--------+--------+
-    ##    2  | mark_after_break (microseconds)   | | MAB             |
-    ##       +--------+--------+--------+--------+ +--------+--------+
-    ##    3  | slots (count, 1-512)              | | SLOTS           |
-    ##       +--------+--------+--------+--------+ +--------+--------+
-    ##       | mark   | start codes 3 universes  | | mark   | start  |
-    ##    4  | after  |21021021 02102102 10210210| | after  | code   |
-    ##       | start  |77766655 54443332 22111000| | start  |76543210|
-    ##       +--------+--------+--------+--------+ +--------+--------+
-    ##       | mark   | slot data 3 universes    | | mark   | slot   |
-    ##   5+  | after  |21021021 02102102 10210210| | after  | data   |
-    ##       | slots  |77766655 54443332 22111000| | slots  | 1 univ |
-    ##       +--------+--------+--------+--------+ +--------+--------+
-    ##       | mark   | last slot 3 universes    | | mark   | last   |
-    ##  Last | after  |21021021 02102102 10210210| | after  | slot   |
-    ##       | frame  |77766655 54443332 22111000| | frame  | 1 univ |
-    ##       +--------+--------+--------+--------+ +--------+--------+
+    ## Index: 16 bits (1 universe)
+    ##       +--------+-------+
+    ##    0  | MBB            |
+    ##       +--------+-------+
+    ##    1  | BREAK          |
+    ##       +--------+-------+
+    ##    2  | MAB            |
+    ##       +--------+-------+
+    ##    3  | SLOTS          |
+    ##       +--------+-------+
+    ##       | mark   | start |
+    ##    4  | after  | code  |
+    ##       | start  |       |
+    ##       +--------+-------+
+    ##       | mark   | slot  |
+    ##   5+  | after  | data  |
+    ##       | slots  |       |
+    ##       +--------+-------+
+    ##       | mark   | last  |
+    ##  Last | after  | slot  |
+    ##       | frame  |       |
+    ##       +--------+-------+
     ##
     slot_index = 5  # Index of first slot data
 
@@ -144,9 +91,7 @@ class Payload_USITT_DMX512_A:  # pylint: disable=too-many-instance-attributes
 
     def __init__(
         self,
-        universes=1,
         slots=512,
-        clone_from=None,
     ):
         "Sets up default USITT DMX512-A timings."
         self._mark_after_frame = None
@@ -157,41 +102,16 @@ class Payload_USITT_DMX512_A:  # pylint: disable=too-many-instance-attributes
             raise ValueError("'slots' is too low. Shall be 1 to 512")
         if slots > 512:
             raise ValueError("'slots' is too high. Shall be 1 to 512")
-        #
-        # universe
-        if clone_from is not None:
-            self.universes = clone_from.size // clone_from.slots
-        else:
-            self.universes = int(universes)
-        if self.universes == 1:
-            self.data_code = "H"
-            self.bits = 16
-            self.size = slots
-            # These will be static methods:
-            self._get_mark_val = type(self)._get16_mark_val
-            self._set_mark_val = type(self)._set16_mark_val
-            self._get_slot = type(self)._get16_slot
-            self._set_slot = type(self)._set16_slot
-        elif self.universes == 2:
-            self.data_code = "L"
-            self.bits = 32
-            self.size = slots * 2
-            # These will be static methods:
-            self._get_mark_val = type(self)._get32_mark_val
-            self._set_mark_val = type(self)._set32_mark_val
-            self._get_slot = type(self)._get32_slot
-            self._set_slot = type(self)._set32_slot
-        elif self.universes == 3:
-            self.data_code = "L"
-            self.bits = 32
-            self.size = slots * 3
-            # These will be static methods:
-            self._get_mark_val = type(self)._get32_mark_val
-            self._set_mark_val = type(self)._set32_mark_val
-            self._get_slot = type(self)._get32_slot
-            self._set_slot = type(self)._set32_slot
-        else:
-            raise ValueError("'universes' must be an integer 1 thru 3")
+
+        self.data_code = "H"
+        self.bits = 16
+        self.size = slots
+        # These will be static methods:
+        self._get_mark_val = type(self)._get16_mark_val
+        self._set_mark_val = type(self)._set16_mark_val
+        self._get_slot = type(self)._get16_slot
+        self._set_slot = type(self)._set16_slot
+
 
         #
         # Create array
@@ -199,25 +119,10 @@ class Payload_USITT_DMX512_A:  # pylint: disable=too-many-instance-attributes
             self.data_code, (0 for _ in range(self.slot_index + slots))
         )
         #
-        # Clone, if indicated
-        if clone_from is not None:
-            # Copy the metadata.
-            for i in range(self.slot_index):
-                self.array[i] = clone_from.array[i]
-            self._mark_after_frame = clone_from._mark_after_frame
-            self.mark_after_frame_default = clone_from.mark_after_frame_default
-            self._mark_between_slots = clone_from._mark_between_slots
-            # Slot count.
-            self.array[self.slot_index - 2] = slots - 1
-            # And clear
-            self.clear()
-        else:
-            #
-            # Initialize the newly-created array
-            self._mark_after_frame = None
-            self.array[self.slot_index - 2] = slots - 1  # Slot count.
-            self._init_timing_defaults()
-        # Clones should take on the start code.
+        # Initialize the newly-created array
+        self._mark_after_frame = None
+        self.array[self.slot_index - 2] = slots - 1  # Slot count.
+        self._init_timing_defaults()
         self._init_start_code()
 
     def _init_start_code(self, start_code=0x00) -> None:
@@ -282,38 +187,6 @@ class Payload_USITT_DMX512_A:  # pylint: disable=too-many-instance-attributes
         if universe != 0:
             raise IndexError("Index too large")
         return (existing & ~0x00FF) + (val & 0x00FF)
-
-    @staticmethod
-    def _get32_slot(existing: int, universe: int) -> int:
-        "Static method for getting slot data for 32 bit words."
-        return bit_deinterlace(
-            (
-                existing
-                & (
-                    0b0000_0000_001_001_001_001_001_001_001_001,  # Universe 0
-                    0b0000_0000_010_010_010_010_010_010_010_010,  # Universe 1
-                    0b0000_0000_100_100_100_100_100_100_100_100,  # Universe 2
-                )[universe]
-            )
-            >> universe,
-            2,
-        )
-
-    @staticmethod
-    def _set32_slot(existing: int, val: int, universe: int) -> None:
-        "Static method for setting slot data for 32 bit words."
-        return (
-            existing
-            & (
-                0b1111_1111_110_110_110_110_110_110_110_110,  # Universe 0
-                0b1111_1111_101_101_101_101_101_101_101_101,  # Universe 1
-                0b1111_1111_011_011_011_011_011_011_011_011,  # Universe 2
-            )[universe]
-        ) | (bit_interlace(val & 0xFF, 2) << universe)
-
-    def clone(self, slots=None, **kwargs):
-        "Clone this object"
-        return type(self)(clone_from=self, slots=slots, **kwargs)
 
     def array_copy(self):
         """Return a copy of the array. For sending."""
