@@ -10,9 +10,9 @@ from dmx_transmitter import dmx_transmitter
 
 # Wire first_out_pin to the line driver.
 
-FIRST_PIN = board.D0
+DMX_PIN = board.D0
 
-dmx = dmx_transmitter.DMXTransmitter(first_out_pin=FIRST_PIN)
+dmx = dmx_transmitter.DMXTransmitter(first_out_pin=DMX_PIN)
 
 # Configuration
 rockets = (1, 2, 3, 9, 10, 11)  # Slot numbers we want to show.
