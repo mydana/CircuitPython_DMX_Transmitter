@@ -22,6 +22,9 @@ deploy:
 	python3 deploy.py --code=examples/fireworks.py \
 	--pin=board.D4
 
+dmx_transmitter/machine_code.py:
+	python3 assembly_code/reformat_pioasm.py --sideset-pins 1 --python assembly_code/assembly_code.txt > dmx_transmitter/machine_code.py
+
 
 clean:
 	rm -rf .venv
