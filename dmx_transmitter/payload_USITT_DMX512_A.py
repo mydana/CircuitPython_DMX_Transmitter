@@ -25,52 +25,8 @@ __author__ = "Dana Runge"
 __version__ = "0.0.0+auto.0"
 __repo__ = "https://github.com/mydana/CircuitPython_DMX_Transmitter"
 
-
-def bit_interlace(integer: int, interlace: int) -> int:
-    """Interlace input bits with zero bits.
-
-    :param integer: The input non-zero integer.
-    :param interlace: Number of zero bits to interlace.
-
-    Would love this function as part of bitops.
-    """
-    integer = int(integer)
-    if integer < 0:
-        raise ValueError("Only non-negative integers.")
-    if interlace < 0:
-        raise ValueError("Only non-negative integers.")
-    output = 0
-    bit = 1
-    while integer:
-        if integer & 1:
-            output = output + bit
-        integer = integer >> 1
-        bit = bit << (interlace + 1)
-    return output
-
-
-def bit_deinterlace(integer: int, deinterlace: int) -> int:
-    """De-interlace input bits, skipping bits.
-
-    :param integer: The integer non-zero integer.
-    :param n: Number of bits to skip.
-
-    Would love this function as part of bitops.
-    """
-    integer = int(integer)
-    if integer < 0:
-        raise ValueError("Only non-negative integers.")
-    if deinterlace < 0:
-        raise ValueError("Only non-negative integers.")
-    output = 0
-    bit = 1
-    while integer:
-        if integer & 1:
-            output = output + bit
-        integer = integer >> (deinterlace + 1)
-        bit = bit << 1
-    return output
-
+MAX_SLOTS = 512  # Defined in the DMX512 definition.
+MIN_SLOTS = 1  # Offset of slot count
 
 class Payload_USITT_DMX512_A:  # pylint: disable=too-many-instance-attributes
     """This object mimics a list of byte values, and stores it and timing
@@ -81,57 +37,39 @@ class Payload_USITT_DMX512_A:  # pylint: disable=too-many-instance-attributes
     Therefore, there is an inherent off-by-one error between DMX addresses and
     the list indexes.
 
-    This virtual list has a fixed size, the product of 'slots' and 'universes'.
-    Indexes are in slot major order.
-
     Like Python lists, slicing is supported, but because of the fixed size,
     slice assignment is limited. A slice assignment from a list-like object
-    of the same size is allowed. Unlike Python lists, slice assignment from
-    a scalar is also allowed.
+    of the same size is allowed.
 
     Timing parameters are set by decorators.
 
     Caution: Several timing parameters include the stop bits. To meet the
     DMX standards include at least 8 microseconds in these parameters.
 
-    :param int universes: how many output pins. (count)
-        Two universes use the same amount of memory as three.
-        Minimum: 1. Default: 1. Maximum: 3.
-
     :param int slots: number of slots of DMX data available. (count)
-        Consumes two or four bytes per slot per buffer. 1-3 buffers.
+        Consumes two bytes per slot per buffer.
         Minimum: 1. Default: 512. Maximum: 512.
 
-    :param Payload_USITT_DMX512_A clone_from: Clone this object.
     """
 
-    # pylint: disable=consider-using-f-string
+    ##  mv_index:
+    ##
+    ##   0 - mark_before_break (microseconds)
+    ##   1 - * MSB mark_before_break
+    ##   2 - space_for_break (microseconds)
+    ##   3 - * MSB space_for_break
+    ##   4 - mark_after_break (microseconds) 
+    ##   5 - * MSB mark_after_break
+    ##   6 - LSB slots
+    ##   7 - MSB slots - !!!
+    ##   8 - Start code
+    ##   9 - Start code stop
+    ## 10+ - Slot Data [0]
+    ## 11+ - Mark after slot 0
+    ## pen - Last data slot   - n * 2 + 10
+    ## ult - Mark after frame - n * 2 + 11
 
-    ##
-    ## Index:  32 bits (2-3 universes)              16 bits (1 univ.)
-    ##       +--------+--------+--------+--------+ +--------+--------+
-    ##    0  | mark_before_break (microseconds)  | | MBB             |
-    ##       +--------+--------+--------+--------+ +--------+--------+
-    ##    1  | space_for_break (microseconds)    | | BREAK           |
-    ##       +--------+--------+--------+--------+ +--------+--------+
-    ##    2  | mark_after_break (microseconds)   | | MAB             |
-    ##       +--------+--------+--------+--------+ +--------+--------+
-    ##    3  | slots (count, 1-512)              | | SLOTS           |
-    ##       +--------+--------+--------+--------+ +--------+--------+
-    ##       | mark   | start codes 3 universes  | | mark   | start  |
-    ##    4  | after  |21021021 02102102 10210210| | after  | code   |
-    ##       | start  |77766655 54443332 22111000| | start  |76543210|
-    ##       +--------+--------+--------+--------+ +--------+--------+
-    ##       | mark   | slot data 3 universes    | | mark   | slot   |
-    ##   5+  | after  |21021021 02102102 10210210| | after  | data   |
-    ##       | slots  |77766655 54443332 22111000| | slots  | 1 univ |
-    ##       +--------+--------+--------+--------+ +--------+--------+
-    ##       | mark   | last slot 3 universes    | | mark   | last   |
-    ##  Last | after  |21021021 02102102 10210210| | after  | slot   |
-    ##       | frame  |77766655 54443332 22111000| | frame  | 1 univ |
-    ##       +--------+--------+--------+--------+ +--------+--------+
-    ##
-    slot_index = 5  # Index of first slot data
+    slot_index = 10 # Index of first slot data
 
     class _MinimumTiming:  # pylint: disable=too-few-public-methods
         "Minimum timing from lib/dmx_transmitter/assembly_code.py"
@@ -144,79 +82,27 @@ class Payload_USITT_DMX512_A:  # pylint: disable=too-many-instance-attributes
 
     def __init__(
         self,
-        universes=1,
-        slots=512,
-        clone_from=None,
+        slots=MAX_SLOTS,
     ):
         "Sets up default USITT DMX512-A timings."
         self._mark_after_frame = None
         #
         # slots
-        slots = int(slots) if slots is not None else 512  # cast to int.
-        if slots < 1:
-            raise ValueError("'slots' is too low. Shall be 1 to 512")
-        if slots > 512:
-            raise ValueError("'slots' is too high. Shall be 1 to 512")
-        #
-        # universe
-        if clone_from is not None:
-            self.universes = clone_from.size // clone_from.slots
-        else:
-            self.universes = int(universes)
-        if self.universes == 1:
-            self.data_code = "H"
-            self.bits = 16
-            self.size = slots
-            # These will be static methods:
-            self._get_mark_val = type(self)._get16_mark_val
-            self._set_mark_val = type(self)._set16_mark_val
-            self._get_slot = type(self)._get16_slot
-            self._set_slot = type(self)._set16_slot
-        elif self.universes == 2:
-            self.data_code = "L"
-            self.bits = 32
-            self.size = slots * 2
-            # These will be static methods:
-            self._get_mark_val = type(self)._get32_mark_val
-            self._set_mark_val = type(self)._set32_mark_val
-            self._get_slot = type(self)._get32_slot
-            self._set_slot = type(self)._set32_slot
-        elif self.universes == 3:
-            self.data_code = "L"
-            self.bits = 32
-            self.size = slots * 3
-            # These will be static methods:
-            self._get_mark_val = type(self)._get32_mark_val
-            self._set_mark_val = type(self)._set32_mark_val
-            self._get_slot = type(self)._get32_slot
-            self._set_slot = type(self)._set32_slot
-        else:
-            raise ValueError("'universes' must be an integer 1 thru 3")
+        slots = int(slots) if slots is not None else 512
+        if slots < MIN_SLOTS:
+            raise ValueError(f"'slots' is too low. Shall be {MIN_SLOTS} to {MAX_SLOTS}")
+        if slots > MAX_SLOTS:
+            raise ValueError(f"'slots' is too high. Shall be {MIN_SLOTS} to {MAX_SLOTS}")
 
         #
         # Create array
-        self.array = array.array(
-            self.data_code, (0 for _ in range(self.slot_index + slots))
-        )
+        self.array = array.array("B", (0 for _ in range(self.slot_index + slots * 2)))
+
         #
-        # Clone, if indicated
-        if clone_from is not None:
-            # Copy the metadata.
-            for i in range(self.slot_index):
-                self.array[i] = clone_from.array[i]
-            self._mark_after_frame = clone_from._mark_after_frame
-            self.mark_after_frame_default = clone_from.mark_after_frame_default
-            self._mark_between_slots = clone_from._mark_between_slots
-            # Slot count.
-            self.array[self.slot_index - 2] = slots - 1
-            # And clear
-            self.clear()
-        else:
-            #
-            # Initialize the newly-created array
-            self._mark_after_frame = None
-            self.array[self.slot_index - 2] = slots - 1  # Slot count.
-            self._init_timing_defaults()
+        # Initialize the newly-created array
+        self._mark_after_frame = None
+        self.array[7], self.array[6] = divmod(slots - MIN_SLOTS, 256)  # Fit into 2 bytes
+        self._init_timing_defaults()
         # Clones should take on the start code.
         self._init_start_code()
 
@@ -226,11 +112,7 @@ class Payload_USITT_DMX512_A:  # pylint: disable=too-many-instance-attributes
         Useful for a subclass author.
         """
         start_code = int(start_code)
-        self.array[4] = self._set_slot(self.array[4], start_code, 0)
-        if self.bits == 32:
-            self.array[4] = self._set_slot(
-                self._set_slot(self.array[4], start_code, 1), start_code, 2
-            )
+        self.array[8] = start_code
 
     def _init_timing_defaults(self) -> None:
         "Set up default USITT DMX512-A timings."
@@ -239,105 +121,13 @@ class Payload_USITT_DMX512_A:  # pylint: disable=too-many-instance-attributes
         self.mark_after_frame_default = 8  # last slot mark, for stopping
         # Set mark_after_frame before setting mark_before_break.
         self.mark_before_break = 8      ## self.array[0]
-        self.space_for_break = 172      ## self.array[1]
-        self.mark_after_break = 8       ## self.array[2]
-        # slot count                    ## self.array[3]
-        # NULL START CODE               ## self.array[4] bits 0-7
-        self.mark_after_start_code = 8  ## self.array[4] bits 8-15 or 24-31
-        self.mark_between_slots = 8     ## all slots, bits 8-15 or 24-31
+        self.space_for_break = 172      ## self.array[2]
+        self.mark_after_break = 8       ## self.array[4]
+        # slot count                    ## self.array[6], self.array[7]
+        # NULL START CODE               ## self.array[8]
+        self.mark_after_start_code = 8  ## self.array[9]
+        self.mark_between_slots = 8     ## odd number bytes
         # fmt: on
-
-    #
-    # Get and set bits within the payload.
-    @staticmethod
-    def _get16_mark_val(existing: int) -> int:
-        "Static method that get the mark timing for 16 bit words."
-        return (existing & 0xFF00) >> 8
-
-    @staticmethod
-    def _set16_mark_val(existing: int, val: int) -> int:
-        "Static method that joins existing data with mark timing data for 16 bit words."
-        return (existing & 0x00FF) + ((val & 0xFF) << 8)
-
-    @staticmethod
-    def _get32_mark_val(existing: int) -> int:
-        "Static method that get the mark timing for 32 bit words."
-        return (existing & 0xFF000000) >> 24
-
-    @staticmethod
-    def _set32_mark_val(existing: int, val: int) -> int:
-        "Static method that joins existing data with mark timing data for 32 bit words."
-        return (existing & 0x00FFFFFF) + ((val & 0xFF) << 24)
-
-    @staticmethod
-    def _get16_slot(existing: int, universe: int) -> int:
-        "Static method for getting slot data for 16 bit words."
-        if universe != 0:
-            raise IndexError("Index too large")
-        return existing & 0x00FF
-
-    @staticmethod
-    def _set16_slot(existing: int, val: int, universe: int) -> None:
-        "Static method for setting slot data for 16 bit words."
-        if universe != 0:
-            raise IndexError("Index too large")
-        return (existing & ~0x00FF) + (val & 0x00FF)
-
-    @staticmethod
-    def _get32_slot(existing: int, universe: int) -> int:
-        "Static method for getting slot data for 32 bit words."
-        return bit_deinterlace(
-            (
-                existing
-                & (
-                    0b0000_0000_001_001_001_001_001_001_001_001,  # Universe 0
-                    0b0000_0000_010_010_010_010_010_010_010_010,  # Universe 1
-                    0b0000_0000_100_100_100_100_100_100_100_100,  # Universe 2
-                )[universe]
-            )
-            >> universe,
-            2,
-        )
-
-    @staticmethod
-    def _set32_slot(existing: int, val: int, universe: int) -> None:
-        "Static method for setting slot data for 32 bit words."
-        return (
-            existing
-            & (
-                0b1111_1111_110_110_110_110_110_110_110_110,  # Universe 0
-                0b1111_1111_101_101_101_101_101_101_101_101,  # Universe 1
-                0b1111_1111_011_011_011_011_011_011_011_011,  # Universe 2
-            )[universe]
-        ) | (bit_interlace(val & 0xFF, 2) << universe)
-
-    def clone(self, slots=None, **kwargs):
-        "Clone this object"
-        return type(self)(clone_from=self, slots=slots, **kwargs)
-
-    def array_copy(self):
-        """Return a copy of the array. For sending."""
-        return array.array(self.data_code, self.array)
-
-    def array_stop(self):
-        """Return a copy of the array. For the stopping."""
-        val = array.array(self.data_code, self.array)
-        val[-1] = self._set_mark_val(val[-1], self.mark_after_frame_default)
-        return val
-
-    def array_empty(self):
-        """Return an empty array"""
-        return array.array(self.data_code)
-
-    def clear(self) -> None:
-        "Set all slot values to 0."
-        # Get the value of just the mark values
-        val = self._set_mark_val(0, self._mark_between_slots)
-        # The last slot has a different mark parameter.
-        for i in range(self.slot_index, self.slot_index + self.slots - 1):
-            self.array[i] = val
-        # Clear the value(s) on the last slot.
-        self.array[-1] = self._set_mark_val(0, self._get_mark_val(self.array[-1]))
 
     @property
     def mark_before_break(self) -> int:
@@ -377,6 +167,7 @@ class Payload_USITT_DMX512_A:  # pylint: disable=too-many-instance-attributes
                     )
                 )
         self.array[0] = val
+        self.array[1] = 0 # MSB
 
     @property
     def space_for_break(self) -> int:
@@ -385,7 +176,7 @@ class Payload_USITT_DMX512_A:  # pylint: disable=too-many-instance-attributes
 
         Minimum 4, Default 172, Standard minimum 88.
         """
-        return self.array[1] + self._MinimumTiming.space_for_break
+        return self.array[2] + self._MinimumTiming.space_for_break
 
     @space_for_break.setter
     def space_for_break(self, val) -> None:
@@ -396,7 +187,8 @@ class Payload_USITT_DMX512_A:  # pylint: disable=too-many-instance-attributes
                     self._MinimumTiming.space_for_break
                 )
             )
-        self.array[1] = val
+        self.array[2] = val
+        self.array[3] = 0 # MSB
 
     @property
     def mark_after_break(self) -> int:
@@ -404,7 +196,7 @@ class Payload_USITT_DMX512_A:  # pylint: disable=too-many-instance-attributes
 
         Minimum 4, Default 8
         """
-        return self.array[2] + self._MinimumTiming.mark_after_break
+        return self.array[4] + self._MinimumTiming.mark_after_break
 
     @mark_after_break.setter
     def mark_after_break(self, val) -> None:
@@ -415,17 +207,18 @@ class Payload_USITT_DMX512_A:  # pylint: disable=too-many-instance-attributes
                     self._MinimumTiming.mark_after_break
                 )
             )
-        self.array[2] = val
+        self.array[4] = val
+        self.array[5] = 0 # MSB
 
     @property
     def slots(self) -> int:
         "Number slots of DMX data available. (count)"
-        return self.array[3] + 1
+        return self.array[7] * 256 + self.array[6] + MIN_SLOTS  # Fit into 2 bytes
 
     @property
     def start_code(self) -> int:
         "The DMX START CODE (byte)"
-        return self._get_slot(self.array[4], 0)
+        return self.array[8]
 
     @property
     def mark_after_start_code(self) -> int:
@@ -436,7 +229,7 @@ class Payload_USITT_DMX512_A:  # pylint: disable=too-many-instance-attributes
 
         Minimum 5, Default 8, Maximum 260.
         """
-        val = self._get_mark_val(self.array[4])
+        val = self.array[9]
         return val + self._MinimumTiming.mark_between_slots
 
     @mark_after_start_code.setter
@@ -448,7 +241,7 @@ class Payload_USITT_DMX512_A:  # pylint: disable=too-many-instance-attributes
                     self._MinimumTiming.mark_between_slots
                 )
             )
-        self.array[4] = self._set_mark_val(self.array[4], val)
+        self.array[9] = val
 
     @property
     def mark_between_slots(self) -> int:
@@ -474,8 +267,8 @@ class Payload_USITT_DMX512_A:  # pylint: disable=too-many-instance-attributes
             )
         self._mark_between_slots = val
         # The last slot has a different mark parameter.
-        for i in range(self.slot_index, self.slot_index + self.slots - 1):
-            self.array[i] = self._set_mark_val(self.array[i], val)
+        for i in range(self.slots - MIN_SLOTS):
+            self.array[self.slot_index + i * 2 + MIN_SLOTS] = val
 
     @property
     def mark_after_frame(self) -> int:
@@ -491,7 +284,7 @@ class Payload_USITT_DMX512_A:  # pylint: disable=too-many-instance-attributes
 
         Minimum 6, Default 8, Maximum 260.
         """
-        val = self._get_mark_val(self.array[-1])
+        val = self.array[-1]
         return (val + self._MinimumTiming.mark_after_frame) if val else False
 
     @mark_after_frame.setter
@@ -508,7 +301,7 @@ class Payload_USITT_DMX512_A:  # pylint: disable=too-many-instance-attributes
                         self._MinimumTiming.mark_after_frame + 1
                     )
                 )
-        self.array[-1] = self._set_mark_val(self.array[-1], val)
+        self.array[-1] = val
 
     @property
     def interval(self) -> int:
@@ -549,13 +342,12 @@ class Payload_USITT_DMX512_A:  # pylint: disable=too-many-instance-attributes
         )
 
     def __len__(self):
-        return self.size
+        return self.slots
 
     def __getitem__(self, ixes: int) -> int:
-        slots = self.slots
         if isinstance(ixes, slice):
             return [
-                self._get_slot(self.array[ix % slots + self.slot_index], ix // slots)
+                self.array[ix * 2 + self.slot_index]
                 for ix in range(*ixes.indices(len(self)))
             ]
         try:
@@ -568,41 +360,24 @@ class Payload_USITT_DMX512_A:  # pylint: disable=too-many-instance-attributes
             ixes = ixes + len(self)
         if ixes < 0 or ixes >= len(self):
             raise IndexError("Index out of range")
-        return self._get_slot(self.array[ixes % slots + self.slot_index], ixes // slots)
+        return self.array[ixes * 2 + self.slot_index]
 
     def __setitem__(
         self,
         ixes,
         val,
     ) -> None:
-        slots = self.slots
         if isinstance(ixes, slice):
             size = sum(1 for _ in range(*ixes.indices(len(self))))
-            try:
-                if len(val) != size:
-                    raise ValueError(
-                        f"Can only assign a slice of the same size. ({size})"
-                    )
-            except TypeError:
-                # Attempt a scalar to slice assignment.
-                val = int(val)
-                if val < 0 or val > 255:
-                    # pylint: disable=raise-missing-from
-                    raise ValueError("Value out of range")
-                for index in range(*ixes.indices(len(self))):
-                    self.array[index % slots + self.slot_index] = self._set_slot(
-                        self.array[index % slots + self.slot_index], val, index // slots
-                    )
-                return
+            if len(val) != size:
+                raise ValueError(
+                    f"Can only assign a slice of the same size. ({size})"
+                )
             # Attempt a slice to slice assignment.
             values = iter(val)
             for index in range(*ixes.indices(len(self))):
                 val = int(next(values))
-                if val < 0 or val > 255:
-                    raise ValueError("Value out of range")
-                self.array[index % slots + self.slot_index] = self._set_slot(
-                    self.array[index % slots + self.slot_index], val, index // slots
-                )
+                self.array[index * 2 + self.slot_index] = val
         else:
             # Attempt a scalar to scalar assignment.
             try:
@@ -615,8 +390,4 @@ class Payload_USITT_DMX512_A:  # pylint: disable=too-many-instance-attributes
                 ixes = ixes + len(self)
             if ixes < 0 or ixes > len(self):
                 raise IndexError("Index out of range")
-            if val < 0 or val > 255:
-                raise ValueError("Value out of range")
-            self.array[ixes % slots + self.slot_index] = self._set_slot(
-                self.array[ixes % slots + self.slot_index], val, ixes // slots
-            )
+            self.array[ixes * 2 + self.slot_index] = val
