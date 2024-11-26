@@ -2,18 +2,42 @@
 #
 # SPDX-License-Identifier: Unlicense
 "Deploy tests to a microcontroller"
-
 import argparse
+import os
 import shutil
 
 import circup
 
-DMX_PIN_IN = "DMX_PIN"
-DMX_PIN_OUT = "DMX_PIN = {}\n".format
+
+class StoreVar(argparse.Action):
+    """Capture variables for code.py."""
+
+    def __call__(self, _, namespace, vals, option_string=None):
+        dest = getattr(namespace, self.dest, None)
+        if not dest:
+            dest = {}
+            setattr(namespace, self.dest, dest)
+        attr, _, val = vals.partition("=")
+        if not attr.isidentifier():
+            raise argparse.ArgumentTypeError(
+                "--val {attr} not a legal Python identifier."
+            )
+        if not attr.isupper():
+            raise argparse.ArgumentTypeError("--val {attr} is not upper case.")
+        # Get the from the environment, keep val if not found.
+        val = os.environ.get(attr, val)
+        dest[attr] = val
+
 
 parser = argparse.ArgumentParser(description="Upload code to the microcontroller.")
 parser.add_argument("--code", nargs="?", help="File to deploy as code.py")
-parser.add_argument("--pin", nargs="?", default="board.D1", help="Map DMX_PIN to this")
+parser.add_argument(
+    "--var",
+    action=StoreVar,
+    help="Replace the global variable in code.py with "
+    "the value of an environment variable of the same name. "
+    "If no environment variable exists, set this value instead.",
+)
 parser.add_argument("lib", nargs="*", help="Files to deploy as libraries")
 
 args = parser.parse_args()
@@ -34,6 +58,9 @@ if args.code is not None:
     code = open(from_path, "r").readlines()  # pylint: disable=consider-using-with
     with open(to_path, "w") as write_file:
         for line in code:
-            if line.startswith(DMX_PIN_IN):
-                line = DMX_PIN_OUT(args.pin)  # pylint: disable=invalid-name
+            for var, val in args.var.items():
+                line_start = f"{var} ="
+                if line.startswith(line_start):
+                    print(f"new global:{var} = {val}")
+                    line = f"{var} = {val}"
             write_file.write(line)
