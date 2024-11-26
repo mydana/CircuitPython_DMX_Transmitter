@@ -191,10 +191,13 @@ def make_sideset_mask(prog, sideset_pins=None):
     diff = int(code_sideset_pins - desired_pins)
     small_mask = (2**desired_pins) - 1
     if sideset_pins is None:
+
         def mask(word):
             "Remove all sideset pins."
             return word & sideset_hole
+
     else:
+
         def mask(word):
             "Remove some sideset pins, maybe."
             code = word & sideset_hole
@@ -209,6 +212,7 @@ def make_sideset_mask(prog, sideset_pins=None):
             sideset = sideset << (sideset_base + diff)
             assert not sideset & sideset_hole
             return code | sideset
+
     return mask
 
 
@@ -290,13 +294,14 @@ def python_print_machine_code(prog, sideset_pins, code_name, indent=""):
             )
             lines.append(f"{code_indent}{machine_code},")
     lines.append(f"{indent})")
+    lines.append("")  # Tailing newline
     return "\n".join(lines)
 
 
 def python_print_pio_kwargs(
     pio_kwargs, sideset_pins, code_name, variable_name, indent=""
 ):
-    """Print output PIO Kwargs as python."""
+    """Print output PIO Kwargs as literal python."""
     code_sideset_pins = pio_kwargs.get("sideset_pin_count", 0)
     code_sideset_enable = pio_kwargs.get("sideset_enable", False)
     if code_name is None:
@@ -305,47 +310,57 @@ def python_print_pio_kwargs(
         boilerplate = Template(
             textwrap.dedent(
                 """\
-            ## Parameters for rp2pio.StateMachine
-            ## Parameters for rp2pio.StateMachine
-            ## example: rp2pio.StateMachine(
-            ##                              $code_name,
-            ##                              **$variable_name,
-            ##                              ...(additional parameters)...,
-            ##                              )
-            $variable_name = {"""
+                ## Parameters for rp2pio.StateMachine
+                ## Parameters for rp2pio.StateMachine
+                ## example: rp2pio.StateMachine(
+                ##                              $code_name,
+                ##                              **$variable_name,
+                ##                              ...(additional parameters)...,
+                ##                              )
+                $variable_name = {
+                    $kwargs
+                }"""
             )
         )
+        # Boilerplate parameters
         sideset_pins = 0
         sideset_enable = False
         pio_kwargs = dict(
             pio_kwargs,
             sideset_enable=False,
-            sideset_pin_count=0,
+            # sideset_pin_count=0,  # Zero doesn't work, don't include it.
         )
         dict_indent = indent
     else:
         boilerplate = Template(
             textwrap.dedent(
                 """\
-            ## Sideset settings from the assembly code.
-            SIDESET_PINS = $sideset_pins
-            SIDESET_ENABLE = $sideset_enable
-            
-            
-            ## A function that produces parameters for rp2pio.StateMachine"
-            ## example: rp2pio.StateMachine(
-            ##                              $code_name[sideset_pins],"
-            ##                              **$variable_name(sideset_pins),"
-            ##                              ...(additional parameters)...,"
-            ##                              )
-            def $variable_name(sideset_pins=0):
-                "Get parameters appropriate for the desired side-set pin count."
-                pin_count = min(SIDESET_PINS, abs(sideset_pins))
-                enable = bool(pin_count) and SIDESET_ENABLE
-                return {"""
+                ## Sideset settings from the assembly code.
+                SIDESET_PINS = $sideset_pins
+                SIDESET_ENABLE = $sideset_enable
+                
+                
+                ## A function that produces parameters for rp2pio.StateMachine"
+                ## example: rp2pio.StateMachine(
+                ##                              $code_name[sideset_pins],"
+                ##                              **$variable_name(sideset_pins),"
+                ##                              ...(additional parameters)...,"
+                ##                              )
+                def $variable_name(sideset_pins=0):
+                    "Get parameters appropriate for the desired side-set pin count."
+                    pin_count = min(SIDESET_PINS, abs(sideset_pins))
+                    enable = bool(pin_count) and SIDESET_ENABLE
+                    kwargs = {
+                        $kwargs
+                    }
+                    if 0 == kwargs.get("sideset_pin_count", False):
+                        kwargs.pop("sideset_pin_count")
+                    return kwargs
+                    """
             )
         )
-        sideset_pins = min(code_sideset_pins, sideset_pins)
+        # Boilerplate parameters
+        sideset_pins = min(code_sideset_pins, abs(sideset_pins))
         sideset_enable = bool(sideset_pins) and code_sideset_enable
         pio_kwargs = dict(
             pio_kwargs,
@@ -353,21 +368,19 @@ def python_print_pio_kwargs(
             sideset_pin_count="pin_count",
         )
         dict_indent = indent + "    "
-    # Render
-    lines = [
-        boilerplate.substitute(
-            {
-                "code_name": code_name,
-                "variable_name": variable_name,
-                "sideset_pins": sideset_pins,
-                "sideset_enable": sideset_enable,
-            }
-        )
-    ]
-    for key, val in pio_kwargs.items():
-        lines.append(f'{dict_indent}    "{key}": {val},')
-    lines.append(f"{dict_indent}}}")
-    return "\n".join(lines)
+    # Render the literal python code.
+    literal_kwargs_dict = f"\n{dict_indent}    ".join(
+        f'"{key}": {val},' for key, val in pio_kwargs.items()
+    )
+    return boilerplate.substitute(
+        {
+            "code_name": code_name,
+            "variable_name": variable_name,
+            "sideset_pins": sideset_pins,
+            "sideset_enable": sideset_enable,
+            "kwargs": literal_kwargs_dict,
+        }
+    )
 
 
 def python_print_timings(intervals, variable_name, indent=""):
@@ -383,6 +396,7 @@ def python_print_timings(intervals, variable_name, indent=""):
     ]
     for key in sorted(intervals):
         lines.append(f"{indent}    {key} = {intervals[key]}")
+    lines.append("")  # Terminal \n
     return "\n".join(lines)
 
 
@@ -473,7 +487,6 @@ meaning of these interval names.\"\"\"
                 indent="",
             ),
             "",
-            "",
             do_not_edit,
             "",
             "",
@@ -484,7 +497,6 @@ meaning of these interval names.\"\"\"
                 variable_name=args.pio_kwargs_variable_name or "pio_kwargs",
                 indent="",
             ),
-            "",
             "",
             do_not_edit,
             "",
@@ -612,7 +624,13 @@ def main():
         help="Python code for timing intervals. Specify the class name."
         " If no intervals found, returns nothing.",
     )
+    parser.add_argument(
+        "--out",
+        help="File to direct output to.",
+    )
     args = parser.parse_args()
+    if args.out:
+        sys.stdout = open(args.out, 'w')
     with open(args.source, "r", newline="", encoding="ascii") as tsvfile:
         reader = csv.DictReader(tsvfile, dialect="excel-tab")
         intercode = preparse_csv_file(reader, args.include)
@@ -643,7 +661,8 @@ def main():
                 code_name=args.machine_code_variable_name,
                 variable_name=args.pio_kwargs_variable_name,
                 indent=" " * args.indent,
-            )
+            ),
+            end="",
         )
     if args.timings_class_name and not args.python:
         # Print out timings as legal Python
@@ -652,7 +671,8 @@ def main():
                 intervals,
                 variable_name=args.timings_class_name,
                 indent=" " * args.indent,
-            )
+            ),
+            end="",
         )
     if args.python:
         # Print out an entire library of all code

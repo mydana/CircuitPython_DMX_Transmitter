@@ -70,4 +70,7 @@ class DMXTransmitter(Payload_USITT_DMX512_A):
             exclusive_pin_use=exclusive_pin_use,
         )
         self.state_machine.background_write(once=None, loop=memoryview(self.array).cast("H"))
+    def show(self):
+        "TODO: This method will be re-implimented after this work is done."
+        pass
 

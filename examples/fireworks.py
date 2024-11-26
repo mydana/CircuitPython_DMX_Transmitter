@@ -15,10 +15,9 @@ DMX_PIN = board.D0
 dmx = dmx_transmitter.DMXTransmitter(first_out_pin=DMX_PIN)
 
 # Configuration
-rockets = (1, 2, 3, 9, 10, 11)  # Slot numbers we want to show.
+rockets = (1, 2, 3,)  # Slot numbers we want to show.
 main_dimmers = (
     0,
-    8,
 )  # Slot numbers for the main dimmers
 
 # Setup
