@@ -72,7 +72,7 @@ def preparse_csv_file(csv_reader, template_arguments=None):
 
     #
     # Make column names case insensitive
-    csv_reader.fieldnames = [x.lower() for x in csv_reader.fieldnames]
+    csv_reader.fieldnames = [x.lower().strip() for x in csv_reader.fieldnames]
     #
     # Column name definitions and if they are optional
     col_names = {
@@ -550,7 +550,7 @@ def main():
 
         header       Use case
         -----------  ---------------------------------------------------------
-        labels ----> Declarations. (Starts with a dot (.)).
+        label -----> Declarations. (Starts with a dot (.)).
            "   ----> Labels. (Ends in a colon (:)).
            "   ----> Full-line comments. (Optionally ends with a semicolon (;)).
         operation -> Code, such as "out x, 16".
