@@ -12,7 +12,7 @@ from dmx_transmitter import dmx_transmitter
 
 DMX_PIN = board.D0
 
-dmx = dmx_transmitter.DMXTransmitter(first_out_pin=DMX_PIN)
+dmx = dmx_transmitter.DMXTransmitter(dmx_out_pin=DMX_PIN)
 
 # Blinking lights
 while True:

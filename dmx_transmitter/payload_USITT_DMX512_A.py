@@ -113,15 +113,28 @@ class Payload_USITT_DMX512_A:  # pylint: disable=too-many-instance-attributes
             raise ValueError(
                 f"'slots' is too high. Shall be {self.MIN_SLOTS} to {self.MAX_SLOTS}"
             )
+        self.num_buffers = buffers
         self.edit_buffer = 0  # User-facing data.
-        self.show_buffer = 1 if buffers > 1 else 0  # Buffer for the state machine.
+        self.show_buffer = (
+            1 if self.num_buffers > 1 else 0
+        )  # Buffer for the state machine.
 
         #
-        # Create array.
-        my_array = array.array("H", (0 for _ in range(self.HEADER_SIZE + 1 + slots)))
-        self.buffers = (memoryview(my_array)[:].cast("H"),)
-        self.headers = (memoryview(my_array)[0 : self.HEADER_SIZE].cast("H"),)
-        self.payloads = (memoryview(my_array)[self.HEADER_SIZE :].cast("B"),)
+        # Create buffers and memoryviews
+        my_buffer_length = (
+            self.HEADER_SIZE  # Size of the buffer
+            + 1  # Space for the start code
+            + slots  # How much user data
+        )
+        my_array = array.array(
+            "H", (0 for _ in range(my_buffer_length * self.num_buffers))
+        )
+        self.buffers = tuple(
+            memoryview(my_array)[b * my_buffer_length : (b + 1) * my_buffer_length]
+            for b in range(self.num_buffers)
+        )
+        self.headers = tuple(b[0 : self.HEADER_SIZE] for b in self.buffers)
+        self.payloads = tuple(b[self.HEADER_SIZE :].cast("B") for b in self.buffers)
 
         #
         # Initialize the newly-created array
@@ -132,7 +145,36 @@ class Payload_USITT_DMX512_A:  # pylint: disable=too-many-instance-attributes
         for payload in self.payloads:
             payload[0] = self.START_CODE
 
+    @property
+    def auto_write(self):
+        if self.buffers == 1:
+            return True
+        return self.edit_buffer == self.show_buffer
+
+    @auto_write.setter
+    def auto_write(self, val):
+        if val:
+            # Turn on auto_write
+            self.edit_buffer = self.show_buffer
+        else:
+            # Turn off auto_write
+            if self.num_buffers < 2:
+                raise ValueError("Not enough buffers to implement auto_write")
+            # The edit_buffer will be 0 or 1, opposite than the show_buffer
+            self.edit_buffer = 0 if self.show_buffer else 1
+            # Copy show buffer to the edit buffer.
+            self.buffers[self.edit_buffer][:] = self.buffers[self.show_buffer][:]
+
     def get_show_buffer(self):
+        "Return show buffer. Switch buffers if autowrite is False"
+        if self.edit_buffer == self.show_buffer:
+            # autowrite is True, just return.
+            return self.buffers[self.show_buffer]
+        # Swap buffers
+        self.edit_buffer, self.show_buffer = (self.show_buffer, self.edit_buffer)
+        # Copy show buffer to the edit buffer.
+        self.buffers[self.edit_buffer][:] = self.buffers[self.show_buffer][:]
+        # Return the show buffer.
         return self.buffers[self.show_buffer]
 
     def _init_timing_defaults(self) -> None:
