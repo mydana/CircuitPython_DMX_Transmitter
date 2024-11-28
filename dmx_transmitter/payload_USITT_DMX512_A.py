@@ -21,12 +21,12 @@ This class can be used to adjust the DMX timing.
 
 import array
 
+from .machine_code import IntervalTimings
+
 __author__ = "Dana Runge"
 __version__ = "0.0.0+auto.0"
 __repo__ = "https://github.com/mydana/CircuitPython_DMX_Transmitter"
 
-MAX_SLOTS = 512  # Defined in the DMX512 definition.
-MIN_SLOTS = 1  # Offset of slot count
 
 class Payload_USITT_DMX512_A:  # pylint: disable=too-many-instance-attributes
     """This object mimics a list of byte values, and stores it and timing
@@ -52,27 +52,43 @@ class Payload_USITT_DMX512_A:  # pylint: disable=too-many-instance-attributes
 
     """
 
-    ##  mv_index:
-    ##
-    ##   0 - mark_before_break (microseconds)
-    ##   1 - * MSB mark_before_break
-    ##   2 - space_for_break (microseconds)
-    ##   3 - * MSB space_for_break
-    ##   4 - mark_after_break (microseconds) 
-    ##   5 - * MSB mark_after_break
-    ##   6 - LSB slots
-    ##   7 - MSB slots - !!!
-    ##   8 - Start code
-    ##   9 - Start code stop
-    ## 10+ - Slot Data [0]
-    ## 11+ - Mark after slot 0
-    ## pen - Last data slot   - n * 2 + 10
-    ## ult - Mark after frame - n * 2 + 11
+    HEADER_SIZE = 4  # This many 16-bit words in the header.
+    MIN_SLOTS = 1  # Offset of slot count in the header vs the user code.
+    # This offset is a consequence of the machine code structure.
+    MAX_SLOTS = 512  # This limit is defined in the DMX512 specification.
+    START_CODE = 0x00  # This is the value that indicates this DMX512 packet
+    # contains "dimmer" information. Consider this to be
+    # the user data packet. This value is from the
+    # DMX512 protocol specification.
 
-    slot_index = 10 # Index of first slot data
+    ## Buffer structure. This is the buffer that is sent the state machine.
+    ##
+    ## Header (16 bit words)
+    ##      0 - mark_before_break (microseconds)
+    ##      1 - space_for_break (microseconds)
+    ##      2 - mark_after_break (microseconds)
+    ##      3 - Number of slots, less MIN_SLOTS.
+    ##
+    ## Payload (8 bit bytes)
+    ##   This section alternates between slot data and inter-slot
+    ##   mark time. This time includes the required stop bit. (8 microseconds)
+    ##          0  - The start code. This indicates the DMX512 packet data type.
+    ##          1  - Mark time after the start code.
+    ##          2  - The first data code. DMX512 slot #1 is here.
+    ##          3  - Mark time after the first data code.
+    ##     even 4+ - Remaining DMX512 slots.
+    ##     odd  5+ - Mark time after the corresponding data code.
+    ## penultimate - Last DMX512 slot.
+    ##        last - mark_after_frame
+    ##               Time before state machine shuts down. Usually 0.
+    ##
+    ## Timing between frames is determined by mark_before_break.
+    ## While it's possible to set mark_after_frame to a value, and continue
+    ## to send data to the state machine, there is no good reason to do this.
 
     class _MinimumTiming:  # pylint: disable=too-few-public-methods
         "Minimum timing from lib/dmx_transmitter/assembly_code.py"
+        # TODO
         mark_after_frame = 5
         space_for_break = 4
         mark_between_slots = 5
@@ -82,40 +98,46 @@ class Payload_USITT_DMX512_A:  # pylint: disable=too-many-instance-attributes
 
     def __init__(
         self,
-        slots=MAX_SLOTS,
+        slots=None,
+        buffers=1,
     ):
         "Sets up default USITT DMX512-A timings."
-        self._mark_after_frame = None
         #
         # slots
-        slots = int(slots) if slots is not None else 512
-        if slots < MIN_SLOTS:
-            raise ValueError(f"'slots' is too low. Shall be {MIN_SLOTS} to {MAX_SLOTS}")
-        if slots > MAX_SLOTS:
-            raise ValueError(f"'slots' is too high. Shall be {MIN_SLOTS} to {MAX_SLOTS}")
+        slots = int(slots) if slots is not None else self.MAX_SLOTS
+        if slots < self.MIN_SLOTS:
+            raise ValueError(
+                f"'slots' is too low. Shall be {self.MIN_SLOTS} to {self.MAX_SLOTS}"
+            )
+        if slots > self.MAX_SLOTS:
+            raise ValueError(
+                f"'slots' is too high. Shall be {self.MIN_SLOTS} to {self.MAX_SLOTS}"
+            )
+        self.edit_buffer = 0  # User-facing data.
+        self.show_buffer = 1 if buffers > 1 else 0  # Buffer for the state machine.
 
         #
-        # Create array
-        self.array = array.array("B", (0 for _ in range(self.slot_index + slots * 2)))
+        # Create array.
+        my_array = array.array("H", (0 for _ in range(self.HEADER_SIZE + 1 + slots)))
+        self.buffers = (memoryview(my_array)[:].cast("H"),)
+        self.headers = (memoryview(my_array)[0 : self.HEADER_SIZE].cast("H"),)
+        self.payloads = (memoryview(my_array)[self.HEADER_SIZE :].cast("B"),)
 
         #
         # Initialize the newly-created array
-        self._mark_after_frame = None
-        self.array[7], self.array[6] = divmod(slots - MIN_SLOTS, 256)  # Fit into 2 bytes
+        for header in self.headers:
+            header[3] = slots - self.MIN_SLOTS
         self._init_timing_defaults()
-        # Clones should take on the start code.
-        self._init_start_code()
+        # Set up the start code.
+        for payload in self.payloads:
+            payload[0] = self.START_CODE
 
-    def _init_start_code(self, start_code=0x00) -> None:
-        """Set the START CODE. Default NULL. (Byte)
-
-        Useful for a subclass author.
-        """
-        start_code = int(start_code)
-        self.array[8] = start_code
+    def get_show_buffer(self):
+        return self.buffers[self.show_buffer]
 
     def _init_timing_defaults(self) -> None:
         "Set up default USITT DMX512-A timings."
+        # TODO comments
         # fmt: off
         self.mark_after_frame = False  # last slot mark, bits 8-15 or 24-31
         self.mark_after_frame_default = 8  # last slot mark, for stopping
@@ -142,7 +164,7 @@ class Payload_USITT_DMX512_A:  # pylint: disable=too-many-instance-attributes
 
         Minimum 5 if mark_after_frame is False, otherwise 2. Default 8.
         """
-        return self.array[0] + (
+        return self.headers[self.show_buffer][0] + (
             self._MinimumTiming.mark_before_break_long
             if self.mark_after_frame is False
             else self._MinimumTiming.mark_before_break_short
@@ -166,8 +188,8 @@ class Payload_USITT_DMX512_A:  # pylint: disable=too-many-instance-attributes
                         self._MinimumTiming.mark_before_break_short
                     )
                 )
-        self.array[0] = val
-        self.array[1] = 0 # MSB
+        for header in self.headers:
+            header[0] = val
 
     @property
     def space_for_break(self) -> int:
@@ -176,7 +198,7 @@ class Payload_USITT_DMX512_A:  # pylint: disable=too-many-instance-attributes
 
         Minimum 4, Default 172, Standard minimum 88.
         """
-        return self.array[2] + self._MinimumTiming.space_for_break
+        return self.headers[self.show_buffer][1] + self._MinimumTiming.space_for_break
 
     @space_for_break.setter
     def space_for_break(self, val) -> None:
@@ -187,8 +209,8 @@ class Payload_USITT_DMX512_A:  # pylint: disable=too-many-instance-attributes
                     self._MinimumTiming.space_for_break
                 )
             )
-        self.array[2] = val
-        self.array[3] = 0 # MSB
+        for header in self.headers:
+            header[1] = val
 
     @property
     def mark_after_break(self) -> int:
@@ -196,7 +218,7 @@ class Payload_USITT_DMX512_A:  # pylint: disable=too-many-instance-attributes
 
         Minimum 4, Default 8
         """
-        return self.array[4] + self._MinimumTiming.mark_after_break
+        return self.headers[self.show_buffer][2] + self._MinimumTiming.mark_after_break
 
     @mark_after_break.setter
     def mark_after_break(self, val) -> None:
@@ -207,18 +229,18 @@ class Payload_USITT_DMX512_A:  # pylint: disable=too-many-instance-attributes
                     self._MinimumTiming.mark_after_break
                 )
             )
-        self.array[4] = val
-        self.array[5] = 0 # MSB
+        for header in self.headers:
+            header[2] = val
 
     @property
     def slots(self) -> int:
         "Number slots of DMX data available. (count)"
-        return self.array[7] * 256 + self.array[6] + MIN_SLOTS  # Fit into 2 bytes
+        return self.headers[self.show_buffer][2] + self.MIN_SLOTS  # Fit into 2 bytes
 
     @property
     def start_code(self) -> int:
         "The DMX START CODE (byte)"
-        return self.array[8]
+        return self.payloads[self.show_buffer][0]
 
     @property
     def mark_after_start_code(self) -> int:
@@ -229,7 +251,7 @@ class Payload_USITT_DMX512_A:  # pylint: disable=too-many-instance-attributes
 
         Minimum 5, Default 8, Maximum 260.
         """
-        val = self.array[9]
+        val = self.payloads[self.show_buffer][1]
         return val + self._MinimumTiming.mark_between_slots
 
     @mark_after_start_code.setter
@@ -241,7 +263,8 @@ class Payload_USITT_DMX512_A:  # pylint: disable=too-many-instance-attributes
                     self._MinimumTiming.mark_between_slots
                 )
             )
-        self.array[9] = val
+        for payload in self.payloads:
+            payload[1] = val
 
     @property
     def mark_between_slots(self) -> int:
@@ -266,9 +289,17 @@ class Payload_USITT_DMX512_A:  # pylint: disable=too-many-instance-attributes
                 )
             )
         self._mark_between_slots = val
-        # The last slot has a different mark parameter.
-        for i in range(self.slots - MIN_SLOTS):
-            self.array[self.slot_index + i * 2 + MIN_SLOTS] = val
+        for payload in self.payloads:
+            # payload[0] is the start bit
+            # payload[1] is the post start bit mark length
+            # payload[2] is the first slot
+            # payload[3] is the post first slot bit mark length
+            # payload[-3] is the penultimate slot bit mark length
+            # payload[-2] is the last slot (frame end)
+            # payload[-1] is mark_after_frame mark length
+            # mark_after_frame mark length is ignored in this method.
+            for i in range(3, len(payload) - 2, 2):
+                payload[i] = val
 
     @property
     def mark_after_frame(self) -> int:
@@ -284,7 +315,7 @@ class Payload_USITT_DMX512_A:  # pylint: disable=too-many-instance-attributes
 
         Minimum 6, Default 8, Maximum 260.
         """
-        val = self.array[-1]
+        val = self.payloads[self.show_buffer][-1]
         return (val + self._MinimumTiming.mark_after_frame) if val else False
 
     @mark_after_frame.setter
@@ -301,7 +332,8 @@ class Payload_USITT_DMX512_A:  # pylint: disable=too-many-instance-attributes
                         self._MinimumTiming.mark_after_frame + 1
                     )
                 )
-        self.array[-1] = val
+        for payload in self.payloads:
+            payload[-1] = val
 
     @property
     def interval(self) -> int:
@@ -315,6 +347,7 @@ class Payload_USITT_DMX512_A:  # pylint: disable=too-many-instance-attributes
         If a longer interval is needed, adjust the timing parameters in the
         class constructor.
         """
+        # TODO revisit/simplify
         return (
             self.mark_before_break
             + self.space_for_break
@@ -345,11 +378,9 @@ class Payload_USITT_DMX512_A:  # pylint: disable=too-many-instance-attributes
         return self.slots
 
     def __getitem__(self, ixes: int) -> int:
+        payload = self.payloads[self.edit_buffer]
         if isinstance(ixes, slice):
-            return [
-                self.array[ix * 2 + self.slot_index]
-                for ix in range(*ixes.indices(len(self)))
-            ]
+            return [payload[ix * 2 + 1] for ix in range(*ixes.indices(len(self)))]
         try:
             ixes = int(ixes)
         except TypeError as exc:
@@ -360,24 +391,23 @@ class Payload_USITT_DMX512_A:  # pylint: disable=too-many-instance-attributes
             ixes = ixes + len(self)
         if ixes < 0 or ixes >= len(self):
             raise IndexError("Index out of range")
-        return self.array[ixes * 2 + self.slot_index]
+        return payload[ixes * 2 + 1]
 
     def __setitem__(
         self,
         ixes,
         val,
     ) -> None:
+        payload = self.payloads[self.edit_buffer]
         if isinstance(ixes, slice):
             size = sum(1 for _ in range(*ixes.indices(len(self))))
             if len(val) != size:
-                raise ValueError(
-                    f"Can only assign a slice of the same size. ({size})"
-                )
+                raise ValueError(f"Can only assign a slice of the same size. ({size})")
             # Attempt a slice to slice assignment.
             values = iter(val)
             for index in range(*ixes.indices(len(self))):
                 val = int(next(values))
-                self.array[index * 2 + self.slot_index] = val
+                payload[index * 2 + 2] = val
         else:
             # Attempt a scalar to scalar assignment.
             try:
@@ -390,4 +420,4 @@ class Payload_USITT_DMX512_A:  # pylint: disable=too-many-instance-attributes
                 ixes = ixes + len(self)
             if ixes < 0 or ixes > len(self):
                 raise IndexError("Index out of range")
-            self.array[ixes * 2 + self.slot_index] = val
+            payload[ixes * 2 + 2] = val

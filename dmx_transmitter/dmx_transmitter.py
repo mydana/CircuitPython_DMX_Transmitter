@@ -20,10 +20,10 @@ Implementation Notes
 * An isolated RS485 line driver. I used a Digilent PmodRS485.
 """
 
-import array
+
 import rp2pio
 
-from .machine_code import machine_code, pio_kwargs, IntervalTimings
+from .machine_code import machine_code, pio_kwargs
 from .payload_USITT_DMX512_A import Payload_USITT_DMX512_A
 
 __author__ = "Dana Runge"
@@ -69,8 +69,8 @@ class DMXTransmitter(Payload_USITT_DMX512_A):
             first_sideset_pin=first_timing_pin,
             exclusive_pin_use=exclusive_pin_use,
         )
-        self.state_machine.background_write(once=None, loop=memoryview(self.array).cast("H"))
+        self.state_machine.background_write(once=None, loop=self.get_show_buffer())
+
     def show(self):
         "TODO: This method will be re-implimented after this work is done."
         pass
-
