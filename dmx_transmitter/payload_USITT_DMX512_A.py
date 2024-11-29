@@ -86,6 +86,64 @@ class Payload_USITT_DMX512_A:  # pylint: disable=too-many-instance-attributes
     ## While it's possible to set mark_after_frame to a value, and continue
     ## to send data to the state machine, there is no good reason to do this.
 
+
+
+
+#     @classmethod
+#     def get_timing(cls):
+#         """Minimum timing for the payload objects.
+# 
+#         This function returns a dictionary, but Payload_USITT_DMX512_A
+#         wants a class. To use this online, just add this filter::
+# 
+#             _MinimumTiming = type(
+#                 '_MinimumTiming',
+#                 (),
+#                 AssemblyCode.get_timing()
+#             )
+#         """
+#         timing = {}
+#         intervals = {}
+#         for number, line in enumerate(cls.pre_process(1).split("\n")):
+#             code, _, comments = line.partition(";")
+#             # Find out what's not code.
+#             code = code.rstrip()
+#             if not code:  # Empty
+#                 continue
+#             if code.startswith("."):  # Directives
+#                 continue
+#             if code.endswith(":"):  # Labels
+#                 continue
+#             # This is an opcode, get duration
+#             duration = 1
+#             if code.endswith("]"):  # Delay
+#                 end = code[:-1].split("[")[1]
+#                 duration = duration + (int(end) if end else 0)
+#             # Look for interval symbol
+#             interval, _, comments = comments.partition(";")
+#             interval = interval.strip()
+#             if not interval:
+#                 raise ValueError(f"Line {number + 1} does not have a symbol.")
+#             if not comments:
+#                 raise ValueError(f"Line {number + 1} does not have comments.")
+#             if interval not in intervals:
+#                 intervals[interval] = 0
+#             intervals[interval] = intervals[interval] + duration
+#         timing["mark_before_break_short"] = intervals["MBB"]
+#         timing["mark_before_break_long"] = intervals["MBB"] + intervals["MAF"]
+#         timing["space_for_break"] = intervals["BRK"]
+#         timing["mark_after_break"] = intervals["MAB"] + intervals["AST"]
+#         assert 4 == intervals["STA"]  # Start bit SHALL be 4 µS
+#         assert 4 == intervals["DAT"]  # Data bit SHALL be 4 µS
+#         timing["mark_between_slots"] = intervals["STP"] + intervals["AST"]
+#         assert (
+#             intervals["AST"] == intervals["ATS"]
+#         )  # Clean transition to terminal slot.
+#         assert 4 == intervals["TSA"]  # Terminal start bit SHALL be 4 µS
+#         assert 4 == intervals["TDA"]  # Termainal data bit SHALL be 4 µS
+#         timing["mark_after_frame"] = intervals["MAF"] + intervals["WAT"]
+#         return timing
+
     class _MinimumTiming:  # pylint: disable=too-few-public-methods
         "Minimum timing from lib/dmx_transmitter/assembly_code.py"
         # TODO
@@ -95,6 +153,7 @@ class Payload_USITT_DMX512_A:  # pylint: disable=too-many-instance-attributes
         mark_after_break = 4
         mark_before_break_long = 5
         mark_before_break_short = 2
+
 
     def __init__(
         self,
@@ -177,6 +236,18 @@ class Payload_USITT_DMX512_A:  # pylint: disable=too-many-instance-attributes
         # Return the show buffer.
         return self.buffers[self.show_buffer]
 
+    def get_stop_buffer(self, stop_mark_time):
+        "Returns a buffer for stopping the operations"
+        if self.edit_buffer == self.show_buffer:
+            # autowrite is True, we'll use an unused buffer.
+            stop_buffer = 0 if self.show_buffer else 1
+            # Copy show buffer to stop buffer
+            self.buffers[stop_buffer][:] = self.buffers[self.show_buffer][:]
+        else:
+            # autowrite is False, we'll reset the edit buffer.
+            stop_buffer = edit_buffer
+            # Copy show buffer to unused buffer.
+
     def _init_timing_defaults(self) -> None:
         "Set up default USITT DMX512-A timings."
         # TODO comments
@@ -184,13 +255,13 @@ class Payload_USITT_DMX512_A:  # pylint: disable=too-many-instance-attributes
         self.mark_after_frame = False  # last slot mark, bits 8-15 or 24-31
         self.mark_after_frame_default = 8  # last slot mark, for stopping
         # Set mark_after_frame before setting mark_before_break.
-        self.mark_before_break = 8      ## self.array[0]
-        self.space_for_break = 172      ## self.array[2]
-        self.mark_after_break = 8       ## self.array[4]
-        # slot count                    ## self.array[6], self.array[7]
-        # NULL START CODE               ## self.array[8]
-        self.mark_after_start_code = 8  ## self.array[9]
-        self.mark_between_slots = 8     ## odd number bytes
+        self.mark_before_break = 8      ## header[0]
+        self.space_for_break = 172      ## header[1]
+        self.mark_after_break = 8       ## header[2]
+        # slot count                    ## header[3]
+        # NULL START CODE               ## payload[0]
+        self.mark_after_start_code = 8  ## payload[1]
+        self.mark_between_slots = 8     ## payload[odd] except last payload.
         # fmt: on
 
     @property
@@ -394,25 +465,19 @@ class Payload_USITT_DMX512_A:  # pylint: disable=too-many-instance-attributes
             self.mark_before_break
             + self.space_for_break
             + self.mark_after_break
-            # Start code start bit.
-            + 4
-            # Start code data bits.
-            + 32
+            + 4  # 4 microseconds. Start code start bit.
+            + 32  # 32 microseconds. Start code eight data bits.
             + self.mark_after_start_code
-            + self.slots
+            + (self.slots - 1)
             * (
-                # Data slot start bit.
-                4
-                # Data slot data bits.
-                + 32
-                # Including the two stop bits & extra mark time.
-                + self.mark_between_slots
+                4  # 4 microseconds. Data slot start bit.
+                + 32  # 32 microseconds. Eight slot data bits.
+                + self.mark_between_slots  # microseconds. Stop bits and mark time.
             )
-            # Terminal slot start bit.
-            + 4
-            # Terminal slot data bits.
-            + 32
+            + 4  # 4 microseconds. Terminal slot start bit.
+            + 32  # 32 microseconds. Eight terminal slot data bits.
             # Including the two stop bits & extra mark time.
+            # TODO
             + (self.mark_after_frame if self.mark_after_frame is not False else 0)
         )
 

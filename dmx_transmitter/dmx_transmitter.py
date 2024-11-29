@@ -63,6 +63,7 @@ class DMXTransmitter(Payload_USITT_DMX512_A):
         auto_write=False,
         enable_out_pin=None,
         # TODO needs the code for inverting enable pin
+        # TODO TEST: The enable_out_pin
         exclusive_pin_use=True,
     ) -> None:
         super().__init__(slots=slots, buffers=2)
@@ -71,6 +72,17 @@ class DMXTransmitter(Payload_USITT_DMX512_A):
         except ValueError:
             # Ignore error if one buffer.
             pass
+        #
+        # State machine parameters.
+        self.dmx_out_pin = dmx_out_pin
+        self.first_sideset_pin = enable_out_pin
+        self.exclusive_pin_use = exclusive_pin_use
+        #
+        # Launch the state machine.
+        self.reinit()
+
+    def reinit(self):
+        "Re-connect the state machine"
         self.state_machine = rp2pio.StateMachine(
             machine_code[0],
             **pio_kwargs(0),
@@ -79,17 +91,54 @@ class DMXTransmitter(Payload_USITT_DMX512_A):
             auto_pull=True,
             initial_out_pin_state=1,
             out_pin_count=1,
-            first_out_pin=dmx_out_pin,
-            first_sideset_pin=enable_out_pin,
-            exclusive_pin_use=exclusive_pin_use,
+            first_out_pin=self.dmx_out_pin,
+            first_sideset_pin=self.first_sideset_pin,
+            exclusive_pin_use=self.exclusive_pin_use,
         )
         self.show()
 
     def n(self):
         return len(self)
 
-    def show(self):
+    def show(self, once=None) -> None:
+        """Buffer DMX payload to the state machine and out the wire.
+
+        Changes are not seen until 'show' is called again.
+        """
         self.state_machine.background_write(once=None, loop=self.get_show_buffer())
 
+    def stop(self) -> None:
+        """Stop sending data down the wire.
+        Go into a high impedance state, if enabled.
+        """
+        # TODO implement
+        self.state_machine.background_write()
+        self.state_machine.background_write(
+            once=self.payload.array_stop(), loop=self.payload.array_empty()
+        )
+
+    def deinit(self) -> None:
+        """Turn off the state machine and release its resources."""
+        # Docstring copyright (c) 2021 Scott Shawcroft for Adafruit Industries
+        self.stop()
+        return self.state_machine.deinit()
+
+    def __enter__(self):
+        """No-op used by Context Managers.
+        Provided by context manager helper."""
+        # Docstring copyright (c) 2021 Scott Shawcroft for Adafruit Industries
+        return self
+
+    def __exit__(self, *args) -> None:
+        """Automatically deinitializes the hardware when exiting a context. See
+        :ref:`lifetime-and-contextmanagers` for more info."""
+        # Docstring copyright (c) 2021 Scott Shawcroft for Adafruit Industries
+        self.stop()
+        return self.state_machine.__exit__(*args)
+
     def write(self):
+        """deprecated
+
+        Use `show` instead.
+        """
         self.show()
