@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: Copyright (c) 2024 Dana Runge
+#
+# SPDX-License-Identifier: MIT
 """Re-format and/or assemble RP2040 pio assembly code.
 
 The RP2040 Programmable Input Output (pio) unit is a programmable state
@@ -338,8 +341,8 @@ def python_print_pio_kwargs(
                 ## Sideset settings from the assembly code.
                 SIDESET_PINS = $sideset_pins
                 SIDESET_ENABLE = $sideset_enable
-                
-                
+
+
                 ## A function that produces parameters for rp2pio.StateMachine"
                 ## example: rp2pio.StateMachine(
                 ##                              $code_name[sideset_pins],"
@@ -630,7 +633,7 @@ def main():
     )
     args = parser.parse_args()
     if args.out:
-        sys.stdout = open(args.out, 'w')
+        sys.stdout = open(args.out, "w")  # pylint: disable=consider-using-with
     with open(args.source, "r", newline="", encoding="ascii") as tsvfile:
         reader = csv.DictReader(tsvfile, dialect="excel-tab")
         intercode = preparse_csv_file(reader, args.include)

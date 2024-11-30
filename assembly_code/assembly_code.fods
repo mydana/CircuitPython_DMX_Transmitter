@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <office:document xmlns:presentation="urn:oasis:names:tc:opendocument:xmlns:presentation:1.0" xmlns:css3t="http://www.w3.org/TR/css3-text/" xmlns:grddl="http://www.w3.org/2003/g/data-view#" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xforms="http://www.w3.org/2002/xforms" xmlns:dom="http://www.w3.org/2001/xml-events" xmlns:script="urn:oasis:names:tc:opendocument:xmlns:script:1.0" xmlns:form="urn:oasis:names:tc:opendocument:xmlns:form:1.0" xmlns:math="http://www.w3.org/1998/Math/MathML" xmlns:meta="urn:oasis:names:tc:opendocument:xmlns:meta:1.0" xmlns:loext="urn:org:documentfoundation:names:experimental:office:xmlns:loext:1.0" xmlns:field="urn:openoffice:names:experimental:ooo-ms-interop:xmlns:field:1.0" xmlns:number="urn:oasis:names:tc:opendocument:xmlns:datastyle:1.0" xmlns:table="urn:oasis:names:tc:opendocument:xmlns:table:1.0" xmlns:chart="urn:oasis:names:tc:opendocument:xmlns:chart:1.0" xmlns:formx="urn:openoffice:names:experimental:ooxml-odf-interop:xmlns:form:1.0" xmlns:svg="urn:oasis:names:tc:opendocument:xmlns:svg-compatible:1.0" xmlns:rpt="http://openoffice.org/2005/report" xmlns:dr3d="urn:oasis:names:tc:opendocument:xmlns:dr3d:1.0" xmlns:tableooo="http://openoffice.org/2009/table" xmlns:draw="urn:oasis:names:tc:opendocument:xmlns:drawing:1.0" xmlns:of="urn:oasis:names:tc:opendocument:xmlns:of:1.2" xmlns:text="urn:oasis:names:tc:opendocument:xmlns:text:1.0" xmlns:style="urn:oasis:names:tc:opendocument:xmlns:style:1.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:calcext="urn:org:documentfoundation:names:experimental:calc:xmlns:calcext:1.0" xmlns:oooc="http://openoffice.org/2004/calc" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:drawooo="http://openoffice.org/2010/draw" xmlns:ooow="http://openoffice.org/2004/writer" xmlns:config="urn:oasis:names:tc:opendocument:xmlns:config:1.0" xmlns:fo="urn:oasis:names:tc:opendocument:xmlns:xsl-fo-compatible:1.0" xmlns:ooo="http://openoffice.org/2004/office" xmlns:office="urn:oasis:names:tc:opendocument:xmlns:office:1.0" office:version="1.3" office:mimetype="application/vnd.oasis.opendocument.spreadsheet">
- <office:meta><dc:date>2024-11-28T21:57:48.863673397</dc:date><meta:editing-duration>PT20M56S</meta:editing-duration><meta:editing-cycles>2</meta:editing-cycles><meta:generator>LibreOffice/24.2.5.2$MacOSX_AARCH64 LibreOffice_project/bffef4ea93e59bebbeaf7f431bb02b1a39ee8a59</meta:generator><meta:document-statistic meta:table-count="2" meta:cell-count="253" meta:object-count="0"/></office:meta>
+ <office:meta><dc:date>2024-11-28T22:05:34.775603151</dc:date><meta:editing-duration>PT24M44S</meta:editing-duration><meta:editing-cycles>3</meta:editing-cycles><meta:generator>LibreOffice/24.2.5.2$MacOSX_AARCH64 LibreOffice_project/bffef4ea93e59bebbeaf7f431bb02b1a39ee8a59</meta:generator><meta:document-statistic meta:table-count="2" meta:cell-count="253" meta:object-count="0"/></office:meta>
  <office:settings>
   <config:config-item-set config:name="ooo:view-settings">
    <config:config-item config:name="VisibleAreaTop" config:type="int">0</config:config-item>
@@ -21,7 +21,7 @@
        <config:config-item config:name="PositionTop" config:type="int">0</config:config-item>
        <config:config-item config:name="PositionBottom" config:type="int">0</config:config-item>
        <config:config-item config:name="ZoomType" config:type="short">0</config:config-item>
-       <config:config-item config:name="ZoomValue" config:type="int">110</config:config-item>
+       <config:config-item config:name="ZoomValue" config:type="int">100</config:config-item>
        <config:config-item config:name="PageViewZoomValue" config:type="int">60</config:config-item>
        <config:config-item config:name="ShowGrid" config:type="boolean">true</config:config-item>
        <config:config-item config:name="AnchoredTextOverflowLegacy" config:type="boolean">false</config:config-item>
@@ -38,7 +38,7 @@
        <config:config-item config:name="PositionTop" config:type="int">0</config:config-item>
        <config:config-item config:name="PositionBottom" config:type="int">0</config:config-item>
        <config:config-item config:name="ZoomType" config:type="short">0</config:config-item>
-       <config:config-item config:name="ZoomValue" config:type="int">110</config:config-item>
+       <config:config-item config:name="ZoomValue" config:type="int">100</config:config-item>
        <config:config-item config:name="PageViewZoomValue" config:type="int">60</config:config-item>
        <config:config-item config:name="ShowGrid" config:type="boolean">true</config:config-item>
        <config:config-item config:name="AnchoredTextOverflowLegacy" config:type="boolean">false</config:config-item>
@@ -48,9 +48,9 @@
       </config:config-item-map-entry>
      </config:config-item-map-named>
      <config:config-item config:name="ActiveTable" config:type="string">assembly_code</config:config-item>
-     <config:config-item config:name="HorizontalScrollbarWidth" config:type="int">1633</config:config-item>
+     <config:config-item config:name="HorizontalScrollbarWidth" config:type="int">1031</config:config-item>
      <config:config-item config:name="ZoomType" config:type="short">0</config:config-item>
-     <config:config-item config:name="ZoomValue" config:type="int">110</config:config-item>
+     <config:config-item config:name="ZoomValue" config:type="int">100</config:config-item>
      <config:config-item config:name="PageViewZoomValue" config:type="int">60</config:config-item>
      <config:config-item config:name="ShowPageBreakPreview" config:type="boolean">false</config:config-item>
      <config:config-item config:name="ShowZeroValues" config:type="boolean">true</config:config-item>
@@ -98,9 +98,9 @@
    <config:config-item config:name="IsSnapToRaster" config:type="boolean">false</config:config-item>
    <config:config-item config:name="LinkUpdateMode" config:type="short">3</config:config-item>
    <config:config-item config:name="LoadReadonly" config:type="boolean">false</config:config-item>
-   <config:config-item config:name="PrinterName" config:type="string"/>
+   <config:config-item config:name="PrinterName" config:type="string">Default printer</config:config-item>
    <config:config-item config:name="PrinterPaperFromSetup" config:type="boolean">false</config:config-item>
-   <config:config-item config:name="PrinterSetup" config:type="base64Binary"/>
+   <config:config-item config:name="PrinterSetup" config:type="base64Binary">FQH+/0RlZmF1bHQgcHJpbnRlcgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAWAAQABAAAAAAAAAAIAFZUAAAkbQAAAAAAABIAQ09NUEFUX0RVUExFWF9NT0RFEwBEdXBsZXhNb2RlOjpVbmtub3duDABQUklOVEVSX05BTUUPAERlZmF1bHQgcHJpbnRlcgsARFJJVkVSX05BTUUAAA==</config:config-item>
    <config:config-item config:name="RasterIsVisible" config:type="boolean">false</config:config-item>
    <config:config-item config:name="RasterResolutionX" config:type="int">1270</config:config-item>
    <config:config-item config:name="RasterResolutionY" config:type="int">1270</config:config-item>
@@ -113,6 +113,7 @@
    <config:config-item config:name="ShowNotes" config:type="boolean">true</config:config-item>
    <config:config-item config:name="ShowPageBreaks" config:type="boolean">true</config:config-item>
    <config:config-item config:name="ShowZeroValues" config:type="boolean">true</config:config-item>
+   <config:config-item config:name="SyntaxStringRef" config:type="short">7</config:config-item>
    <config:config-item config:name="UpdateFromTemplate" config:type="boolean">true</config:config-item>
    <config:config-item-map-named config:name="ScriptConfiguration">
     <config:config-item-map-entry config:name="assembly_code">
@@ -133,8 +134,6 @@
  </office:scripts>
  <office:font-face-decls>
   <style:font-face style:name="Arial Unicode MS" svg:font-family="&apos;Arial Unicode MS&apos;" style:font-family-generic="system" style:font-pitch="variable"/>
-  <style:font-face style:name="Helvetica" svg:font-family="Helvetica"/>
-  <style:font-face style:name="Helvetica Neue" svg:font-family="&apos;Helvetica Neue&apos;"/>
   <style:font-face style:name="Liberation Sans" svg:font-family="&apos;Liberation Sans&apos;" style:font-family-generic="swiss" style:font-pitch="variable"/>
   <style:font-face style:name="PingFang SC" svg:font-family="&apos;PingFang SC&apos;" style:font-family-generic="system" style:font-pitch="variable"/>
  </office:font-face-decls>
@@ -145,7 +144,7 @@
   </style:default-style>
   <style:default-style style:family="graphic">
    <style:graphic-properties svg:stroke-color="#3465a4" draw:fill-color="#729fcf" fo:wrap-option="no-wrap" draw:shadow-offset-x="0.1181in" draw:shadow-offset-y="0.1181in" style:writing-mode="page"/>
-   <style:paragraph-properties style:text-autospace="ideograph-alpha" style:punctuation-wrap="simple" style:line-break="strict" style:writing-mode="page" style:font-independent-line-spacing="false">
+   <style:paragraph-properties style:text-autospace="ideograph-alpha" style:punctuation-wrap="simple" style:line-break="strict" loext:tab-stop-distance="0in" style:writing-mode="page" style:font-independent-line-spacing="false">
     <style:tab-stops/>
    </style:paragraph-properties>
    <style:text-properties style:use-window-font-color="true" loext:opacity="0%" fo:font-family="&apos;Liberation Serif&apos;" style:font-family-generic="roman" style:font-pitch="variable" fo:font-size="12pt" fo:language="en" fo:country="US" style:letter-kerning="true" style:font-family-asian="Tahoma" style:font-family-generic-asian="system" style:font-pitch-asian="variable" style:font-size-asian="12pt" style:language-asian="zh" style:country-asian="CN" style:font-family-complex="Tahoma" style:font-family-generic-complex="system" style:font-pitch-complex="variable" style:font-size-complex="12pt" style:language-complex="hi" style:country-complex="IN"/>
@@ -158,25 +157,12 @@
   <number:number-style style:name="N0">
    <number:number number:min-integer-digits="1"/>
   </number:number-style>
-  <number:currency-style style:name="N129P0" style:volatile="true">
-   <number:currency-symbol/>
-   <number:number number:decimal-places="0" number:min-decimal-places="0" number:min-integer-digits="1" number:grouping="true"/>
-   <number:text loext:blank-width-char=")"> </number:text>
-  </number:currency-style>
-  <number:currency-style style:name="N129">
-   <number:text>(</number:text>
-   <number:currency-symbol/>
-   <number:number number:decimal-places="0" number:min-decimal-places="0" number:min-integer-digits="1" number:grouping="true"/>
-   <number:text>)</number:text>
-   <style:map style:condition="value()&gt;=0" style:apply-style-name="N129P0"/>
-  </number:currency-style>
   <number:currency-style style:name="N130P0" style:volatile="true">
    <number:currency-symbol/>
    <number:number number:decimal-places="0" number:min-decimal-places="0" number:min-integer-digits="1" number:grouping="true"/>
-   <number:text loext:blank-width-char=")"> </number:text>
+   <number:text> _)</number:text>
   </number:currency-style>
   <number:currency-style style:name="N130">
-   <style:text-properties fo:color="#ff0000"/>
    <number:text>(</number:text>
    <number:currency-symbol/>
    <number:number number:decimal-places="0" number:min-decimal-places="0" number:min-integer-digits="1" number:grouping="true"/>
@@ -185,73 +171,72 @@
   </number:currency-style>
   <number:currency-style style:name="N131P0" style:volatile="true">
    <number:currency-symbol/>
-   <number:number number:decimal-places="2" number:min-decimal-places="2" number:min-integer-digits="1" number:grouping="true"/>
-   <number:text loext:blank-width-char=")"> </number:text>
+   <number:number number:decimal-places="0" number:min-decimal-places="0" number:min-integer-digits="1" number:grouping="true"/>
+   <number:text> _)</number:text>
   </number:currency-style>
   <number:currency-style style:name="N131">
+   <style:text-properties fo:color="#ff0000"/>
+   <number:text>(</number:text>
+   <number:currency-symbol/>
+   <number:number number:decimal-places="0" number:min-decimal-places="0" number:min-integer-digits="1" number:grouping="true"/>
+   <number:text>)</number:text>
+   <style:map style:condition="value()&gt;=0" style:apply-style-name="N131P0"/>
+  </number:currency-style>
+  <number:currency-style style:name="N133P0" style:volatile="true">
+   <number:currency-symbol/>
+   <number:number number:decimal-places="2" number:min-decimal-places="2" number:min-integer-digits="1" number:grouping="true"/>
+   <number:text> _)</number:text>
+  </number:currency-style>
+  <number:currency-style style:name="N133">
    <number:text>(</number:text>
    <number:currency-symbol/>
    <number:number number:decimal-places="2" number:min-decimal-places="2" number:min-integer-digits="1" number:grouping="true"/>
    <number:text>)</number:text>
-   <style:map style:condition="value()&gt;=0" style:apply-style-name="N131P0"/>
+   <style:map style:condition="value()&gt;=0" style:apply-style-name="N133P0"/>
   </number:currency-style>
-  <number:currency-style style:name="N132P0" style:volatile="true">
+  <number:currency-style style:name="N134P0" style:volatile="true">
    <number:currency-symbol/>
    <number:number number:decimal-places="2" number:min-decimal-places="2" number:min-integer-digits="1" number:grouping="true"/>
-   <number:text loext:blank-width-char=")"> </number:text>
+   <number:text> _)</number:text>
   </number:currency-style>
-  <number:currency-style style:name="N132">
+  <number:currency-style style:name="N134">
    <style:text-properties fo:color="#ff0000"/>
    <number:text>(</number:text>
    <number:currency-symbol/>
    <number:number number:decimal-places="2" number:min-decimal-places="2" number:min-integer-digits="1" number:grouping="true"/>
    <number:text>)</number:text>
-   <style:map style:condition="value()&gt;=0" style:apply-style-name="N132P0"/>
+   <style:map style:condition="value()&gt;=0" style:apply-style-name="N134P0"/>
   </number:currency-style>
-  <number:date-style style:name="N133">
+  <number:date-style style:name="N135">
    <number:month/>
    <number:text>/</number:text>
    <number:day/>
    <number:text>/</number:text>
    <number:year number:style="long"/>
   </number:date-style>
-  <number:date-style style:name="N134">
-   <number:day/>
-   <number:text>-</number:text>
-   <number:month number:textual="true"/>
-   <number:text>-</number:text>
-   <number:year/>
-  </number:date-style>
-  <number:date-style style:name="N135">
-   <number:day/>
-   <number:text>-</number:text>
-   <number:month number:textual="true"/>
-  </number:date-style>
   <number:date-style style:name="N136">
+   <number:day/>
+   <number:text>-</number:text>
    <number:month number:textual="true"/>
    <number:text>-</number:text>
    <number:year/>
   </number:date-style>
-  <number:time-style style:name="N137">
-   <number:hours/>
-   <number:text>:</number:text>
-   <number:minutes number:style="long"/>
-   <number:text> </number:text>
-   <number:am-pm/>
-  </number:time-style>
-  <number:time-style style:name="N138">
-   <number:hours/>
-   <number:text>:</number:text>
-   <number:minutes number:style="long"/>
-   <number:text>:</number:text>
-   <number:seconds number:style="long"/>
-   <number:text> </number:text>
-   <number:am-pm/>
-  </number:time-style>
+  <number:date-style style:name="N137">
+   <number:day/>
+   <number:text>-</number:text>
+   <number:month number:textual="true"/>
+  </number:date-style>
+  <number:date-style style:name="N138">
+   <number:month number:textual="true"/>
+   <number:text>-</number:text>
+   <number:year/>
+  </number:date-style>
   <number:time-style style:name="N139">
    <number:hours/>
    <number:text>:</number:text>
    <number:minutes number:style="long"/>
+   <number:text> </number:text>
+   <number:am-pm/>
   </number:time-style>
   <number:time-style style:name="N140">
    <number:hours/>
@@ -259,8 +244,22 @@
    <number:minutes number:style="long"/>
    <number:text>:</number:text>
    <number:seconds number:style="long"/>
+   <number:text> </number:text>
+   <number:am-pm/>
   </number:time-style>
-  <number:date-style style:name="N141">
+  <number:time-style style:name="N141">
+   <number:hours/>
+   <number:text>:</number:text>
+   <number:minutes number:style="long"/>
+  </number:time-style>
+  <number:time-style style:name="N142">
+   <number:hours/>
+   <number:text>:</number:text>
+   <number:minutes number:style="long"/>
+   <number:text>:</number:text>
+   <number:seconds number:style="long"/>
+  </number:time-style>
+  <number:date-style style:name="N143">
    <number:month/>
    <number:text>/</number:text>
    <number:day/>
@@ -271,62 +270,62 @@
    <number:text>:</number:text>
    <number:minutes number:style="long"/>
   </number:date-style>
-  <number:number-style style:name="N142P0" style:volatile="true">
+  <number:number-style style:name="N145P0" style:volatile="true">
    <number:number number:decimal-places="0" number:min-decimal-places="0" number:min-integer-digits="1" number:grouping="true"/>
    <number:text loext:blank-width-char=")"> </number:text>
   </number:number-style>
-  <number:number-style style:name="N142">
+  <number:number-style style:name="N145">
    <style:text-properties fo:color="#ff0000"/>
    <number:text>(</number:text>
    <number:number number:decimal-places="0" number:min-decimal-places="0" number:min-integer-digits="1" number:grouping="true"/>
    <number:text>)</number:text>
-   <style:map style:condition="value()&gt;=0" style:apply-style-name="N142P0"/>
+   <style:map style:condition="value()&gt;=0" style:apply-style-name="N145P0"/>
   </number:number-style>
-  <number:number-style style:name="N143P0" style:volatile="true">
+  <number:number-style style:name="N147P0" style:volatile="true">
    <number:number number:decimal-places="2" number:min-decimal-places="2" number:min-integer-digits="1" number:grouping="true"/>
    <number:text loext:blank-width-char=")"> </number:text>
   </number:number-style>
-  <number:number-style style:name="N143">
+  <number:number-style style:name="N147">
    <style:text-properties fo:color="#ff0000"/>
    <number:text>(</number:text>
    <number:number number:decimal-places="2" number:min-decimal-places="2" number:min-integer-digits="1" number:grouping="true"/>
    <number:text>)</number:text>
-   <style:map style:condition="value()&gt;=0" style:apply-style-name="N143P0"/>
+   <style:map style:condition="value()&gt;=0" style:apply-style-name="N147P0"/>
   </number:number-style>
-  <number:number-style style:name="N144P0" style:volatile="true">
+  <number:number-style style:name="N151P0" style:volatile="true">
    <number:text loext:blank-width-char="("> </number:text>
    <number:fill-character> </number:fill-character>
    <number:number number:decimal-places="0" number:min-decimal-places="0" number:min-integer-digits="1" number:grouping="true"/>
    <number:text loext:blank-width-char=")"> </number:text>
   </number:number-style>
-  <number:number-style style:name="N144P1" style:volatile="true">
+  <number:number-style style:name="N151P1" style:volatile="true">
    <number:text loext:blank-width-char="("> </number:text>
    <number:fill-character> </number:fill-character>
    <number:text>(</number:text>
    <number:number number:decimal-places="0" number:min-decimal-places="0" number:min-integer-digits="1" number:grouping="true"/>
    <number:text>)</number:text>
   </number:number-style>
-  <number:number-style style:name="N144P2" style:volatile="true">
+  <number:number-style style:name="N151P2" style:volatile="true">
    <number:text loext:blank-width-char="("> </number:text>
    <number:fill-character> </number:fill-character>
-   <number:text loext:blank-width-char=")1">- </number:text>
+   <number:text>- _)</number:text>
   </number:number-style>
-  <number:text-style style:name="N144">
+  <number:text-style style:name="N151">
    <number:text loext:blank-width-char="("> </number:text>
    <number:text-content/>
    <number:text loext:blank-width-char=")"> </number:text>
-   <style:map style:condition="value()&gt;0" style:apply-style-name="N144P0"/>
-   <style:map style:condition="value()&lt;0" style:apply-style-name="N144P1"/>
-   <style:map style:condition="value()=0" style:apply-style-name="N144P2"/>
+   <style:map style:condition="value()&gt;0" style:apply-style-name="N151P0"/>
+   <style:map style:condition="value()&lt;0" style:apply-style-name="N151P1"/>
+   <style:map style:condition="value()=0" style:apply-style-name="N151P2"/>
   </number:text-style>
-  <number:currency-style style:name="N145P0" style:volatile="true">
+  <number:currency-style style:name="N155P0" style:volatile="true">
    <number:text loext:blank-width-char="("> </number:text>
    <number:currency-symbol/>
    <number:fill-character> </number:fill-character>
    <number:number number:decimal-places="0" number:min-decimal-places="0" number:min-integer-digits="1" number:grouping="true"/>
-   <number:text loext:blank-width-char=")"> </number:text>
+   <number:text> _)</number:text>
   </number:currency-style>
-  <number:currency-style style:name="N145P1" style:volatile="true">
+  <number:currency-style style:name="N155P1" style:volatile="true">
    <number:text loext:blank-width-char="("> </number:text>
    <number:currency-symbol/>
    <number:fill-character> </number:fill-character>
@@ -334,56 +333,56 @@
    <number:number number:decimal-places="0" number:min-decimal-places="0" number:min-integer-digits="1" number:grouping="true"/>
    <number:text>)</number:text>
   </number:currency-style>
-  <number:currency-style style:name="N145P2" style:volatile="true">
+  <number:currency-style style:name="N155P2" style:volatile="true">
    <number:text loext:blank-width-char="("> </number:text>
    <number:currency-symbol/>
    <number:fill-character> </number:fill-character>
-   <number:text loext:blank-width-char=")1">- </number:text>
+   <number:text>- _)</number:text>
   </number:currency-style>
-  <number:text-style style:name="N145">
+  <number:text-style style:name="N155">
    <number:text loext:blank-width-char="("> </number:text>
    <number:text-content/>
    <number:text loext:blank-width-char=")"> </number:text>
-   <style:map style:condition="value()&gt;0" style:apply-style-name="N145P0"/>
-   <style:map style:condition="value()&lt;0" style:apply-style-name="N145P1"/>
-   <style:map style:condition="value()=0" style:apply-style-name="N145P2"/>
+   <style:map style:condition="value()&gt;0" style:apply-style-name="N155P0"/>
+   <style:map style:condition="value()&lt;0" style:apply-style-name="N155P1"/>
+   <style:map style:condition="value()=0" style:apply-style-name="N155P2"/>
   </number:text-style>
-  <number:number-style style:name="N146P0" style:volatile="true">
+  <number:number-style style:name="N159P0" style:volatile="true">
    <number:text loext:blank-width-char="("> </number:text>
    <number:fill-character> </number:fill-character>
    <number:number number:decimal-places="2" number:min-decimal-places="2" number:min-integer-digits="1" number:grouping="true"/>
    <number:text loext:blank-width-char=")"> </number:text>
   </number:number-style>
-  <number:number-style style:name="N146P1" style:volatile="true">
+  <number:number-style style:name="N159P1" style:volatile="true">
    <number:text loext:blank-width-char="("> </number:text>
    <number:fill-character> </number:fill-character>
    <number:text>(</number:text>
    <number:number number:decimal-places="2" number:min-decimal-places="2" number:min-integer-digits="1" number:grouping="true"/>
    <number:text>)</number:text>
   </number:number-style>
-  <number:number-style style:name="N146P2" style:volatile="true">
+  <number:number-style style:name="N159P2" style:volatile="true">
    <number:text loext:blank-width-char="("> </number:text>
    <number:fill-character> </number:fill-character>
    <number:text>-</number:text>
    <number:number number:decimal-places="0" number:min-decimal-places="0" number:min-integer-digits="2" loext:max-blank-integer-digits="2"/>
    <number:text loext:blank-width-char=")"> </number:text>
   </number:number-style>
-  <number:text-style style:name="N146">
+  <number:text-style style:name="N159">
    <number:text loext:blank-width-char="("> </number:text>
    <number:text-content/>
    <number:text loext:blank-width-char=")"> </number:text>
-   <style:map style:condition="value()&gt;0" style:apply-style-name="N146P0"/>
-   <style:map style:condition="value()&lt;0" style:apply-style-name="N146P1"/>
-   <style:map style:condition="value()=0" style:apply-style-name="N146P2"/>
+   <style:map style:condition="value()&gt;0" style:apply-style-name="N159P0"/>
+   <style:map style:condition="value()&lt;0" style:apply-style-name="N159P1"/>
+   <style:map style:condition="value()=0" style:apply-style-name="N159P2"/>
   </number:text-style>
-  <number:currency-style style:name="N147P0" style:volatile="true">
+  <number:currency-style style:name="N163P0" style:volatile="true">
    <number:text loext:blank-width-char="("> </number:text>
    <number:currency-symbol/>
    <number:fill-character> </number:fill-character>
    <number:number number:decimal-places="2" number:min-decimal-places="2" number:min-integer-digits="1" number:grouping="true"/>
-   <number:text loext:blank-width-char=")"> </number:text>
+   <number:text> _)</number:text>
   </number:currency-style>
-  <number:currency-style style:name="N147P1" style:volatile="true">
+  <number:currency-style style:name="N163P1" style:volatile="true">
    <number:text loext:blank-width-char="("> </number:text>
    <number:currency-symbol/>
    <number:fill-character> </number:fill-character>
@@ -391,40 +390,40 @@
    <number:number number:decimal-places="2" number:min-decimal-places="2" number:min-integer-digits="1" number:grouping="true"/>
    <number:text>)</number:text>
   </number:currency-style>
-  <number:currency-style style:name="N147P2" style:volatile="true">
+  <number:currency-style style:name="N163P2" style:volatile="true">
    <number:text loext:blank-width-char="("> </number:text>
    <number:currency-symbol/>
    <number:fill-character> </number:fill-character>
    <number:text>-</number:text>
    <number:number number:decimal-places="0" number:min-decimal-places="0" number:min-integer-digits="2" loext:max-blank-integer-digits="2"/>
-   <number:text loext:blank-width-char=")"> </number:text>
+   <number:text> _)</number:text>
   </number:currency-style>
-  <number:text-style style:name="N147">
+  <number:text-style style:name="N163">
    <number:text loext:blank-width-char="("> </number:text>
    <number:text-content/>
    <number:text loext:blank-width-char=")"> </number:text>
-   <style:map style:condition="value()&gt;0" style:apply-style-name="N147P0"/>
-   <style:map style:condition="value()&lt;0" style:apply-style-name="N147P1"/>
-   <style:map style:condition="value()=0" style:apply-style-name="N147P2"/>
+   <style:map style:condition="value()&gt;0" style:apply-style-name="N163P0"/>
+   <style:map style:condition="value()&lt;0" style:apply-style-name="N163P1"/>
+   <style:map style:condition="value()=0" style:apply-style-name="N163P2"/>
   </number:text-style>
-  <number:time-style style:name="N148">
+  <number:time-style style:name="N164">
    <number:minutes number:style="long"/>
    <number:text>:</number:text>
    <number:seconds number:style="long"/>
   </number:time-style>
-  <number:time-style style:name="N149" number:truncate-on-overflow="false">
+  <number:time-style style:name="N165" number:truncate-on-overflow="false">
    <number:hours/>
    <number:text>:</number:text>
    <number:minutes number:style="long"/>
    <number:text>:</number:text>
    <number:seconds number:style="long"/>
   </number:time-style>
-  <number:time-style style:name="N150">
+  <number:time-style style:name="N166">
    <number:minutes number:style="long"/>
    <number:text>:</number:text>
    <number:seconds number:style="long" number:decimal-places="1"/>
   </number:time-style>
-  <number:number-style style:name="N151">
+  <number:number-style style:name="N167">
    <number:scientific-number number:decimal-places="1" number:min-decimal-places="1" number:min-integer-digits="1" number:min-exponent-digits="1" number:exponent-interval="3" number:forced-exponent-sign="true"/>
   </number:number-style>
   <style:style style:name="Default" style:family="table-cell"/>
@@ -531,28 +530,28 @@
   </loext:theme>
  </office:styles>
  <office:automatic-styles>
-  <style:style style:name="co1" style:family="table-column">
+  <style:style style:name="co2" style:family="table-column">
    <style:table-column-properties fo:break-before="auto" style:column-width="1.352in"/>
   </style:style>
-  <style:style style:name="co2" style:family="table-column">
+  <style:style style:name="co3" style:family="table-column">
    <style:table-column-properties fo:break-before="auto" style:column-width="1.8154in"/>
   </style:style>
-  <style:style style:name="co3" style:family="table-column">
+  <style:style style:name="co4" style:family="table-column">
    <style:table-column-properties fo:break-before="auto" style:column-width="0.4953in"/>
   </style:style>
-  <style:style style:name="co4" style:family="table-column">
+  <style:style style:name="co5" style:family="table-column">
    <style:table-column-properties fo:break-before="auto" style:column-width="0.4638in"/>
   </style:style>
-  <style:style style:name="co5" style:family="table-column">
+  <style:style style:name="co6" style:family="table-column">
    <style:table-column-properties fo:break-before="auto" style:column-width="0.7307in"/>
   </style:style>
-  <style:style style:name="co6" style:family="table-column">
+  <style:style style:name="co7" style:family="table-column">
    <style:table-column-properties fo:break-before="auto" style:column-width="2.9902in"/>
   </style:style>
-  <style:style style:name="co7" style:family="table-column">
+  <style:style style:name="co8" style:family="table-column">
    <style:table-column-properties fo:break-before="auto" style:column-width="0.4689in"/>
   </style:style>
-  <style:style style:name="co8" style:family="table-column">
+  <style:style style:name="co10" style:family="table-column">
    <style:table-column-properties fo:break-before="auto" style:column-width="1.65in"/>
   </style:style>
   <style:style style:name="co9" style:family="table-column">
@@ -591,31 +590,79 @@
   <style:style style:name="ce5" style:family="table-cell" style:parent-style-name="Default" style:data-style-name="N0">
    <style:text-properties style:font-name="Liberation Sans"/>
   </style:style>
-  <style:style style:name="ce6" style:family="table-cell" style:parent-style-name="Pivot_20_Table_20_Field">
+  <style:style style:name="ce29" style:family="table-cell" style:parent-style-name="Pivot_20_Table_20_Field">
    <style:table-cell-properties fo:border-bottom="0.99pt solid #000000" fo:border-left="2.01pt solid #000000" fo:border-right="0.99pt solid #000000" fo:border-top="2.01pt solid #000000"/>
   </style:style>
-  <style:style style:name="ce7" style:family="table-cell" style:parent-style-name="Pivot_20_Table_20_Category" style:data-style-name="N0">
+  <style:style style:name="ce30" style:family="table-cell" style:parent-style-name="Pivot_20_Table_20_Category" style:data-style-name="N0">
    <style:table-cell-properties fo:border-bottom="none" fo:border-left="2.01pt solid #000000" fo:border-right="0.99pt solid #000000" fo:border-top="0.99pt solid #000000"/>
   </style:style>
-  <style:style style:name="ce8" style:family="table-cell" style:parent-style-name="Pivot_20_Table_20_Category" style:data-style-name="N0">
+  <style:style style:name="ce31" style:family="table-cell" style:parent-style-name="Pivot_20_Table_20_Category" style:data-style-name="N0">
    <style:table-cell-properties fo:border-bottom="none" fo:border-left="2.01pt solid #000000" fo:border-right="0.99pt solid #000000" fo:border-top="none"/>
   </style:style>
-  <style:style style:name="ce9" style:family="table-cell" style:parent-style-name="Pivot_20_Table_20_Title" style:data-style-name="N0">
+  <style:style style:name="ce32" style:family="table-cell" style:parent-style-name="Pivot_20_Table_20_Title" style:data-style-name="N0">
    <style:table-cell-properties fo:border-bottom="2.01pt solid #000000" fo:border-left="2.01pt solid #000000" fo:border-right="0.99pt solid #000000" fo:border-top="0.99pt solid #000000"/>
   </style:style>
-  <style:style style:name="ce10" style:family="table-cell" style:parent-style-name="Pivot_20_Table_20_Corner">
+  <style:style style:name="ce33" style:family="table-cell" style:parent-style-name="Pivot_20_Table_20_Corner">
    <style:table-cell-properties fo:border-bottom="0.99pt solid #000000" fo:border-left="0.99pt solid #000000" fo:border-right="2.01pt solid #000000" fo:border-top="2.01pt solid #000000"/>
   </style:style>
-  <style:style style:name="ce11" style:family="table-cell" style:parent-style-name="Pivot_20_Table_20_Value" style:data-style-name="N0">
+  <style:style style:name="ce34" style:family="table-cell" style:parent-style-name="Pivot_20_Table_20_Value" style:data-style-name="N0">
    <style:table-cell-properties fo:border-bottom="none" fo:border-left="0.99pt solid #000000" fo:border-right="2.01pt solid #000000" fo:border-top="0.99pt solid #000000"/>
   </style:style>
-  <style:style style:name="ce12" style:family="table-cell" style:parent-style-name="Pivot_20_Table_20_Value" style:data-style-name="N0">
+  <style:style style:name="ce35" style:family="table-cell" style:parent-style-name="Pivot_20_Table_20_Value" style:data-style-name="N0">
    <style:table-cell-properties fo:border-bottom="none" fo:border-left="0.99pt solid #000000" fo:border-right="2.01pt solid #000000" fo:border-top="none"/>
   </style:style>
-  <style:style style:name="ce13" style:family="table-cell" style:parent-style-name="Pivot_20_Table_20_Value" style:data-style-name="N0">
+  <style:style style:name="ce36" style:family="table-cell" style:parent-style-name="Pivot_20_Table_20_Value" style:data-style-name="N0">
    <style:table-cell-properties fo:border-bottom="0.99pt solid #000000" fo:border-left="0.99pt solid #000000" fo:border-right="2.01pt solid #000000" fo:border-top="none"/>
   </style:style>
-  <style:style style:name="ce14" style:family="table-cell" style:parent-style-name="Pivot_20_Table_20_Result" style:data-style-name="N0">
+  <style:style style:name="ce37" style:family="table-cell" style:parent-style-name="Pivot_20_Table_20_Result" style:data-style-name="N0">
+   <style:table-cell-properties fo:border-bottom="2.01pt solid #000000" fo:border-left="0.99pt solid #000000" fo:border-right="2.01pt solid #000000" fo:border-top="0.99pt solid #000000"/>
+  </style:style>
+  <style:style style:name="ce20" style:family="table-cell" style:parent-style-name="Default">
+   <style:text-properties style:font-name="Liberation Sans"/>
+  </style:style>
+  <style:style style:name="ce21" style:family="table-cell" style:parent-style-name="Default" style:data-style-name="N0">
+   <style:table-cell-properties style:cell-protect="protected" style:print-content="true" style:diagonal-bl-tr="none" style:diagonal-tl-br="none" style:text-align-source="value-type" style:repeat-content="false" fo:wrap-option="no-wrap" fo:border="0.74pt solid #ffffff" style:direction="ltr" style:rotation-angle="0" style:rotation-align="none" style:shrink-to-fit="false" style:vertical-align="top" loext:vertical-justify="auto"/>
+   <style:paragraph-properties css3t:text-justify="auto" fo:margin-left="0in" style:writing-mode="page"/>
+   <style:text-properties style:use-window-font-color="true" style:text-outline="false" style:text-line-through-style="none" style:text-line-through-type="none" style:font-name="Liberation Sans" fo:font-size="10pt" fo:font-style="normal" fo:text-shadow="none" style:text-underline-style="none" fo:font-weight="normal" style:font-size-asian="10pt" style:font-style-asian="normal" style:font-weight-asian="normal" style:font-size-complex="10pt" style:font-style-complex="normal" style:font-weight-complex="normal"/>
+  </style:style>
+  <style:style style:name="ce22" style:family="table-cell" style:parent-style-name="Default" style:data-style-name="N100">
+   <style:table-cell-properties style:cell-protect="protected" style:print-content="true" style:diagonal-bl-tr="none" style:diagonal-tl-br="none" style:text-align-source="value-type" style:repeat-content="false" fo:wrap-option="no-wrap" fo:border="0.74pt solid #ffffff" style:direction="ltr" style:rotation-angle="0" style:rotation-align="none" style:shrink-to-fit="false" style:vertical-align="top" loext:vertical-justify="auto"/>
+   <style:paragraph-properties css3t:text-justify="auto" fo:margin-left="0in" style:writing-mode="page"/>
+   <style:text-properties style:use-window-font-color="true" style:text-outline="false" style:text-line-through-style="none" style:text-line-through-type="none" style:font-name="Liberation Sans" fo:font-size="10pt" fo:font-style="normal" fo:text-shadow="none" style:text-underline-style="none" fo:font-weight="normal" style:font-size-asian="10pt" style:font-style-asian="normal" style:font-weight-asian="normal" style:font-size-complex="10pt" style:font-style-complex="normal" style:font-weight-complex="normal"/>
+  </style:style>
+  <style:style style:name="ce23" style:family="table-cell" style:parent-style-name="Default" style:data-style-name="N0">
+   <style:table-cell-properties style:cell-protect="protected" style:print-content="true" style:text-align-source="value-type" style:repeat-content="false" fo:wrap-option="no-wrap" style:direction="ltr" style:rotation-angle="0" style:rotation-align="none" style:shrink-to-fit="false" style:vertical-align="top" loext:vertical-justify="auto"/>
+   <style:paragraph-properties css3t:text-justify="auto" fo:margin-left="0in" style:writing-mode="page"/>
+   <style:text-properties style:use-window-font-color="true" style:text-outline="false" style:text-line-through-style="none" style:text-line-through-type="none" style:font-name="Liberation Sans" fo:font-size="10pt" fo:font-style="normal" fo:text-shadow="none" style:text-underline-style="none" fo:font-weight="normal" style:font-size-asian="10pt" style:font-style-asian="normal" style:font-weight-asian="normal" style:font-size-complex="10pt" style:font-style-complex="normal" style:font-weight-complex="normal"/>
+  </style:style>
+  <style:style style:name="ce24" style:family="table-cell" style:parent-style-name="Default" style:data-style-name="N0">
+   <style:text-properties style:font-name="Liberation Sans"/>
+  </style:style>
+  <style:style style:name="ce25" style:family="table-cell" style:parent-style-name="Pivot_20_Table_20_Field">
+   <style:table-cell-properties fo:border-bottom="0.99pt solid #000000" fo:border-left="2.01pt solid #000000" fo:border-right="0.99pt solid #000000" fo:border-top="2.01pt solid #000000"/>
+  </style:style>
+  <style:style style:name="ce26" style:family="table-cell" style:parent-style-name="Pivot_20_Table_20_Category" style:data-style-name="N0">
+   <style:table-cell-properties fo:border-bottom="none" fo:border-left="2.01pt solid #000000" fo:border-right="0.99pt solid #000000" fo:border-top="0.99pt solid #000000"/>
+  </style:style>
+  <style:style style:name="ce27" style:family="table-cell" style:parent-style-name="Pivot_20_Table_20_Category" style:data-style-name="N0">
+   <style:table-cell-properties fo:border-bottom="none" fo:border-left="2.01pt solid #000000" fo:border-right="0.99pt solid #000000" fo:border-top="none"/>
+  </style:style>
+  <style:style style:name="ce28" style:family="table-cell" style:parent-style-name="Pivot_20_Table_20_Title" style:data-style-name="N0">
+   <style:table-cell-properties fo:border-bottom="2.01pt solid #000000" fo:border-left="2.01pt solid #000000" fo:border-right="0.99pt solid #000000" fo:border-top="0.99pt solid #000000"/>
+  </style:style>
+  <style:style style:name="ce38" style:family="table-cell" style:parent-style-name="Pivot_20_Table_20_Corner">
+   <style:table-cell-properties fo:border-bottom="0.99pt solid #000000" fo:border-left="0.99pt solid #000000" fo:border-right="2.01pt solid #000000" fo:border-top="2.01pt solid #000000"/>
+  </style:style>
+  <style:style style:name="ce39" style:family="table-cell" style:parent-style-name="Pivot_20_Table_20_Value" style:data-style-name="N0">
+   <style:table-cell-properties fo:border-bottom="none" fo:border-left="0.99pt solid #000000" fo:border-right="2.01pt solid #000000" fo:border-top="0.99pt solid #000000"/>
+  </style:style>
+  <style:style style:name="ce40" style:family="table-cell" style:parent-style-name="Pivot_20_Table_20_Value" style:data-style-name="N0">
+   <style:table-cell-properties fo:border-bottom="none" fo:border-left="0.99pt solid #000000" fo:border-right="2.01pt solid #000000" fo:border-top="none"/>
+  </style:style>
+  <style:style style:name="ce41" style:family="table-cell" style:parent-style-name="Pivot_20_Table_20_Value" style:data-style-name="N0">
+   <style:table-cell-properties fo:border-bottom="0.99pt solid #000000" fo:border-left="0.99pt solid #000000" fo:border-right="2.01pt solid #000000" fo:border-top="none"/>
+  </style:style>
+  <style:style style:name="ce42" style:family="table-cell" style:parent-style-name="Pivot_20_Table_20_Result" style:data-style-name="N0">
    <style:table-cell-properties fo:border-bottom="2.01pt solid #000000" fo:border-left="0.99pt solid #000000" fo:border-right="2.01pt solid #000000" fo:border-top="0.99pt solid #000000"/>
   </style:style>
   <style:page-layout style:name="pm1">
@@ -660,7 +707,7 @@
      <text:p><text:sheet-name>???</text:sheet-name><text:s/>(<text:title>???</text:title>)</text:p>
     </style:region-left>
     <style:region-right>
-     <text:p><text:date style:data-style-name="N2" text:date-value="2024-11-28">00/00/0000</text:date>, <text:time>00:00:00</text:time></text:p>
+     <text:p><text:date style:data-style-name="N2" text:date-value="2024-11-28">00/00/0000</text:date>, <text:time style:data-style-name="N2" text:time-value="22:12:46.211545524">00:00:00</text:time></text:p>
     </style:region-right>
    </style:header>
    <style:header-left style:display="false"/>
@@ -676,15 +723,15 @@
   <office:spreadsheet>
    <table:calculation-settings table:automatic-find-labels="false" table:use-regular-expressions="false" table:use-wildcards="true"/>
    <table:table table:name="assembly_code" table:style-name="ta1">
-    <table:table-column table:style-name="co1" table:default-cell-style-name="ce1"/>
-    <table:table-column table:style-name="co2" table:default-cell-style-name="ce1"/>
-    <table:table-column table:style-name="co3" table:default-cell-style-name="ce1"/>
-    <table:table-column table:style-name="co4" table:default-cell-style-name="ce1"/>
-    <table:table-column table:style-name="co5" table:default-cell-style-name="ce4"/>
-    <table:table-column table:style-name="co6" table:default-cell-style-name="ce1"/>
-    <table:table-column table:style-name="co7" table:default-cell-style-name="ce1"/>
-    <table:table-column table:style-name="co8" table:default-cell-style-name="ce1"/>
-    <table:table-column table:style-name="co9" table:number-columns-repeated="16376" table:default-cell-style-name="ce1"/>
+    <table:table-column table:style-name="co2" table:default-cell-style-name="ce20"/>
+    <table:table-column table:style-name="co3" table:default-cell-style-name="ce20"/>
+    <table:table-column table:style-name="co4" table:default-cell-style-name="ce20"/>
+    <table:table-column table:style-name="co5" table:default-cell-style-name="ce20"/>
+    <table:table-column table:style-name="co6" table:default-cell-style-name="ce23"/>
+    <table:table-column table:style-name="co7" table:default-cell-style-name="ce20"/>
+    <table:table-column table:style-name="co8" table:default-cell-style-name="ce20"/>
+    <table:table-column table:style-name="co10" table:default-cell-style-name="ce20"/>
+    <table:table-column table:style-name="co9" table:number-columns-repeated="16376" table:default-cell-style-name="ce20"/>
     <table:table-row table:style-name="ro1">
      <table:table-cell office:value-type="string" calcext:value-type="string">
       <text:p>Label</text:p>
@@ -698,7 +745,7 @@
      <table:table-cell office:value-type="string" calcext:value-type="string">
       <text:p>Delay</text:p>
      </table:table-cell>
-     <table:table-cell table:style-name="ce1" office:value-type="string" calcext:value-type="string">
+     <table:table-cell table:style-name="ce20" office:value-type="string" calcext:value-type="string">
       <text:p>Interval</text:p>
      </table:table-cell>
      <table:table-cell office:value-type="string" calcext:value-type="string">
@@ -717,12 +764,12 @@
       <text:p>.program dmx512tx</text:p>
      </table:table-cell>
      <table:table-cell table:number-columns-repeated="3"/>
-     <table:table-cell table:style-name="ce2"/>
+     <table:table-cell table:style-name="ce21"/>
      <table:table-cell/>
-     <table:table-cell table:style-name="ce5" table:formula="of:=IF(ISBLANK([.B2]); 0; 1)" office:value-type="float" office:value="0" calcext:value-type="float">
+     <table:table-cell table:style-name="ce24" table:formula="of:=IF(ISBLANK([.B2]); 0; 1)" office:value-type="float" office:value="0" calcext:value-type="float">
       <text:p>0</text:p>
      </table:table-cell>
-     <table:table-cell table:style-name="ce5" table:formula="of:=[.D2]+[.G2]" office:value-type="float" office:value="0" calcext:value-type="float">
+     <table:table-cell table:style-name="ce24" table:formula="of:=[.D2]+[.G2]" office:value-type="float" office:value="0" calcext:value-type="float">
       <text:p>0</text:p>
      </table:table-cell>
      <table:table-cell table:number-columns-repeated="16376"/>
@@ -732,12 +779,12 @@
       <text:p>.side_set 2</text:p>
      </table:table-cell>
      <table:table-cell table:number-columns-repeated="3"/>
-     <table:table-cell table:style-name="ce2"/>
+     <table:table-cell table:style-name="ce21"/>
      <table:table-cell/>
-     <table:table-cell table:style-name="ce5" table:formula="of:=IF(ISBLANK([.B3]); 0; 1)" office:value-type="float" office:value="0" calcext:value-type="float">
+     <table:table-cell table:style-name="ce24" table:formula="of:=IF(ISBLANK([.B3]); 0; 1)" office:value-type="float" office:value="0" calcext:value-type="float">
       <text:p>0</text:p>
      </table:table-cell>
-     <table:table-cell table:style-name="ce5" table:formula="of:=[.D3]+[.G3]" office:value-type="float" office:value="0" calcext:value-type="float">
+     <table:table-cell table:style-name="ce24" table:formula="of:=[.D3]+[.G3]" office:value-type="float" office:value="0" calcext:value-type="float">
       <text:p>0</text:p>
      </table:table-cell>
      <table:table-cell table:number-columns-repeated="16376"/>
@@ -747,12 +794,12 @@
       <text:p>next_frame:</text:p>
      </table:table-cell>
      <table:table-cell table:number-columns-repeated="3"/>
-     <table:table-cell table:style-name="ce2"/>
+     <table:table-cell table:style-name="ce21"/>
      <table:table-cell/>
-     <table:table-cell table:style-name="ce5" table:formula="of:=IF(ISBLANK([.B4]); 0; 1)" office:value-type="float" office:value="0" calcext:value-type="float">
+     <table:table-cell table:style-name="ce24" table:formula="of:=IF(ISBLANK([.B4]); 0; 1)" office:value-type="float" office:value="0" calcext:value-type="float">
       <text:p>0</text:p>
      </table:table-cell>
-     <table:table-cell table:style-name="ce5" table:formula="of:=[.D4]+[.G4]" office:value-type="float" office:value="0" calcext:value-type="float">
+     <table:table-cell table:style-name="ce24" table:formula="of:=[.D4]+[.G4]" office:value-type="float" office:value="0" calcext:value-type="float">
       <text:p>0</text:p>
      </table:table-cell>
      <table:table-cell table:number-columns-repeated="16376"/>
@@ -766,16 +813,16 @@
       <text:p>0b01</text:p>
      </table:table-cell>
      <table:table-cell/>
-     <table:table-cell table:style-name="ce3" office:value-type="string" calcext:value-type="string">
+     <table:table-cell table:style-name="ce22" office:value-type="string" calcext:value-type="string">
       <text:p>MBB</text:p>
      </table:table-cell>
      <table:table-cell office:value-type="string" calcext:value-type="string">
       <text:p>MARK BEFORE BREAK: microseconds</text:p>
      </table:table-cell>
-     <table:table-cell table:style-name="ce5" table:formula="of:=IF(ISBLANK([.B5]); 0; 1)" office:value-type="float" office:value="1" calcext:value-type="float">
+     <table:table-cell table:style-name="ce24" table:formula="of:=IF(ISBLANK([.B5]); 0; 1)" office:value-type="float" office:value="1" calcext:value-type="float">
       <text:p>1</text:p>
      </table:table-cell>
-     <table:table-cell table:style-name="ce5" table:formula="of:=[.D5]+[.G5]" office:value-type="float" office:value="1" calcext:value-type="float">
+     <table:table-cell table:style-name="ce24" table:formula="of:=[.D5]+[.G5]" office:value-type="float" office:value="1" calcext:value-type="float">
       <text:p>1</text:p>
      </table:table-cell>
      <table:table-cell table:number-columns-repeated="16376"/>
@@ -785,12 +832,12 @@
       <text:p>mark_before_break:</text:p>
      </table:table-cell>
      <table:table-cell table:number-columns-repeated="3"/>
-     <table:table-cell table:style-name="ce2"/>
+     <table:table-cell table:style-name="ce21"/>
      <table:table-cell/>
-     <table:table-cell table:style-name="ce5" table:formula="of:=IF(ISBLANK([.B6]); 0; 1)" office:value-type="float" office:value="0" calcext:value-type="float">
+     <table:table-cell table:style-name="ce24" table:formula="of:=IF(ISBLANK([.B6]); 0; 1)" office:value-type="float" office:value="0" calcext:value-type="float">
       <text:p>0</text:p>
      </table:table-cell>
-     <table:table-cell table:style-name="ce5" table:formula="of:=[.D6]+[.G6]" office:value-type="float" office:value="0" calcext:value-type="float">
+     <table:table-cell table:style-name="ce24" table:formula="of:=[.D6]+[.G6]" office:value-type="float" office:value="0" calcext:value-type="float">
       <text:p>0</text:p>
      </table:table-cell>
      <table:table-cell table:number-columns-repeated="16376"/>
@@ -804,28 +851,28 @@
       <text:p>0b01</text:p>
      </table:table-cell>
      <table:table-cell/>
-     <table:table-cell table:style-name="ce3" office:value-type="string" calcext:value-type="string">
+     <table:table-cell table:style-name="ce22" office:value-type="string" calcext:value-type="string">
       <text:p>MBB</text:p>
      </table:table-cell>
      <table:table-cell office:value-type="string" calcext:value-type="string">
       <text:p>MARK BEFORE BREAK: (MBB)</text:p>
      </table:table-cell>
-     <table:table-cell table:style-name="ce5" table:formula="of:=IF(ISBLANK([.B7]); 0; 1)" office:value-type="float" office:value="1" calcext:value-type="float">
+     <table:table-cell table:style-name="ce24" table:formula="of:=IF(ISBLANK([.B7]); 0; 1)" office:value-type="float" office:value="1" calcext:value-type="float">
       <text:p>1</text:p>
      </table:table-cell>
-     <table:table-cell table:style-name="ce5" table:formula="of:=[.D7]+[.G7]" office:value-type="float" office:value="1" calcext:value-type="float">
+     <table:table-cell table:style-name="ce24" table:formula="of:=[.D7]+[.G7]" office:value-type="float" office:value="1" calcext:value-type="float">
       <text:p>1</text:p>
      </table:table-cell>
      <table:table-cell table:number-columns-repeated="16376"/>
     </table:table-row>
     <table:table-row table:style-name="ro1">
      <table:table-cell table:number-columns-repeated="4"/>
-     <table:table-cell table:style-name="ce2"/>
+     <table:table-cell table:style-name="ce21"/>
      <table:table-cell/>
-     <table:table-cell table:style-name="ce5" table:formula="of:=IF(ISBLANK([.B8]); 0; 1)" office:value-type="float" office:value="0" calcext:value-type="float">
+     <table:table-cell table:style-name="ce24" table:formula="of:=IF(ISBLANK([.B8]); 0; 1)" office:value-type="float" office:value="0" calcext:value-type="float">
       <text:p>0</text:p>
      </table:table-cell>
-     <table:table-cell table:style-name="ce5" table:formula="of:=[.D8]+[.G8]" office:value-type="float" office:value="0" calcext:value-type="float">
+     <table:table-cell table:style-name="ce24" table:formula="of:=[.D8]+[.G8]" office:value-type="float" office:value="0" calcext:value-type="float">
       <text:p>0</text:p>
      </table:table-cell>
      <table:table-cell table:number-columns-repeated="16376"/>
@@ -839,16 +886,16 @@
       <text:p>0b01</text:p>
      </table:table-cell>
      <table:table-cell/>
-     <table:table-cell table:style-name="ce3" office:value-type="string" calcext:value-type="string">
+     <table:table-cell table:style-name="ce22" office:value-type="string" calcext:value-type="string">
       <text:p>BREAK</text:p>
      </table:table-cell>
      <table:table-cell office:value-type="string" calcext:value-type="string">
       <text:p>SPACE FOR BREAK</text:p>
      </table:table-cell>
-     <table:table-cell table:style-name="ce5" table:formula="of:=IF(ISBLANK([.B9]); 0; 1)" office:value-type="float" office:value="1" calcext:value-type="float">
+     <table:table-cell table:style-name="ce24" table:formula="of:=IF(ISBLANK([.B9]); 0; 1)" office:value-type="float" office:value="1" calcext:value-type="float">
       <text:p>1</text:p>
      </table:table-cell>
-     <table:table-cell table:style-name="ce5" table:formula="of:=[.D9]+[.G9]" office:value-type="float" office:value="1" calcext:value-type="float">
+     <table:table-cell table:style-name="ce24" table:formula="of:=[.D9]+[.G9]" office:value-type="float" office:value="1" calcext:value-type="float">
       <text:p>1</text:p>
      </table:table-cell>
      <table:table-cell table:number-columns-repeated="16376"/>
@@ -862,16 +909,16 @@
       <text:p>0b01</text:p>
      </table:table-cell>
      <table:table-cell/>
-     <table:table-cell table:style-name="ce3" office:value-type="string" calcext:value-type="string">
+     <table:table-cell table:style-name="ce22" office:value-type="string" calcext:value-type="string">
       <text:p>BREAK</text:p>
      </table:table-cell>
      <table:table-cell office:value-type="string" calcext:value-type="string">
       <text:p>SPACE FOR BREAK: microseconds</text:p>
      </table:table-cell>
-     <table:table-cell table:style-name="ce5" table:formula="of:=IF(ISBLANK([.B10]); 0; 1)" office:value-type="float" office:value="1" calcext:value-type="float">
+     <table:table-cell table:style-name="ce24" table:formula="of:=IF(ISBLANK([.B10]); 0; 1)" office:value-type="float" office:value="1" calcext:value-type="float">
       <text:p>1</text:p>
      </table:table-cell>
-     <table:table-cell table:style-name="ce5" table:formula="of:=[.D10]+[.G10]" office:value-type="float" office:value="1" calcext:value-type="float">
+     <table:table-cell table:style-name="ce24" table:formula="of:=[.D10]+[.G10]" office:value-type="float" office:value="1" calcext:value-type="float">
       <text:p>1</text:p>
      </table:table-cell>
      <table:table-cell table:number-columns-repeated="16376"/>
@@ -881,12 +928,12 @@
       <text:p>spaceforbreak:</text:p>
      </table:table-cell>
      <table:table-cell table:number-columns-repeated="3"/>
-     <table:table-cell table:style-name="ce2"/>
+     <table:table-cell table:style-name="ce21"/>
      <table:table-cell/>
-     <table:table-cell table:style-name="ce5" table:formula="of:=IF(ISBLANK([.B11]); 0; 1)" office:value-type="float" office:value="0" calcext:value-type="float">
+     <table:table-cell table:style-name="ce24" table:formula="of:=IF(ISBLANK([.B11]); 0; 1)" office:value-type="float" office:value="0" calcext:value-type="float">
       <text:p>0</text:p>
      </table:table-cell>
-     <table:table-cell table:style-name="ce5" table:formula="of:=[.D11]+[.G11]" office:value-type="float" office:value="0" calcext:value-type="float">
+     <table:table-cell table:style-name="ce24" table:formula="of:=[.D11]+[.G11]" office:value-type="float" office:value="0" calcext:value-type="float">
       <text:p>0</text:p>
      </table:table-cell>
      <table:table-cell table:number-columns-repeated="16376"/>
@@ -900,16 +947,16 @@
       <text:p>0b01</text:p>
      </table:table-cell>
      <table:table-cell/>
-     <table:table-cell table:style-name="ce3" office:value-type="string" calcext:value-type="string">
+     <table:table-cell table:style-name="ce22" office:value-type="string" calcext:value-type="string">
       <text:p>BREAK</text:p>
      </table:table-cell>
      <table:table-cell office:value-type="string" calcext:value-type="string">
       <text:p>SPACE FOR BREAK (BRK)</text:p>
      </table:table-cell>
-     <table:table-cell table:style-name="ce5" table:formula="of:=IF(ISBLANK([.B12]); 0; 1)" office:value-type="float" office:value="1" calcext:value-type="float">
+     <table:table-cell table:style-name="ce24" table:formula="of:=IF(ISBLANK([.B12]); 0; 1)" office:value-type="float" office:value="1" calcext:value-type="float">
       <text:p>1</text:p>
      </table:table-cell>
-     <table:table-cell table:style-name="ce5" table:formula="of:=[.D12]+[.G12]" office:value-type="float" office:value="1" calcext:value-type="float">
+     <table:table-cell table:style-name="ce24" table:formula="of:=[.D12]+[.G12]" office:value-type="float" office:value="1" calcext:value-type="float">
       <text:p>1</text:p>
      </table:table-cell>
      <table:table-cell table:number-columns-repeated="16376"/>
@@ -923,16 +970,16 @@
       <text:p>0b01</text:p>
      </table:table-cell>
      <table:table-cell/>
-     <table:table-cell table:style-name="ce3" office:value-type="string" calcext:value-type="string">
+     <table:table-cell table:style-name="ce22" office:value-type="string" calcext:value-type="string">
       <text:p>BREAK</text:p>
      </table:table-cell>
      <table:table-cell office:value-type="string" calcext:value-type="string">
       <text:p>MARK AFTER BREAK (MAB)</text:p>
      </table:table-cell>
-     <table:table-cell table:style-name="ce5" table:formula="of:=IF(ISBLANK([.B13]); 0; 1)" office:value-type="float" office:value="1" calcext:value-type="float">
+     <table:table-cell table:style-name="ce24" table:formula="of:=IF(ISBLANK([.B13]); 0; 1)" office:value-type="float" office:value="1" calcext:value-type="float">
       <text:p>1</text:p>
      </table:table-cell>
-     <table:table-cell table:style-name="ce5" table:formula="of:=[.D13]+[.G13]" office:value-type="float" office:value="1" calcext:value-type="float">
+     <table:table-cell table:style-name="ce24" table:formula="of:=[.D13]+[.G13]" office:value-type="float" office:value="1" calcext:value-type="float">
       <text:p>1</text:p>
      </table:table-cell>
      <table:table-cell table:number-columns-repeated="16376"/>
@@ -946,16 +993,16 @@
       <text:p>0b11</text:p>
      </table:table-cell>
      <table:table-cell/>
-     <table:table-cell table:style-name="ce3" office:value-type="string" calcext:value-type="string">
+     <table:table-cell table:style-name="ce22" office:value-type="string" calcext:value-type="string">
       <text:p>MAB</text:p>
      </table:table-cell>
      <table:table-cell office:value-type="string" calcext:value-type="string">
       <text:p>MARK AFTER BREAK: microseconds</text:p>
      </table:table-cell>
-     <table:table-cell table:style-name="ce5" table:formula="of:=IF(ISBLANK([.B14]); 0; 1)" office:value-type="float" office:value="1" calcext:value-type="float">
+     <table:table-cell table:style-name="ce24" table:formula="of:=IF(ISBLANK([.B14]); 0; 1)" office:value-type="float" office:value="1" calcext:value-type="float">
       <text:p>1</text:p>
      </table:table-cell>
-     <table:table-cell table:style-name="ce5" table:formula="of:=[.D14]+[.G14]" office:value-type="float" office:value="1" calcext:value-type="float">
+     <table:table-cell table:style-name="ce24" table:formula="of:=[.D14]+[.G14]" office:value-type="float" office:value="1" calcext:value-type="float">
       <text:p>1</text:p>
      </table:table-cell>
      <table:table-cell table:number-columns-repeated="16376"/>
@@ -965,12 +1012,12 @@
       <text:p>mark_after_break:</text:p>
      </table:table-cell>
      <table:table-cell table:number-columns-repeated="3"/>
-     <table:table-cell table:style-name="ce2"/>
+     <table:table-cell table:style-name="ce21"/>
      <table:table-cell/>
-     <table:table-cell table:style-name="ce5" table:formula="of:=IF(ISBLANK([.B15]); 0; 1)" office:value-type="float" office:value="0" calcext:value-type="float">
+     <table:table-cell table:style-name="ce24" table:formula="of:=IF(ISBLANK([.B15]); 0; 1)" office:value-type="float" office:value="0" calcext:value-type="float">
       <text:p>0</text:p>
      </table:table-cell>
-     <table:table-cell table:style-name="ce5" table:formula="of:=[.D15]+[.G15]" office:value-type="float" office:value="0" calcext:value-type="float">
+     <table:table-cell table:style-name="ce24" table:formula="of:=[.D15]+[.G15]" office:value-type="float" office:value="0" calcext:value-type="float">
       <text:p>0</text:p>
      </table:table-cell>
      <table:table-cell table:number-columns-repeated="16376"/>
@@ -984,28 +1031,28 @@
       <text:p>0b11</text:p>
      </table:table-cell>
      <table:table-cell/>
-     <table:table-cell table:style-name="ce3" office:value-type="string" calcext:value-type="string">
+     <table:table-cell table:style-name="ce22" office:value-type="string" calcext:value-type="string">
       <text:p>MAB</text:p>
      </table:table-cell>
      <table:table-cell office:value-type="string" calcext:value-type="string">
       <text:p>MARK AFTER BREAK: wait</text:p>
      </table:table-cell>
-     <table:table-cell table:style-name="ce5" table:formula="of:=IF(ISBLANK([.B16]); 0; 1)" office:value-type="float" office:value="1" calcext:value-type="float">
+     <table:table-cell table:style-name="ce24" table:formula="of:=IF(ISBLANK([.B16]); 0; 1)" office:value-type="float" office:value="1" calcext:value-type="float">
       <text:p>1</text:p>
      </table:table-cell>
-     <table:table-cell table:style-name="ce5" table:formula="of:=[.D16]+[.G16]" office:value-type="float" office:value="1" calcext:value-type="float">
+     <table:table-cell table:style-name="ce24" table:formula="of:=[.D16]+[.G16]" office:value-type="float" office:value="1" calcext:value-type="float">
       <text:p>1</text:p>
      </table:table-cell>
      <table:table-cell table:number-columns-repeated="16376"/>
     </table:table-row>
     <table:table-row table:style-name="ro1">
      <table:table-cell table:number-columns-repeated="4"/>
-     <table:table-cell table:style-name="ce2"/>
+     <table:table-cell table:style-name="ce21"/>
      <table:table-cell/>
-     <table:table-cell table:style-name="ce5" table:formula="of:=IF(ISBLANK([.B17]); 0; 1)" office:value-type="float" office:value="0" calcext:value-type="float">
+     <table:table-cell table:style-name="ce24" table:formula="of:=IF(ISBLANK([.B17]); 0; 1)" office:value-type="float" office:value="0" calcext:value-type="float">
       <text:p>0</text:p>
      </table:table-cell>
-     <table:table-cell table:style-name="ce5" table:formula="of:=[.D17]+[.G17]" office:value-type="float" office:value="0" calcext:value-type="float">
+     <table:table-cell table:style-name="ce24" table:formula="of:=[.D17]+[.G17]" office:value-type="float" office:value="0" calcext:value-type="float">
       <text:p>0</text:p>
      </table:table-cell>
      <table:table-cell table:number-columns-repeated="16376"/>
@@ -1019,28 +1066,28 @@
       <text:p>0b11</text:p>
      </table:table-cell>
      <table:table-cell/>
-     <table:table-cell table:style-name="ce3" office:value-type="string" calcext:value-type="string">
+     <table:table-cell table:style-name="ce22" office:value-type="string" calcext:value-type="string">
       <text:p>MAB</text:p>
      </table:table-cell>
      <table:table-cell office:value-type="string" calcext:value-type="string">
       <text:p>Ctrl: Get the number of slots we&apos;ll display</text:p>
      </table:table-cell>
-     <table:table-cell table:style-name="ce5" table:formula="of:=IF(ISBLANK([.B18]); 0; 1)" office:value-type="float" office:value="1" calcext:value-type="float">
+     <table:table-cell table:style-name="ce24" table:formula="of:=IF(ISBLANK([.B18]); 0; 1)" office:value-type="float" office:value="1" calcext:value-type="float">
       <text:p>1</text:p>
      </table:table-cell>
-     <table:table-cell table:style-name="ce5" table:formula="of:=[.D18]+[.G18]" office:value-type="float" office:value="1" calcext:value-type="float">
+     <table:table-cell table:style-name="ce24" table:formula="of:=[.D18]+[.G18]" office:value-type="float" office:value="1" calcext:value-type="float">
       <text:p>1</text:p>
      </table:table-cell>
      <table:table-cell table:number-columns-repeated="16376"/>
     </table:table-row>
     <table:table-row table:style-name="ro1">
      <table:table-cell table:number-columns-repeated="4"/>
-     <table:table-cell table:style-name="ce2"/>
+     <table:table-cell table:style-name="ce21"/>
      <table:table-cell/>
-     <table:table-cell table:style-name="ce5" table:formula="of:=IF(ISBLANK([.B19]); 0; 1)" office:value-type="float" office:value="0" calcext:value-type="float">
+     <table:table-cell table:style-name="ce24" table:formula="of:=IF(ISBLANK([.B19]); 0; 1)" office:value-type="float" office:value="0" calcext:value-type="float">
       <text:p>0</text:p>
      </table:table-cell>
-     <table:table-cell table:style-name="ce5" table:formula="of:=[.D19]+[.G19]" office:value-type="float" office:value="0" calcext:value-type="float">
+     <table:table-cell table:style-name="ce24" table:formula="of:=[.D19]+[.G19]" office:value-type="float" office:value="0" calcext:value-type="float">
       <text:p>0</text:p>
      </table:table-cell>
      <table:table-cell table:number-columns-repeated="16376"/>
@@ -1050,12 +1097,12 @@
       <text:p>data_byte:</text:p>
      </table:table-cell>
      <table:table-cell table:number-columns-repeated="3"/>
-     <table:table-cell table:style-name="ce2"/>
+     <table:table-cell table:style-name="ce21"/>
      <table:table-cell/>
-     <table:table-cell table:style-name="ce5" table:formula="of:=IF(ISBLANK([.B20]); 0; 1)" office:value-type="float" office:value="0" calcext:value-type="float">
+     <table:table-cell table:style-name="ce24" table:formula="of:=IF(ISBLANK([.B20]); 0; 1)" office:value-type="float" office:value="0" calcext:value-type="float">
       <text:p>0</text:p>
      </table:table-cell>
-     <table:table-cell table:style-name="ce5" table:formula="of:=[.D20]+[.G20]" office:value-type="float" office:value="0" calcext:value-type="float">
+     <table:table-cell table:style-name="ce24" table:formula="of:=[.D20]+[.G20]" office:value-type="float" office:value="0" calcext:value-type="float">
       <text:p>0</text:p>
      </table:table-cell>
      <table:table-cell table:number-columns-repeated="16376"/>
@@ -1069,16 +1116,16 @@
       <text:p>0b11</text:p>
      </table:table-cell>
      <table:table-cell/>
-     <table:table-cell table:style-name="ce3" office:value-type="string" calcext:value-type="string">
+     <table:table-cell table:style-name="ce22" office:value-type="string" calcext:value-type="string">
       <text:p>ASTART</text:p>
      </table:table-cell>
      <table:table-cell office:value-type="string" calcext:value-type="string">
       <text:p>DATA: Present (Alt. Start)</text:p>
      </table:table-cell>
-     <table:table-cell table:style-name="ce5" table:formula="of:=IF(ISBLANK([.B21]); 0; 1)" office:value-type="float" office:value="1" calcext:value-type="float">
+     <table:table-cell table:style-name="ce24" table:formula="of:=IF(ISBLANK([.B21]); 0; 1)" office:value-type="float" office:value="1" calcext:value-type="float">
       <text:p>1</text:p>
      </table:table-cell>
-     <table:table-cell table:style-name="ce5" table:formula="of:=[.D21]+[.G21]" office:value-type="float" office:value="1" calcext:value-type="float">
+     <table:table-cell table:style-name="ce24" table:formula="of:=[.D21]+[.G21]" office:value-type="float" office:value="1" calcext:value-type="float">
       <text:p>1</text:p>
      </table:table-cell>
      <table:table-cell table:number-columns-repeated="16376"/>
@@ -1094,16 +1141,16 @@
      <table:table-cell office:value-type="float" office:value="2" calcext:value-type="float">
       <text:p>2</text:p>
      </table:table-cell>
-     <table:table-cell table:style-name="ce3" office:value-type="string" calcext:value-type="string">
+     <table:table-cell table:style-name="ce22" office:value-type="string" calcext:value-type="string">
       <text:p>START</text:p>
      </table:table-cell>
      <table:table-cell office:value-type="string" calcext:value-type="string">
       <text:p>DATA: Start bit (STA)</text:p>
      </table:table-cell>
-     <table:table-cell table:style-name="ce5" table:formula="of:=IF(ISBLANK([.B22]); 0; 1)" office:value-type="float" office:value="1" calcext:value-type="float">
+     <table:table-cell table:style-name="ce24" table:formula="of:=IF(ISBLANK([.B22]); 0; 1)" office:value-type="float" office:value="1" calcext:value-type="float">
       <text:p>1</text:p>
      </table:table-cell>
-     <table:table-cell table:style-name="ce5" table:formula="of:=[.D22]+[.G22]" office:value-type="float" office:value="3" calcext:value-type="float">
+     <table:table-cell table:style-name="ce24" table:formula="of:=[.D22]+[.G22]" office:value-type="float" office:value="3" calcext:value-type="float">
       <text:p>3</text:p>
      </table:table-cell>
      <table:table-cell table:number-columns-repeated="16376"/>
@@ -1117,16 +1164,16 @@
       <text:p>0b01</text:p>
      </table:table-cell>
      <table:table-cell/>
-     <table:table-cell table:style-name="ce3" office:value-type="string" calcext:value-type="string">
+     <table:table-cell table:style-name="ce22" office:value-type="string" calcext:value-type="string">
       <text:p>START</text:p>
      </table:table-cell>
      <table:table-cell office:value-type="string" calcext:value-type="string">
       <text:p>DATA: Set up 8 bits</text:p>
      </table:table-cell>
-     <table:table-cell table:style-name="ce5" table:formula="of:=IF(ISBLANK([.B23]); 0; 1)" office:value-type="float" office:value="1" calcext:value-type="float">
+     <table:table-cell table:style-name="ce24" table:formula="of:=IF(ISBLANK([.B23]); 0; 1)" office:value-type="float" office:value="1" calcext:value-type="float">
       <text:p>1</text:p>
      </table:table-cell>
-     <table:table-cell table:style-name="ce5" table:formula="of:=[.D23]+[.G23]" office:value-type="float" office:value="1" calcext:value-type="float">
+     <table:table-cell table:style-name="ce24" table:formula="of:=[.D23]+[.G23]" office:value-type="float" office:value="1" calcext:value-type="float">
       <text:p>1</text:p>
      </table:table-cell>
      <table:table-cell table:number-columns-repeated="16376"/>
@@ -1136,12 +1183,12 @@
       <text:p>data_bit:</text:p>
      </table:table-cell>
      <table:table-cell table:number-columns-repeated="3"/>
-     <table:table-cell table:style-name="ce2"/>
+     <table:table-cell table:style-name="ce21"/>
      <table:table-cell/>
-     <table:table-cell table:style-name="ce5" table:formula="of:=IF(ISBLANK([.B24]); 0; 1)" office:value-type="float" office:value="0" calcext:value-type="float">
+     <table:table-cell table:style-name="ce24" table:formula="of:=IF(ISBLANK([.B24]); 0; 1)" office:value-type="float" office:value="0" calcext:value-type="float">
       <text:p>0</text:p>
      </table:table-cell>
-     <table:table-cell table:style-name="ce5" table:formula="of:=[.D24]+[.G24]" office:value-type="float" office:value="0" calcext:value-type="float">
+     <table:table-cell table:style-name="ce24" table:formula="of:=[.D24]+[.G24]" office:value-type="float" office:value="0" calcext:value-type="float">
       <text:p>0</text:p>
      </table:table-cell>
      <table:table-cell table:number-columns-repeated="16376"/>
@@ -1157,16 +1204,16 @@
      <table:table-cell office:value-type="float" office:value="2" calcext:value-type="float">
       <text:p>2</text:p>
      </table:table-cell>
-     <table:table-cell table:style-name="ce3" office:value-type="string" calcext:value-type="string">
+     <table:table-cell table:style-name="ce22" office:value-type="string" calcext:value-type="string">
       <text:p>DATA</text:p>
      </table:table-cell>
      <table:table-cell office:value-type="string" calcext:value-type="string">
       <text:p>DATA: Data bit (DAT)</text:p>
      </table:table-cell>
-     <table:table-cell table:style-name="ce5" table:formula="of:=IF(ISBLANK([.B25]); 0; 1)" office:value-type="float" office:value="1" calcext:value-type="float">
+     <table:table-cell table:style-name="ce24" table:formula="of:=IF(ISBLANK([.B25]); 0; 1)" office:value-type="float" office:value="1" calcext:value-type="float">
       <text:p>1</text:p>
      </table:table-cell>
-     <table:table-cell table:style-name="ce5" table:formula="of:=[.D25]+[.G25]" office:value-type="float" office:value="3" calcext:value-type="float">
+     <table:table-cell table:style-name="ce24" table:formula="of:=[.D25]+[.G25]" office:value-type="float" office:value="3" calcext:value-type="float">
       <text:p>3</text:p>
      </table:table-cell>
      <table:table-cell table:number-columns-repeated="16376"/>
@@ -1180,16 +1227,16 @@
       <text:p>0b01</text:p>
      </table:table-cell>
      <table:table-cell/>
-     <table:table-cell table:style-name="ce3" office:value-type="string" calcext:value-type="string">
+     <table:table-cell table:style-name="ce22" office:value-type="string" calcext:value-type="string">
       <text:p>DATA</text:p>
      </table:table-cell>
      <table:table-cell office:value-type="string" calcext:value-type="string">
       <text:p>DATA: more bits?</text:p>
      </table:table-cell>
-     <table:table-cell table:style-name="ce5" table:formula="of:=IF(ISBLANK([.B26]); 0; 1)" office:value-type="float" office:value="1" calcext:value-type="float">
+     <table:table-cell table:style-name="ce24" table:formula="of:=IF(ISBLANK([.B26]); 0; 1)" office:value-type="float" office:value="1" calcext:value-type="float">
       <text:p>1</text:p>
      </table:table-cell>
-     <table:table-cell table:style-name="ce5" table:formula="of:=[.D26]+[.G26]" office:value-type="float" office:value="1" calcext:value-type="float">
+     <table:table-cell table:style-name="ce24" table:formula="of:=[.D26]+[.G26]" office:value-type="float" office:value="1" calcext:value-type="float">
       <text:p>1</text:p>
      </table:table-cell>
      <table:table-cell table:number-columns-repeated="16376"/>
@@ -1203,16 +1250,16 @@
       <text:p>0b01</text:p>
      </table:table-cell>
      <table:table-cell/>
-     <table:table-cell table:style-name="ce3" office:value-type="string" calcext:value-type="string">
+     <table:table-cell table:style-name="ce22" office:value-type="string" calcext:value-type="string">
       <text:p>STOP</text:p>
      </table:table-cell>
      <table:table-cell office:value-type="string" calcext:value-type="string">
       <text:p>DATA: 2 stop bits MARK_BETWEEN_SLOTS</text:p>
      </table:table-cell>
-     <table:table-cell table:style-name="ce5" table:formula="of:=IF(ISBLANK([.B27]); 0; 1)" office:value-type="float" office:value="1" calcext:value-type="float">
+     <table:table-cell table:style-name="ce24" table:formula="of:=IF(ISBLANK([.B27]); 0; 1)" office:value-type="float" office:value="1" calcext:value-type="float">
       <text:p>1</text:p>
      </table:table-cell>
-     <table:table-cell table:style-name="ce5" table:formula="of:=[.D27]+[.G27]" office:value-type="float" office:value="1" calcext:value-type="float">
+     <table:table-cell table:style-name="ce24" table:formula="of:=[.D27]+[.G27]" office:value-type="float" office:value="1" calcext:value-type="float">
       <text:p>1</text:p>
      </table:table-cell>
      <table:table-cell table:number-columns-repeated="16376"/>
@@ -1226,16 +1273,16 @@
       <text:p>0b01</text:p>
      </table:table-cell>
      <table:table-cell/>
-     <table:table-cell table:style-name="ce3" office:value-type="string" calcext:value-type="string">
+     <table:table-cell table:style-name="ce22" office:value-type="string" calcext:value-type="string">
       <text:p>STOP</text:p>
      </table:table-cell>
      <table:table-cell office:value-type="string" calcext:value-type="string">
       <text:p>DATA: 2 stop bits microseconds</text:p>
      </table:table-cell>
-     <table:table-cell table:style-name="ce5" table:formula="of:=IF(ISBLANK([.B28]); 0; 1)" office:value-type="float" office:value="1" calcext:value-type="float">
+     <table:table-cell table:style-name="ce24" table:formula="of:=IF(ISBLANK([.B28]); 0; 1)" office:value-type="float" office:value="1" calcext:value-type="float">
       <text:p>1</text:p>
      </table:table-cell>
-     <table:table-cell table:style-name="ce5" table:formula="of:=[.D28]+[.G28]" office:value-type="float" office:value="1" calcext:value-type="float">
+     <table:table-cell table:style-name="ce24" table:formula="of:=[.D28]+[.G28]" office:value-type="float" office:value="1" calcext:value-type="float">
       <text:p>1</text:p>
      </table:table-cell>
      <table:table-cell table:number-columns-repeated="16376"/>
@@ -1245,12 +1292,12 @@
       <text:p>data_stop:</text:p>
      </table:table-cell>
      <table:table-cell table:number-columns-repeated="3"/>
-     <table:table-cell table:style-name="ce3"/>
+     <table:table-cell table:style-name="ce22"/>
      <table:table-cell/>
-     <table:table-cell table:style-name="ce5" table:formula="of:=IF(ISBLANK([.B29]); 0; 1)" office:value-type="float" office:value="0" calcext:value-type="float">
+     <table:table-cell table:style-name="ce24" table:formula="of:=IF(ISBLANK([.B29]); 0; 1)" office:value-type="float" office:value="0" calcext:value-type="float">
       <text:p>0</text:p>
      </table:table-cell>
-     <table:table-cell table:style-name="ce5" table:formula="of:=[.D29]+[.G29]" office:value-type="float" office:value="0" calcext:value-type="float">
+     <table:table-cell table:style-name="ce24" table:formula="of:=[.D29]+[.G29]" office:value-type="float" office:value="0" calcext:value-type="float">
       <text:p>0</text:p>
      </table:table-cell>
      <table:table-cell table:number-columns-repeated="16376"/>
@@ -1264,16 +1311,16 @@
       <text:p>0b01</text:p>
      </table:table-cell>
      <table:table-cell/>
-     <table:table-cell table:style-name="ce3" office:value-type="string" calcext:value-type="string">
+     <table:table-cell table:style-name="ce22" office:value-type="string" calcext:value-type="string">
       <text:p>STOP</text:p>
      </table:table-cell>
      <table:table-cell office:value-type="string" calcext:value-type="string">
       <text:p>DATA: Stop (STP)</text:p>
      </table:table-cell>
-     <table:table-cell table:style-name="ce5" table:formula="of:=IF(ISBLANK([.B30]); 0; 1)" office:value-type="float" office:value="1" calcext:value-type="float">
+     <table:table-cell table:style-name="ce24" table:formula="of:=IF(ISBLANK([.B30]); 0; 1)" office:value-type="float" office:value="1" calcext:value-type="float">
       <text:p>1</text:p>
      </table:table-cell>
-     <table:table-cell table:style-name="ce5" table:formula="of:=[.D30]+[.G30]" office:value-type="float" office:value="1" calcext:value-type="float">
+     <table:table-cell table:style-name="ce24" table:formula="of:=[.D30]+[.G30]" office:value-type="float" office:value="1" calcext:value-type="float">
       <text:p>1</text:p>
      </table:table-cell>
      <table:table-cell table:number-columns-repeated="16376"/>
@@ -1287,28 +1334,28 @@
       <text:p>0b01</text:p>
      </table:table-cell>
      <table:table-cell/>
-     <table:table-cell table:style-name="ce3" office:value-type="string" calcext:value-type="string">
+     <table:table-cell table:style-name="ce22" office:value-type="string" calcext:value-type="string">
       <text:p>STOP</text:p>
      </table:table-cell>
      <table:table-cell office:value-type="string" calcext:value-type="string">
       <text:p>Ctrl: Count down the slots.</text:p>
      </table:table-cell>
-     <table:table-cell table:style-name="ce5" table:formula="of:=IF(ISBLANK([.B31]); 0; 1)" office:value-type="float" office:value="1" calcext:value-type="float">
+     <table:table-cell table:style-name="ce24" table:formula="of:=IF(ISBLANK([.B31]); 0; 1)" office:value-type="float" office:value="1" calcext:value-type="float">
       <text:p>1</text:p>
      </table:table-cell>
-     <table:table-cell table:style-name="ce5" table:formula="of:=[.D31]+[.G31]" office:value-type="float" office:value="1" calcext:value-type="float">
+     <table:table-cell table:style-name="ce24" table:formula="of:=[.D31]+[.G31]" office:value-type="float" office:value="1" calcext:value-type="float">
       <text:p>1</text:p>
      </table:table-cell>
      <table:table-cell table:number-columns-repeated="16376"/>
     </table:table-row>
     <table:table-row table:style-name="ro1">
      <table:table-cell table:number-columns-repeated="4"/>
-     <table:table-cell table:style-name="ce2"/>
+     <table:table-cell table:style-name="ce21"/>
      <table:table-cell/>
-     <table:table-cell table:style-name="ce5" table:formula="of:=IF(ISBLANK([.B32]); 0; 1)" office:value-type="float" office:value="0" calcext:value-type="float">
+     <table:table-cell table:style-name="ce24" table:formula="of:=IF(ISBLANK([.B32]); 0; 1)" office:value-type="float" office:value="0" calcext:value-type="float">
       <text:p>0</text:p>
      </table:table-cell>
-     <table:table-cell table:style-name="ce5" table:formula="of:=[.D32]+[.G32]" office:value-type="float" office:value="0" calcext:value-type="float">
+     <table:table-cell table:style-name="ce24" table:formula="of:=[.D32]+[.G32]" office:value-type="float" office:value="0" calcext:value-type="float">
       <text:p>0</text:p>
      </table:table-cell>
      <table:table-cell table:number-columns-repeated="16376"/>
@@ -1322,16 +1369,16 @@
       <text:p>0b01</text:p>
      </table:table-cell>
      <table:table-cell/>
-     <table:table-cell table:style-name="ce3" office:value-type="string" calcext:value-type="string">
+     <table:table-cell table:style-name="ce22" office:value-type="string" calcext:value-type="string">
       <text:p>ATSTART</text:p>
      </table:table-cell>
      <table:table-cell office:value-type="string" calcext:value-type="string">
       <text:p>TERMINAL: Present (Alt. Start bit)</text:p>
      </table:table-cell>
-     <table:table-cell table:style-name="ce5" table:formula="of:=IF(ISBLANK([.B33]); 0; 1)" office:value-type="float" office:value="1" calcext:value-type="float">
+     <table:table-cell table:style-name="ce24" table:formula="of:=IF(ISBLANK([.B33]); 0; 1)" office:value-type="float" office:value="1" calcext:value-type="float">
       <text:p>1</text:p>
      </table:table-cell>
-     <table:table-cell table:style-name="ce5" table:formula="of:=[.D33]+[.G33]" office:value-type="float" office:value="1" calcext:value-type="float">
+     <table:table-cell table:style-name="ce24" table:formula="of:=[.D33]+[.G33]" office:value-type="float" office:value="1" calcext:value-type="float">
       <text:p>1</text:p>
      </table:table-cell>
      <table:table-cell table:number-columns-repeated="16376"/>
@@ -1347,16 +1394,16 @@
      <table:table-cell office:value-type="float" office:value="2" calcext:value-type="float">
       <text:p>2</text:p>
      </table:table-cell>
-     <table:table-cell table:style-name="ce3" office:value-type="string" calcext:value-type="string">
+     <table:table-cell table:style-name="ce22" office:value-type="string" calcext:value-type="string">
       <text:p>TSTART</text:p>
      </table:table-cell>
      <table:table-cell office:value-type="string" calcext:value-type="string">
       <text:p>TERMINAL: Start bit</text:p>
      </table:table-cell>
-     <table:table-cell table:style-name="ce5" table:formula="of:=IF(ISBLANK([.B34]); 0; 1)" office:value-type="float" office:value="1" calcext:value-type="float">
+     <table:table-cell table:style-name="ce24" table:formula="of:=IF(ISBLANK([.B34]); 0; 1)" office:value-type="float" office:value="1" calcext:value-type="float">
       <text:p>1</text:p>
      </table:table-cell>
-     <table:table-cell table:style-name="ce5" table:formula="of:=[.D34]+[.G34]" office:value-type="float" office:value="3" calcext:value-type="float">
+     <table:table-cell table:style-name="ce24" table:formula="of:=[.D34]+[.G34]" office:value-type="float" office:value="3" calcext:value-type="float">
       <text:p>3</text:p>
      </table:table-cell>
      <table:table-cell table:number-columns-repeated="16376"/>
@@ -1370,16 +1417,16 @@
       <text:p>0b01</text:p>
      </table:table-cell>
      <table:table-cell/>
-     <table:table-cell table:style-name="ce3" office:value-type="string" calcext:value-type="string">
+     <table:table-cell table:style-name="ce22" office:value-type="string" calcext:value-type="string">
       <text:p>TSTART</text:p>
      </table:table-cell>
      <table:table-cell office:value-type="string" calcext:value-type="string">
       <text:p>TERMINAL: Set up 8 bits</text:p>
      </table:table-cell>
-     <table:table-cell table:style-name="ce5" table:formula="of:=IF(ISBLANK([.B35]); 0; 1)" office:value-type="float" office:value="1" calcext:value-type="float">
+     <table:table-cell table:style-name="ce24" table:formula="of:=IF(ISBLANK([.B35]); 0; 1)" office:value-type="float" office:value="1" calcext:value-type="float">
       <text:p>1</text:p>
      </table:table-cell>
-     <table:table-cell table:style-name="ce5" table:formula="of:=[.D35]+[.G35]" office:value-type="float" office:value="1" calcext:value-type="float">
+     <table:table-cell table:style-name="ce24" table:formula="of:=[.D35]+[.G35]" office:value-type="float" office:value="1" calcext:value-type="float">
       <text:p>1</text:p>
      </table:table-cell>
      <table:table-cell table:number-columns-repeated="16376"/>
@@ -1389,12 +1436,12 @@
       <text:p>term_bit:</text:p>
      </table:table-cell>
      <table:table-cell table:number-columns-repeated="3"/>
-     <table:table-cell table:style-name="ce2"/>
+     <table:table-cell table:style-name="ce21"/>
      <table:table-cell/>
-     <table:table-cell table:style-name="ce5" table:formula="of:=IF(ISBLANK([.B36]); 0; 1)" office:value-type="float" office:value="0" calcext:value-type="float">
+     <table:table-cell table:style-name="ce24" table:formula="of:=IF(ISBLANK([.B36]); 0; 1)" office:value-type="float" office:value="0" calcext:value-type="float">
       <text:p>0</text:p>
      </table:table-cell>
-     <table:table-cell table:style-name="ce5" table:formula="of:=[.D36]+[.G36]" office:value-type="float" office:value="0" calcext:value-type="float">
+     <table:table-cell table:style-name="ce24" table:formula="of:=[.D36]+[.G36]" office:value-type="float" office:value="0" calcext:value-type="float">
       <text:p>0</text:p>
      </table:table-cell>
      <table:table-cell table:number-columns-repeated="16376"/>
@@ -1410,16 +1457,16 @@
      <table:table-cell office:value-type="float" office:value="2" calcext:value-type="float">
       <text:p>2</text:p>
      </table:table-cell>
-     <table:table-cell table:style-name="ce3" office:value-type="string" calcext:value-type="string">
+     <table:table-cell table:style-name="ce22" office:value-type="string" calcext:value-type="string">
       <text:p>TDATA</text:p>
      </table:table-cell>
      <table:table-cell office:value-type="string" calcext:value-type="string">
       <text:p>TERMINAL: Data bit (TDATA)</text:p>
      </table:table-cell>
-     <table:table-cell table:style-name="ce5" table:formula="of:=IF(ISBLANK([.B37]); 0; 1)" office:value-type="float" office:value="1" calcext:value-type="float">
+     <table:table-cell table:style-name="ce24" table:formula="of:=IF(ISBLANK([.B37]); 0; 1)" office:value-type="float" office:value="1" calcext:value-type="float">
       <text:p>1</text:p>
      </table:table-cell>
-     <table:table-cell table:style-name="ce5" table:formula="of:=[.D37]+[.G37]" office:value-type="float" office:value="3" calcext:value-type="float">
+     <table:table-cell table:style-name="ce24" table:formula="of:=[.D37]+[.G37]" office:value-type="float" office:value="3" calcext:value-type="float">
       <text:p>3</text:p>
      </table:table-cell>
      <table:table-cell table:number-columns-repeated="16376"/>
@@ -1433,16 +1480,16 @@
       <text:p>0b01</text:p>
      </table:table-cell>
      <table:table-cell/>
-     <table:table-cell table:style-name="ce3" office:value-type="string" calcext:value-type="string">
+     <table:table-cell table:style-name="ce22" office:value-type="string" calcext:value-type="string">
       <text:p>TDATA</text:p>
      </table:table-cell>
      <table:table-cell office:value-type="string" calcext:value-type="string">
       <text:p>TERMINAL: more bits?</text:p>
      </table:table-cell>
-     <table:table-cell table:style-name="ce5" table:formula="of:=IF(ISBLANK([.B38]); 0; 1)" office:value-type="float" office:value="1" calcext:value-type="float">
+     <table:table-cell table:style-name="ce24" table:formula="of:=IF(ISBLANK([.B38]); 0; 1)" office:value-type="float" office:value="1" calcext:value-type="float">
       <text:p>1</text:p>
      </table:table-cell>
-     <table:table-cell table:style-name="ce5" table:formula="of:=[.D38]+[.G38]" office:value-type="float" office:value="1" calcext:value-type="float">
+     <table:table-cell table:style-name="ce24" table:formula="of:=[.D38]+[.G38]" office:value-type="float" office:value="1" calcext:value-type="float">
       <text:p>1</text:p>
      </table:table-cell>
      <table:table-cell table:number-columns-repeated="16376"/>
@@ -1456,16 +1503,16 @@
       <text:p>0b01</text:p>
      </table:table-cell>
      <table:table-cell/>
-     <table:table-cell table:style-name="ce3" office:value-type="string" calcext:value-type="string">
+     <table:table-cell table:style-name="ce22" office:value-type="string" calcext:value-type="string">
       <text:p>MAF</text:p>
      </table:table-cell>
      <table:table-cell office:value-type="string" calcext:value-type="string">
       <text:p>TERMINAL: 2 stop bits MARK_AFTER_FRAME</text:p>
      </table:table-cell>
-     <table:table-cell table:style-name="ce5" table:formula="of:=IF(ISBLANK([.B39]); 0; 1)" office:value-type="float" office:value="1" calcext:value-type="float">
+     <table:table-cell table:style-name="ce24" table:formula="of:=IF(ISBLANK([.B39]); 0; 1)" office:value-type="float" office:value="1" calcext:value-type="float">
       <text:p>1</text:p>
      </table:table-cell>
-     <table:table-cell table:style-name="ce5" table:formula="of:=[.D39]+[.G39]" office:value-type="float" office:value="1" calcext:value-type="float">
+     <table:table-cell table:style-name="ce24" table:formula="of:=[.D39]+[.G39]" office:value-type="float" office:value="1" calcext:value-type="float">
       <text:p>1</text:p>
      </table:table-cell>
      <table:table-cell table:number-columns-repeated="16376"/>
@@ -1479,16 +1526,16 @@
       <text:p>0b01</text:p>
      </table:table-cell>
      <table:table-cell/>
-     <table:table-cell table:style-name="ce3" office:value-type="string" calcext:value-type="string">
+     <table:table-cell table:style-name="ce22" office:value-type="string" calcext:value-type="string">
       <text:p>MAF</text:p>
      </table:table-cell>
      <table:table-cell office:value-type="string" calcext:value-type="string">
       <text:p>TERMINAL: 2 stop bits microseconds</text:p>
      </table:table-cell>
-     <table:table-cell table:style-name="ce5" table:formula="of:=IF(ISBLANK([.B40]); 0; 1)" office:value-type="float" office:value="1" calcext:value-type="float">
+     <table:table-cell table:style-name="ce24" table:formula="of:=IF(ISBLANK([.B40]); 0; 1)" office:value-type="float" office:value="1" calcext:value-type="float">
       <text:p>1</text:p>
      </table:table-cell>
-     <table:table-cell table:style-name="ce5" table:formula="of:=[.D40]+[.G40]" office:value-type="float" office:value="1" calcext:value-type="float">
+     <table:table-cell table:style-name="ce24" table:formula="of:=[.D40]+[.G40]" office:value-type="float" office:value="1" calcext:value-type="float">
       <text:p>1</text:p>
      </table:table-cell>
      <table:table-cell table:number-columns-repeated="16376"/>
@@ -1502,16 +1549,16 @@
       <text:p>0b01</text:p>
      </table:table-cell>
      <table:table-cell/>
-     <table:table-cell table:style-name="ce3" office:value-type="string" calcext:value-type="string">
+     <table:table-cell table:style-name="ce22" office:value-type="string" calcext:value-type="string">
       <text:p>MAF</text:p>
      </table:table-cell>
      <table:table-cell office:value-type="string" calcext:value-type="string">
       <text:p>TERMINAL: MARK_AFTER_FRAME (MAF)</text:p>
      </table:table-cell>
-     <table:table-cell table:style-name="ce5" table:formula="of:=IF(ISBLANK([.B41]); 0; 1)" office:value-type="float" office:value="1" calcext:value-type="float">
+     <table:table-cell table:style-name="ce24" table:formula="of:=IF(ISBLANK([.B41]); 0; 1)" office:value-type="float" office:value="1" calcext:value-type="float">
       <text:p>1</text:p>
      </table:table-cell>
-     <table:table-cell table:style-name="ce5" table:formula="of:=[.D41]+[.G41]" office:value-type="float" office:value="1" calcext:value-type="float">
+     <table:table-cell table:style-name="ce24" table:formula="of:=[.D41]+[.G41]" office:value-type="float" office:value="1" calcext:value-type="float">
       <text:p>1</text:p>
      </table:table-cell>
      <table:table-cell table:number-columns-repeated="16376"/>
@@ -1521,12 +1568,12 @@
       <text:p>frame_stop:</text:p>
      </table:table-cell>
      <table:table-cell table:number-columns-repeated="3"/>
-     <table:table-cell table:style-name="ce2"/>
+     <table:table-cell table:style-name="ce21"/>
      <table:table-cell/>
-     <table:table-cell table:style-name="ce5" table:formula="of:=IF(ISBLANK([.B42]); 0; 1)" office:value-type="float" office:value="0" calcext:value-type="float">
+     <table:table-cell table:style-name="ce24" table:formula="of:=IF(ISBLANK([.B42]); 0; 1)" office:value-type="float" office:value="0" calcext:value-type="float">
       <text:p>0</text:p>
      </table:table-cell>
-     <table:table-cell table:style-name="ce5" table:formula="of:=[.D42]+[.G42]" office:value-type="float" office:value="0" calcext:value-type="float">
+     <table:table-cell table:style-name="ce24" table:formula="of:=[.D42]+[.G42]" office:value-type="float" office:value="0" calcext:value-type="float">
       <text:p>0</text:p>
      </table:table-cell>
      <table:table-cell table:number-columns-repeated="16376"/>
@@ -1540,16 +1587,16 @@
       <text:p>0b01</text:p>
      </table:table-cell>
      <table:table-cell/>
-     <table:table-cell table:style-name="ce3" office:value-type="string" calcext:value-type="string">
+     <table:table-cell table:style-name="ce22" office:value-type="string" calcext:value-type="string">
       <text:p>WAIT</text:p>
      </table:table-cell>
      <table:table-cell office:value-type="string" calcext:value-type="string">
       <text:p>TERMINAL: Wait further.</text:p>
      </table:table-cell>
-     <table:table-cell table:style-name="ce5" table:formula="of:=IF(ISBLANK([.B43]); 0; 1)" office:value-type="float" office:value="1" calcext:value-type="float">
+     <table:table-cell table:style-name="ce24" table:formula="of:=IF(ISBLANK([.B43]); 0; 1)" office:value-type="float" office:value="1" calcext:value-type="float">
       <text:p>1</text:p>
      </table:table-cell>
-     <table:table-cell table:style-name="ce5" table:formula="of:=[.D43]+[.G43]" office:value-type="float" office:value="1" calcext:value-type="float">
+     <table:table-cell table:style-name="ce24" table:formula="of:=[.D43]+[.G43]" office:value-type="float" office:value="1" calcext:value-type="float">
       <text:p>1</text:p>
      </table:table-cell>
      <table:table-cell table:number-columns-repeated="16376"/>
@@ -1563,28 +1610,28 @@
       <text:p>0b00</text:p>
      </table:table-cell>
      <table:table-cell/>
-     <table:table-cell table:style-name="ce3" office:value-type="string" calcext:value-type="string">
+     <table:table-cell table:style-name="ce22" office:value-type="string" calcext:value-type="string">
       <text:p>WAIT</text:p>
      </table:table-cell>
      <table:table-cell office:value-type="string" calcext:value-type="string">
       <text:p>TERMINAL: Wait for data.</text:p>
      </table:table-cell>
-     <table:table-cell table:style-name="ce5" table:formula="of:=IF(ISBLANK([.B44]); 0; 1)" office:value-type="float" office:value="1" calcext:value-type="float">
+     <table:table-cell table:style-name="ce24" table:formula="of:=IF(ISBLANK([.B44]); 0; 1)" office:value-type="float" office:value="1" calcext:value-type="float">
       <text:p>1</text:p>
      </table:table-cell>
-     <table:table-cell table:style-name="ce5" table:formula="of:=[.D44]+[.G44]" office:value-type="float" office:value="1" calcext:value-type="float">
+     <table:table-cell table:style-name="ce24" table:formula="of:=[.D44]+[.G44]" office:value-type="float" office:value="1" calcext:value-type="float">
       <text:p>1</text:p>
      </table:table-cell>
      <table:table-cell table:number-columns-repeated="16376"/>
     </table:table-row>
     <table:table-row table:style-name="ro1">
      <table:table-cell table:number-columns-repeated="4"/>
-     <table:table-cell table:style-name="ce2"/>
+     <table:table-cell table:style-name="ce21"/>
      <table:table-cell table:number-columns-repeated="16379"/>
     </table:table-row>
     <table:table-row table:style-name="ro1">
      <table:table-cell table:number-columns-repeated="4"/>
-     <table:table-cell table:style-name="ce2"/>
+     <table:table-cell table:style-name="ce21"/>
      <table:table-cell/>
      <table:table-cell table:formula="of:=SUM([.G2:.G45])" office:value-type="float" office:value="28" calcext:value-type="float">
       <text:p>28</text:p>
@@ -1602,21 +1649,21 @@
     </table:table-row>
    </table:table>
    <table:table table:name="Pivot Table_assembly_code_1" table:style-name="ta1">
-    <table:table-column table:style-name="co9" table:default-cell-style-name="ce8"/>
-    <table:table-column table:style-name="co9" table:default-cell-style-name="ce12"/>
+    <table:table-column table:style-name="co9" table:default-cell-style-name="ce27"/>
+    <table:table-column table:style-name="co9" table:default-cell-style-name="ce40"/>
     <table:table-row table:style-name="ro1">
-     <table:table-cell table:style-name="ce6" office:value-type="string" calcext:value-type="string">
+     <table:table-cell table:style-name="ce25" office:value-type="string" calcext:value-type="string">
       <text:p>Interval</text:p>
      </table:table-cell>
-     <table:table-cell table:style-name="ce10" office:value-type="string" calcext:value-type="string">
+     <table:table-cell table:style-name="ce38" office:value-type="string" calcext:value-type="string">
       <text:p>Sum - Tics</text:p>
      </table:table-cell>
     </table:table-row>
     <table:table-row table:style-name="ro1">
-     <table:table-cell table:style-name="ce7" office:value-type="string" calcext:value-type="string">
+     <table:table-cell table:style-name="ce26" office:value-type="string" calcext:value-type="string">
       <text:p>ASTART</text:p>
      </table:table-cell>
-     <table:table-cell table:style-name="ce11" office:value-type="float" office:value="1" calcext:value-type="float">
+     <table:table-cell table:style-name="ce39" office:value-type="float" office:value="1" calcext:value-type="float">
       <text:p>1</text:p>
      </table:table-cell>
     </table:table-row>
@@ -1712,15 +1759,15 @@
      <table:table-cell office:value-type="string" calcext:value-type="string">
       <text:p>(empty)</text:p>
      </table:table-cell>
-     <table:table-cell table:style-name="ce13" office:value-type="float" office:value="0" calcext:value-type="float">
+     <table:table-cell table:style-name="ce41" office:value-type="float" office:value="0" calcext:value-type="float">
       <text:p>0</text:p>
      </table:table-cell>
     </table:table-row>
     <table:table-row table:style-name="ro1">
-     <table:table-cell table:style-name="ce9" office:value-type="string" calcext:value-type="string">
+     <table:table-cell table:style-name="ce28" office:value-type="string" calcext:value-type="string">
       <text:p>Total Result</text:p>
      </table:table-cell>
-     <table:table-cell table:style-name="ce14" office:value-type="float" office:value="36" calcext:value-type="float">
+     <table:table-cell table:style-name="ce42" office:value-type="float" office:value="36" calcext:value-type="float">
       <text:p>36</text:p>
      </table:table-cell>
     </table:table-row>

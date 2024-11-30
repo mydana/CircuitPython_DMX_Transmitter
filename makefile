@@ -10,6 +10,13 @@ LIBRARY_FILES = \
   dmx_transmitter/payload_USITT_DMX512_A.py \
   dmx_transmitter/machine_code.py
 
+deploy: deploy.py examples/fireworks.py $(LIBRARY_FILES)
+	source .venv/bin/activate; \
+	python3 deploy.py --code=examples/fireworks.py \
+	--var DMX_PIN=board.D4 \
+	dmx_transmitter/dmx_transmitter.py \
+	dmx_transmitter/payload_USITT_DMX512_A.py \
+	dmx_transmitter/machine_code.py
 
 install:
 	python3 -m venv .venv; \
@@ -35,13 +42,7 @@ dmx_transmitter/machine_code.py: $(MACHINE_CODE_DEPS)
 	--python assembly_code/assembly_code.txt \
 	--out dmx_transmitter/machine_code.py
 
-deploy: deploy.py examples/fireworks.py $(LIBRARY_FILES)
-	source .venv/bin/activate; \
-	python3 deploy.py --code=examples/fireworks.py \
-	--var DMX_PIN=board.D4 \
-	dmx_transmitter/dmx_transmitter.py \
-	dmx_transmitter/payload_USITT_DMX512_A.py \
-	dmx_transmitter/machine_code.py
+# TODO: run c tests
 
 clean: FORCE
 	rm -rf .venv

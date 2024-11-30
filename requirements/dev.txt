@@ -6,5 +6,6 @@
 Adafruit-Blinka
 adafruit-circuitpython-pioasm
 circup
+pre-commit
 Sphinx
 sphinx-rtd-theme

@@ -56,7 +56,7 @@ class DMXTransmitter(Payload_USITT_DMX512_A):
     :param exclusive_pin_use: Used for debugging.
     """
 
-    def __init__(
+    def __init__(  # pylint: disable=too-many-arguments
         self,
         dmx_out_pin,
         slots=512,
@@ -97,15 +97,12 @@ class DMXTransmitter(Payload_USITT_DMX512_A):
         )
         self.show()
 
-    def n(self):
-        return len(self)
-
     def show(self, once=None) -> None:
         """Buffer DMX payload to the state machine and out the wire.
 
         Changes are not seen until 'show' is called again.
         """
-        self.state_machine.background_write(once=None, loop=self.get_show_buffer())
+        self.state_machine.background_write(once=once, loop=self.get_show_buffer())
 
     def stop(self) -> None:
         """Stop sending data down the wire.

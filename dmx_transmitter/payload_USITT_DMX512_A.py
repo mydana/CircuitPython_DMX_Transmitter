@@ -86,63 +86,60 @@ class Payload_USITT_DMX512_A:  # pylint: disable=too-many-instance-attributes
     ## While it's possible to set mark_after_frame to a value, and continue
     ## to send data to the state machine, there is no good reason to do this.
 
-
-
-
-#     @classmethod
-#     def get_timing(cls):
-#         """Minimum timing for the payload objects.
-# 
-#         This function returns a dictionary, but Payload_USITT_DMX512_A
-#         wants a class. To use this online, just add this filter::
-# 
-#             _MinimumTiming = type(
-#                 '_MinimumTiming',
-#                 (),
-#                 AssemblyCode.get_timing()
-#             )
-#         """
-#         timing = {}
-#         intervals = {}
-#         for number, line in enumerate(cls.pre_process(1).split("\n")):
-#             code, _, comments = line.partition(";")
-#             # Find out what's not code.
-#             code = code.rstrip()
-#             if not code:  # Empty
-#                 continue
-#             if code.startswith("."):  # Directives
-#                 continue
-#             if code.endswith(":"):  # Labels
-#                 continue
-#             # This is an opcode, get duration
-#             duration = 1
-#             if code.endswith("]"):  # Delay
-#                 end = code[:-1].split("[")[1]
-#                 duration = duration + (int(end) if end else 0)
-#             # Look for interval symbol
-#             interval, _, comments = comments.partition(";")
-#             interval = interval.strip()
-#             if not interval:
-#                 raise ValueError(f"Line {number + 1} does not have a symbol.")
-#             if not comments:
-#                 raise ValueError(f"Line {number + 1} does not have comments.")
-#             if interval not in intervals:
-#                 intervals[interval] = 0
-#             intervals[interval] = intervals[interval] + duration
-#         timing["mark_before_break_short"] = intervals["MBB"]
-#         timing["mark_before_break_long"] = intervals["MBB"] + intervals["MAF"]
-#         timing["space_for_break"] = intervals["BRK"]
-#         timing["mark_after_break"] = intervals["MAB"] + intervals["AST"]
-#         assert 4 == intervals["STA"]  # Start bit SHALL be 4 µS
-#         assert 4 == intervals["DAT"]  # Data bit SHALL be 4 µS
-#         timing["mark_between_slots"] = intervals["STP"] + intervals["AST"]
-#         assert (
-#             intervals["AST"] == intervals["ATS"]
-#         )  # Clean transition to terminal slot.
-#         assert 4 == intervals["TSA"]  # Terminal start bit SHALL be 4 µS
-#         assert 4 == intervals["TDA"]  # Termainal data bit SHALL be 4 µS
-#         timing["mark_after_frame"] = intervals["MAF"] + intervals["WAT"]
-#         return timing
+    #     @classmethod
+    #     def get_timing(cls):
+    #         """Minimum timing for the payload objects.
+    #
+    #         This function returns a dictionary, but Payload_USITT_DMX512_A
+    #         wants a class. To use this online, just add this filter::
+    #
+    #             _MinimumTiming = type(
+    #                 '_MinimumTiming',
+    #                 (),
+    #                 AssemblyCode.get_timing()
+    #             )
+    #         """
+    #         timing = {}
+    #         intervals = {}
+    #         for number, line in enumerate(cls.pre_process(1).split("\n")):
+    #             code, _, comments = line.partition(";")
+    #             # Find out what's not code.
+    #             code = code.rstrip()
+    #             if not code:  # Empty
+    #                 continue
+    #             if code.startswith("."):  # Directives
+    #                 continue
+    #             if code.endswith(":"):  # Labels
+    #                 continue
+    #             # This is an opcode, get duration
+    #             duration = 1
+    #             if code.endswith("]"):  # Delay
+    #                 end = code[:-1].split("[")[1]
+    #                 duration = duration + (int(end) if end else 0)
+    #             # Look for interval symbol
+    #             interval, _, comments = comments.partition(";")
+    #             interval = interval.strip()
+    #             if not interval:
+    #                 raise ValueError(f"Line {number + 1} does not have a symbol.")
+    #             if not comments:
+    #                 raise ValueError(f"Line {number + 1} does not have comments.")
+    #             if interval not in intervals:
+    #                 intervals[interval] = 0
+    #             intervals[interval] = intervals[interval] + duration
+    #         timing["mark_before_break_short"] = intervals["MBB"]
+    #         timing["mark_before_break_long"] = intervals["MBB"] + intervals["MAF"]
+    #         timing["space_for_break"] = intervals["BRK"]
+    #         timing["mark_after_break"] = intervals["MAB"] + intervals["AST"]
+    #         assert 4 == intervals["STA"]  # Start bit SHALL be 4 µS
+    #         assert 4 == intervals["DAT"]  # Data bit SHALL be 4 µS
+    #         timing["mark_between_slots"] = intervals["STP"] + intervals["AST"]
+    #         assert (
+    #             intervals["AST"] == intervals["ATS"]
+    #         )  # Clean transition to terminal slot.
+    #         assert 4 == intervals["TSA"]  # Terminal start bit SHALL be 4 µS
+    #         assert 4 == intervals["TDA"]  # Termainal data bit SHALL be 4 µS
+    #         timing["mark_after_frame"] = intervals["MAF"] + intervals["WAT"]
+    #         return timing
 
     class _MinimumTiming:  # pylint: disable=too-few-public-methods
         "Minimum timing from lib/dmx_transmitter/assembly_code.py"
@@ -153,7 +150,6 @@ class Payload_USITT_DMX512_A:  # pylint: disable=too-many-instance-attributes
         mark_after_break = 4
         mark_before_break_long = 5
         mark_before_break_short = 2
-
 
     def __init__(
         self,
@@ -206,6 +202,10 @@ class Payload_USITT_DMX512_A:  # pylint: disable=too-many-instance-attributes
 
     @property
     def auto_write(self):
+        """Enable or disable auto_write.
+
+        If auto_write is True: Changes appear right away.
+        If auto_write is False: Call .show() for changes to appear."""
         if self.buffers == 1:
             return True
         return self.edit_buffer == self.show_buffer
@@ -245,7 +245,7 @@ class Payload_USITT_DMX512_A:  # pylint: disable=too-many-instance-attributes
             self.buffers[stop_buffer][:] = self.buffers[self.show_buffer][:]
         else:
             # autowrite is False, we'll reset the edit buffer.
-            stop_buffer = edit_buffer
+            stop_buffer = self.edit_buffer
             # Copy show buffer to unused buffer.
 
     def _init_timing_defaults(self) -> None:
@@ -498,7 +498,7 @@ class Payload_USITT_DMX512_A:  # pylint: disable=too-many-instance-attributes
             ixes = ixes + len(self)
         if ixes < 0 or ixes >= len(self):
             raise IndexError("Index out of range")
-        return payload[ixes * 2 + 1]
+        return payload[ixes * 2 + 2]
 
     def __setitem__(
         self,
