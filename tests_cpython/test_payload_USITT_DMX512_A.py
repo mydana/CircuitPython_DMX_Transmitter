@@ -17,26 +17,26 @@ class PayloadMixin:
         #
         # This length is calculated
         self.assertEqual(
-            len(self.payload), self.slots * self.universes, "incorrect array length"
+            len(self), self.slots, "incorrect array length"
         )
         #
         # This length is a property
-        self.assertEqual(self.payload.slots, self.slots, "incorrect slot length")
+        self.assertEqual(self.slots, self.slots, "incorrect slot length")
         #
         # This is defined by DMX. It is 0 unless subclassed
-        self.assertEqual(self.payload.start_code, 0, "incorrect start code")
+        self.assertEqual(self.start_code, 0, "incorrect start code")
         #
         # Set up some data
-        self.data = [random.randint(0, 255) for _ in range(len(self.payload))]
+        self.data = [random.randint(0, 255) for _ in range(len(self))]
         #
         # Assign that data:
-        self.payload[:] = self.data
+        self[:] = self.data
         #
         # Pre-check the mark_before_break
         properties["mark_before_break"] = random.randint(7, 255)
-        setattr(self.payload, "mark_before_break", properties["mark_before_break"])
+        setattr(self, "mark_before_break", properties["mark_before_break"])
         self.assertEqual(
-            getattr(self.payload, "mark_before_break"),
+            getattr(self, "mark_before_break"),
             properties["mark_before_break"],
             "Property mark_before_break did not match",
         )
@@ -52,15 +52,15 @@ class PayloadMixin:
             "mark_before_break",
         ):
             properties[my_property] = random.randint(7, 255)
-            setattr(self.payload, my_property, properties[my_property])
+            setattr(self, my_property, properties[my_property])
         #
         # Verify the data
-        self.assertEqual(list(self.payload), self.data, "DMX data mismatch")
+        self.assertEqual(list(self), self.data, "DMX data mismatch")
         #
         # Check the properties
         for my_property in properties:  # pylint: disable=consider-using-dict-items
             self.assertEqual(
-                getattr(self.payload, my_property),
+                getattr(self, my_property),
                 properties[my_property],
                 f"Property {my_property} did not match",
             )
@@ -70,33 +70,33 @@ class PayloadMixin:
             sum(properties.values())
             - properties["mark_between_slots"]
             + (4 + 32) * 2  # Start and data bits
-            + (4 + 32 + self.payload.mark_between_slots) * self.slots
+            + (4 + 32 + self.mark_between_slots) * self.slots
         )
-        self.assertEqual(interval, self.payload.interval, "Interval")
+        self.assertEqual(interval, self.interval, "Interval")
         #
         # See if clear works
-        self.payload.clear()
+        self.clear()
         self.assertEqual(
-            list(self.payload), [0] * len(self.payload), "Clear method failed"
+            list(self), [0] * len(self), "Clear method failed"
         )
 
 
-class OneUniverseTestCase(PayloadMixin, unittest.TestCase):
-    """Test the standard case of one universe"""
+class GeneralTestCase(PayloadMixin, unittest.TestCase):
+    """Test the standard"""
 
     def setUp(self):
         self.slots = random.randint(2, 512)
 
 
-class MinimumSlotsOneUniverseTestCase(PayloadMixin, unittest.TestCase):
-    """Minimum slots allowed, one universe"""
+class MinimumSlotsTestCase(PayloadMixin, unittest.TestCase):
+    """Minimum slots allowed"""
 
     def setUp(self):
         self.slots = 1
 
 
-class MaximumSlotsOneUniverseTestCase(PayloadMixin, unittest.TestCase):
-    """Maximum slots allowed, one universe"""
+class MaximumSlotsTestCase(PayloadMixin, unittest.TestCase):
+    """Maximum slots allowed"""
 
     def setUp(self):
         self.slots = 512
