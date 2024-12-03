@@ -88,33 +88,15 @@ class Payload_USITT_DMX512_A:  # pylint: disable=too-many-instance-attributes
 
     assert 4 == IntervalTimings.START, "Start bit SHALL be 4 µS"
     assert 4 == IntervalTimings.DATA, "Data bit SHALL be 4 µS"
-    assert (
-        IntervalTimings.ASTART == IntervalTimings.ATSTART
-    ), "Clean transition to terminal slot."
+    assert IntervalTimings.ASTART == IntervalTimings.ATSTART, "Clean transition to terminal slot."
     assert 4 == IntervalTimings.TSTART, "Terminal start bit SHALL be 4 µS"
     assert 4 == IntervalTimings.TDATA, "Terminal data bit SHALL be 4 µS"
-
-    # class IntervalTimings:  # pylint: disable=too-few-public-methods
-    #     """Named timing intervals. All are PIO clock tics.
-    #     See documentation elsewhere in this project for the meaning of these names.
-    #     """
-    #     ASTART = 1
-    #     ATSTART = 1
-    #     BREAK = 4
-    #     DATA = 4
-    #     MAB = 3
-    #     MAF = 3
-    #     MBB = 2
-    #     START = 4
-    #     STOP = 4
-    #     TDATA = 4
-    #     TSTART = 4
-    #     WAIT = 2
 
     class _MinimumTiming:  # pylint: disable=too-few-public-methods
         "Minimum timing from lib/dmx_transmitter/assembly_code.py"
         # TODO
         mark_after_frame = IntervalTimings.MAF + IntervalTimings.WAIT
+        # TODO
         space_for_break = IntervalTimings.BREAK
         mark_between_slots = IntervalTimings.STOP + IntervalTimings.ASTART
         mark_after_break = IntervalTimings.MAB + IntervalTimings.ASTART
