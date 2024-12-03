@@ -13,8 +13,7 @@ Interactive use
    >>> import board
    >>> from dmx_transmitter import dmx_transmitter
    >>> DMX_PIN = board.D0
-   >>> dmx = dmx_transmitter.DMXTransmitter(first_out_pin=DMX_PIN)
-   >>> dmx.run()
+   >>> dmx = dmx_transmitter.DMXTransmitter(dmx_out_pin=DMX_PIN, auto_write=True)
    >>> dmx[0] = 255
    >>> dmx[1] = 255
    >>>
@@ -23,6 +22,7 @@ Interactive use
 blink.py
 --------
 
+.. TODO blink is incorrect
 .. code-block:: Python
 
     # SPDX-FileCopyrightText: Copyright (c) 2023 Dana Runge
@@ -39,7 +39,7 @@ blink.py
 
     DMX_PIN = board.D0
 
-    dmx = dmx_transmitter.DMXTransmitter(first_out_pin=DMX_PIN)
+    dmx = dmx_transmitter.DMXTransmitter(dmx_out_pin=DMX_PIN)
 
     # Blinking lights
     while True:
@@ -73,7 +73,7 @@ fireworks.py
 
    FIRST_PIN = board.D0
 
-   dmx = dmx_transmitter.DMXTransmitter(first_out_pin=FIRST_PIN)
+   dmx = dmx_transmitter.DMXTransmitter(_out_pin=FIRST_PIN)
 
    # Configuration
    # Note: The dmx index numbers are one (1) less than the DMX channel

@@ -16,9 +16,7 @@ class PayloadMixin:
         properties = {}
         #
         # This length is calculated
-        self.assertEqual(
-            len(self), self.slots, "incorrect array length"
-        )
+        self.assertEqual(len(self), self.slots, "incorrect array length")
         #
         # This length is a property
         self.assertEqual(self.slots, self.slots, "incorrect slot length")
@@ -76,9 +74,7 @@ class PayloadMixin:
         #
         # See if clear works
         self.clear()
-        self.assertEqual(
-            list(self), [0] * len(self), "Clear method failed"
-        )
+        self.assertEqual(list(self), [0] * len(self), "Clear method failed")
 
 
 class GeneralTestCase(PayloadMixin, unittest.TestCase):

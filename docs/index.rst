@@ -23,11 +23,6 @@
     advanced
 
 .. toctree::
-    :caption: Hardware Hackers
-
-    hackers
-
-.. toctree::
     :caption: API Reference
     :maxdepth: 3
 

@@ -224,29 +224,41 @@ class Payload_USITT_DMX512_A:  # pylint: disable=too-many-instance-attributes
             # Copy show buffer to the edit buffer.
             self.buffers[self.edit_buffer][:] = self.buffers[self.show_buffer][:]
 
-    def get_show_buffer(self):
-        "Return show buffer. Switch buffers if autowrite is False"
+    def get_show_buffer(self, callback):
+        """Swaps buffers if desired, send buffer to the state machine via the callback.
+        
+        callback needs a parameter called 'loop' that is appropriate buffer."""
         if self.edit_buffer == self.show_buffer:
-            # autowrite is True, just return.
-            return self.buffers[self.show_buffer]
-        # Swap buffers
-        self.edit_buffer, self.show_buffer = (self.show_buffer, self.edit_buffer)
-        # Copy show buffer to the edit buffer.
-        self.buffers[self.edit_buffer][:] = self.buffers[self.show_buffer][:]
-        # Return the show buffer.
-        return self.buffers[self.show_buffer]
+            # autowrite is True, one buffer, just send the show buffer.
+            # we do this because there might be a 'once' buffer sent.
+            callback(loop=self.buffers[self.show_buffer])
+        else:
+            # Swap buffers
+            self.edit_buffer, self.show_buffer = (self.show_buffer, self.edit_buffer)
+            # Send the new show buffer
+            callback(loop=self.buffers[self.show_buffer])
+            # Copy show buffer to the edit buffer.
+            self.buffers[self.edit_buffer][:] = self.buffers[self.show_buffer][:]
 
-    def get_stop_buffer(self, stop_mark_time):
-        "Returns a buffer for stopping the operations"
+    def get_stop_buffer(self, callback, mark_time=None):
+        """Sends a once buffer to stop the operations.
+
+        Callback needs a parameter called 'once' and one called 'loop'.
+        
+        If autowrite is false, resets any changes not yet shown.
+        """
         if self.edit_buffer == self.show_buffer:
             # autowrite is True, we'll use an unused buffer.
             stop_buffer = 0 if self.show_buffer else 1
-            # Copy show buffer to stop buffer
-            self.buffers[stop_buffer][:] = self.buffers[self.show_buffer][:]
         else:
             # autowrite is False, we'll reset the edit buffer.
             stop_buffer = self.edit_buffer
             # Copy show buffer to unused buffer.
+        # Copy show buffer to stop buffer
+        self.buffers[stop_buffer][:] = self.buffers[self.show_buffer][:]
+        # Start stop
+        self.mark_after_frame = mark_time or 50  # TODO
+        callback(once=self.buffers[stop_buffer], loop=array.array("H", []))
 
     def _init_timing_defaults(self) -> None:
         "Set up default USITT DMX512-A timings."

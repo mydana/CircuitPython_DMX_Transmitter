@@ -38,7 +38,7 @@ Usage Example
 
     DMX_PIN = board.D0
 
-    dmx = dmx_transmitter.DMXTransmitter(first_out_pin=DMX_PIN)
+    dmx = dmx_transmitter.DMXTransmitter(dmx_out_pin=DMX_PIN)
 
     # Blinking lights
     while True:
@@ -86,6 +86,8 @@ REQUIREMENTS
 * `Any RP2040 CircuitPython board. I used the Adafruit KB2040
   <https://www.adafruit.com/product/5302>`_ (Product ID: <5302>)
 
+* I suppose a RP2350 CircuitPython might work, but haven't tested one yet.
+
 * An isolated RS485 line driver. I used a Digilent PmodRS485.
 
 **Software and Dependencies:**
@@ -96,6 +98,7 @@ REQUIREMENTS
 
   * dmx_transmitter.mpy
   * payload_USITT_DMX512_A.mpy
+  * machine_code.mpy
 
 
 Please ensure all dependencies are available on the CircuitPython filesystem.

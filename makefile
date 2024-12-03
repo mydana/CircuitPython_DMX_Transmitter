@@ -3,7 +3,7 @@
 # SPDX-License-Identifier: Unlicense
 MACHINE_CODE_DEPS = \
   assembly_code/reformat_pioasm.py \
-  assembly_code/assembly_code.txt
+  assembly_code/assembly_code.txt.csv
 
 LIBRARY_FILES = \
   dmx_transmitter/machine_code.py \
@@ -52,7 +52,7 @@ dmx_transmitter/machine_code.py: $(MACHINE_CODE_DEPS)  ## Convert assembly code 
 	source .venv/bin/activate; \
 	python3 assembly_code/reformat_pioasm.py \
 	--sideset-pins -2 \
-	--python assembly_code/assembly_code.txt \
+	--python assembly_code/assembly_code.txt.csv \
 	--out dmx_transmitter/machine_code.py
 
 .PHONY: docs
@@ -60,6 +60,10 @@ docs:  ## Construct the documentation.
 	source .venv/bin/activate; \
 	cd docs; \
 	sphinx-build -E -W -b html . _build/html;
+
+.PHONY: osx-docs
+osx-docs:  ## OSX: Open the docs in a web browser
+	open docs/_build/html/index.html
 
 .PHONY: c-test
 c-test:  ## Run tests that can be checked using C python.
@@ -73,7 +77,6 @@ check:  ## Check if this project is ready for publishing.
 
 .PHONY: clean
 clean: FORCE  ## Clean up the development environment.
-	rm -rf .venv
 	find -iname "*.pyc" -delete
 	rm -rf docs/_build/html
 

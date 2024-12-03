@@ -6,14 +6,13 @@ User population
 "I can program a light show in Python? Cool!"
 
 * Doesn't care how it works, as long as it does.
-* One universe.
-* Has memory to spare.
 * Not satisfied just watching the blinking light, wants to program it.
 
 Getting started
 ---------------
 1. Buy an Adafruit microcontroller board built on the RP2040 chip.
    The DMX Transmitter needs one PIO (the RP2040 has two) and one GPIO pin.
+   (A microcontroller with built on a RP2350 may work too.)
 2. Read the "Primary Guide" for the selected board on the Adafruit website.
    This guide helps you getting started on CircuitPython programming.
 3. Install this library. Follow the Circup instructions in the main page,
@@ -32,6 +31,7 @@ Fire up a microcontroller if you want to follow along, no wiring nor lights
 are needed for this tutorial.
 
 Set up the tutorial: A KB2040 is not required, any rp2040 board will work.
+RP2350 boards may work also, but not yet tested by me.
 DMX_PIN is shown as board.D0 to conform with the example wiring schematic
 you may use any available microcontroller pin you wish.
 
@@ -41,7 +41,7 @@ you may use any available microcontroller pin you wish.
    >>> import board
    >>> from dmx_transmitter import dmx_transmitter
    >>> DMX_PIN = board.D0
-   >>> dmx = dmx_transmitter.DMXTransmitter(first_out_pin=DMX_PIN)
+   >>> dmx = dmx_transmitter.DMXTransmitter(dmx_out_pin=DMX_PIN)
    >>> dmx.run()
    >>>
 
@@ -102,18 +102,6 @@ length:
    >>> dmx[0:5] = range(5)
    >>> dmx[0:8]
    [0, 1, 2, 3, 4, 0, 0, 0]
-   >>>
-
-Slice assignment is allowed if the source is a scalar integer: Such assignment
-fills the slice with the scalar.
-
-.. code-block:: Python
-
-   >>> dmx[0:8]
-   [0, 1, 2, 3, 4, 0, 0, 0]
-   >>> dmx[0:3] = 42
-   >>> dmx[0:8]
-   [42, 42, 42, 3, 4, 0, 0, 0]
    >>>
 
 Slice assignment with a different source length and destination length would
@@ -225,15 +213,6 @@ show
    >>> dmx.show()
    >>>
 
-run
-   Continuously send data down the wire, thereby controlling the attached
-   lights. Subsequent changes will appear as soon as made.
-
-.. code-block:: Python
-
-   >>> dmx.run()
-   >>>
-
 deinit
    Turn off the state machine and release its resources.
 
@@ -242,6 +221,15 @@ deinit
 .. code-block:: Python
 
    >>> dmx.deinit()
+   >>>
+
+reinit
+  Re-enable the state machine. May be used if the state machine is temporarily
+  needed for another purpose.
+
+.. code-block:: Python
+
+   >>> dmx.reinit()
    >>>
 
 Blinkenlights
