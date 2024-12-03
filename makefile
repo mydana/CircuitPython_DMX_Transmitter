@@ -6,7 +6,7 @@ MACHINE_CODE_DEPS = \
   assembly_code/assembly_code.txt.csv
 
 LIBRARY_FILES = \
-  dmx_transmitter/machine_code.py \
+  dmx_transmitter/dmx_transmitter.py \
   dmx_transmitter/payload_USITT_DMX512_A.py \
   dmx_transmitter/machine_code.py
 
