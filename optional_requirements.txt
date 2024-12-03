@@ -1,5 +1,11 @@
 # SPDX-FileCopyrightText: 2022 Alec Delaney, for Adafruit Industries
+# SPDX-FileCopyrightText: Copyright (c) 2024 Dana Runge
 #
-# SPDX-License-Identifier: Unlicense
+# SPDX-License-Identifier: MIT
 
-Adafruit_CircuitPython_PIOASM
+Adafruit-Blinka
+adafruit-circuitpython-pioasm
+circup
+pre-commit
+Sphinx
+sphinx-rtd-theme

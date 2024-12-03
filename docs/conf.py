@@ -23,7 +23,7 @@ extensions = [
     "sphinx.ext.todo",
 ]
 
-# TODO: Please Read!
+# Please Read!
 # Uncomment the below if you use native CircuitPython modules such as
 # digitalio, micropython and busio. List the modules you use. Without it, the
 # autodoc module docs will fail to generate with a warning.
@@ -44,7 +44,7 @@ autoclass_content = "both"
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ["_templates"]
 
-source_suffix = ".rst"
+source_suffix = {'.rst': 'restructuredtext'}
 
 # The master toctree document.
 master_doc = "index"

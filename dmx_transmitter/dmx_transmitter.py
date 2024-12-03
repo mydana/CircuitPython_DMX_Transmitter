@@ -62,8 +62,7 @@ class DMXTransmitter(Payload_USITT_DMX512_A):
         slots=512,
         auto_write=False,
         enable_out_pin=None,
-        # TODO needs the code for inverting enable pin
-        # TODO TEST: The enable_out_pin
+        invert_enable_out=False,
         exclusive_pin_use=True,
     ) -> None:
         super().__init__(slots=slots, buffers=2)
@@ -72,6 +71,20 @@ class DMXTransmitter(Payload_USITT_DMX512_A):
         except ValueError:
             # Ignore error if one buffer.
             pass
+        # Figure out which code to use.
+        if enable_out_pin:
+            if invert_enable_out is False:
+                self.code_index = 1
+            elif invert_enable_out is True:
+                self.code_index = -1
+            elif invert_enable_out == 2:
+                self.code_index = 2
+            elif invert_enable_out == -2:
+                self.code_index = -2
+            else:
+                raise ValueError("invert_enable_out must be False, True, 2, or -2")
+        else:
+            self.code_index = 0
         #
         # State machine parameters.
         self.dmx_out_pin = dmx_out_pin
@@ -84,8 +97,8 @@ class DMXTransmitter(Payload_USITT_DMX512_A):
     def reinit(self):
         "Re-connect the state machine"
         self.state_machine = rp2pio.StateMachine(
-            machine_code[0],
-            **pio_kwargs(0),
+            machine_code[self.code_index],
+            **pio_kwargs(abs(self.code_index)),
             frequency=1_000_000,
             pull_threshold=16,
             auto_pull=True,

@@ -37,7 +37,7 @@ install:  ## Install the development environment.
 	source .venv/bin/activate; \
 	python3 -m pip install --upgrade pip; \
 	pip install -Ur requirements.txt; \
-	pip install -Ur requirements/dev.txt;
+	pip install -Ur optional_requirements.txt;
 
 .PHONY: deploy
 deploy: deploy.py examples/fireworks.py $(LIBRARY_FILES)  ## Deploy libary to the CircuitPython board.
@@ -48,7 +48,7 @@ deploy: deploy.py examples/fireworks.py $(LIBRARY_FILES)  ## Deploy libary to th
 	dmx_transmitter/payload_USITT_DMX512_A.py \
 	dmx_transmitter/machine_code.py
 
-# TODO process for converting spreadsheet to ssembly_code/assembly_code.txt.csv
+# TODO process for converting spreadsheet to assembly_code/assembly_code.txt.csv
 
 dmx_transmitter/machine_code.py: $(MACHINE_CODE_DEPS)  ## Convert assembly code to a python library.
 	source .venv/bin/activate; \
