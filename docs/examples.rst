@@ -22,7 +22,6 @@ Interactive use
 blink.py
 --------
 
-.. TODO blink is incorrect
 .. code-block:: Python
 
     # SPDX-FileCopyrightText: Copyright (c) 2023 Dana Runge
@@ -46,7 +45,7 @@ blink.py
         dmx.clear()  # Turn off the light(s)
         dmx.show()
         time.sleep(1)
-        dmx[0:3] = 255  # Turn lights on full. DMX channels: 1, 2, 3,
+        dmx.fill(255, start=0, end=3)  # Turn lights on full. DMX channels: 1, 2, 3,
         dmx.show()
         time.sleep(1)
 

@@ -27,6 +27,14 @@ __author__ = "Dana Runge"
 __version__ = "0.0.0+auto.0"
 __repo__ = "https://github.com/mydana/CircuitPython_DMX_Transmitter"
 
+assert 4 == IntervalTimings.START, "Start bit SHALL be 4 µS"
+assert 4 == IntervalTimings.DATA, "Data bit SHALL be 4 µS"
+assert (
+    IntervalTimings.ASTART == IntervalTimings.ATSTART
+), "Clean transition to terminal slot."
+assert 4 == IntervalTimings.TSTART, "Terminal start bit SHALL be 4 µS"
+assert 4 == IntervalTimings.TDATA, "Terminal data bit SHALL be 4 µS"
+
 
 class Payload_USITT_DMX512_A:  # pylint: disable=too-many-instance-attributes
     """This object mimics a list of byte values, and stores it and timing
@@ -80,28 +88,9 @@ class Payload_USITT_DMX512_A:  # pylint: disable=too-many-instance-attributes
     ##     odd  5+ - Mark time after the corresponding data code.
     ## penultimate - Last DMX512 slot.
     ##        last - mark_after_frame
-    ##               Time before state machine shuts down. Usually 0.
+    ##               Time before state machine shuts down.
+    ##               If stop (shut down) is not commanded, then this value is 0.
     ##
-    ## Timing between frames is determined by mark_before_break.
-    ## While it's possible to set mark_after_frame to a value, and continue
-    ## to send data to the state machine, there is no good reason to do this.
-
-    assert 4 == IntervalTimings.START, "Start bit SHALL be 4 µS"
-    assert 4 == IntervalTimings.DATA, "Data bit SHALL be 4 µS"
-    assert IntervalTimings.ASTART == IntervalTimings.ATSTART, "Clean transition to terminal slot."
-    assert 4 == IntervalTimings.TSTART, "Terminal start bit SHALL be 4 µS"
-    assert 4 == IntervalTimings.TDATA, "Terminal data bit SHALL be 4 µS"
-
-    class _MinimumTiming:  # pylint: disable=too-few-public-methods
-        "Minimum timing from lib/dmx_transmitter/assembly_code.py"
-        # TODO
-        mark_after_frame = IntervalTimings.MAF + IntervalTimings.WAIT
-        # TODO
-        space_for_break = IntervalTimings.BREAK
-        mark_between_slots = IntervalTimings.STOP + IntervalTimings.ASTART
-        mark_after_break = IntervalTimings.MAB + IntervalTimings.ASTART
-        mark_before_break_long = IntervalTimings.MBB + IntervalTimings.MAF
-        mark_before_break_short = IntervalTimings.MBB
 
     def __init__(
         self,
@@ -147,10 +136,32 @@ class Payload_USITT_DMX512_A:  # pylint: disable=too-many-instance-attributes
         # Initialize the newly-created array
         for header in self.headers:
             header[3] = slots - self.MIN_SLOTS
-        self._init_timing_defaults()
+        self.init_timing_defaults()
+        if self.mark_after_frame_stop - IntervalTimings.MAF - IntervalTimings.WAIT < 1:
+            raise AssertionError(
+                "'mark_after_frame_stop' is too low. Shall be at least {0} microseconds.".format(
+                    IntervalTimings.MAF + IntervalTimings.WAIT + 1
+                )
+            )
         # Set up the start code.
         for payload in self.payloads:
             payload[0] = self.START_CODE
+
+    def init_timing_defaults(self) -> None:
+        """Intialize the USITT DMX512-A timing defaults.
+
+        Override this method to set different timings"""
+        # fmt: off
+        self.mark_after_frame_stop = 50  # last slot mark time, for stopping
+        # Set mark_after_frame before setting mark_before_break.
+        self.mark_before_break = 8      ## header[0]
+        self.space_for_break = 172      ## header[1]
+        self.mark_after_break = 8       ## header[2]
+        # slot count                    ## header[3]
+        # NULL START CODE               ## payload[0]
+        self.mark_after_start_code = 8  ## payload[1]
+        self.mark_between_slots = 8     ## payload[odd] except last payload.
+        # fmt: on
 
     @property
     def auto_write(self):
@@ -192,7 +203,7 @@ class Payload_USITT_DMX512_A:  # pylint: disable=too-many-instance-attributes
             # Copy show buffer to the edit buffer.
             self.buffers[self.edit_buffer][:] = self.buffers[self.show_buffer][:]
 
-    def get_stop_buffer(self, callback, mark_time=None):
+    def get_stop_buffer(self, callback):
         """Sends a once buffer to stop the operations.
 
         Callback needs a parameter called 'once' and one called 'loop'.
@@ -209,62 +220,33 @@ class Payload_USITT_DMX512_A:  # pylint: disable=too-many-instance-attributes
         # Copy show buffer to stop buffer
         self.buffers[stop_buffer][:] = self.buffers[self.show_buffer][:]
         # Start stop
-        self.mark_after_frame = mark_time or 50  # TODO
+        self.buffers[stop_buffer][-1] = (
+            self.mark_after_frame_stop - IntervalTimings.MAF - IntervalTimings.WAIT
+        )
         callback(once=self.buffers[stop_buffer], loop=array.array("H", []))
-
-    def _init_timing_defaults(self) -> None:
-        "Set up default USITT DMX512-A timings."
-        # TODO comments
-        # fmt: off
-        self.mark_after_frame = False  # last slot mark, bits 8-15 or 24-31
-        self.mark_after_frame_default = 8  # last slot mark, for stopping
-        # Set mark_after_frame before setting mark_before_break.
-        self.mark_before_break = 8      ## header[0]
-        self.space_for_break = 172      ## header[1]
-        self.mark_after_break = 8       ## header[2]
-        # slot count                    ## header[3]
-        # NULL START CODE               ## payload[0]
-        self.mark_after_start_code = 8  ## payload[1]
-        self.mark_between_slots = 8     ## payload[odd] except last payload.
-        # fmt: on
 
     @property
     def mark_before_break(self) -> int:
         """Timing from the last frame to before the SPACE FOR BREAK.
         (microseconds)
 
-        mark_before_break is influenced by mark_after_frame.
-        If mark_after_frame is False (the default) then mark_before_break
-        is the time in microseconds from the last last frame, including the
-        two stop bits from the last slot. Otherwise, this parameter is the
-        time from transmitter enable to SPACE FOR BREAK.
-
-        Minimum 5 if mark_after_frame is False, otherwise 2. Default 8.
+        Minimum 2. Default 8.
         """
-        return self.headers[self.show_buffer][0] + (
-            self._MinimumTiming.mark_before_break_long
-            if self.mark_after_frame is False
-            else self._MinimumTiming.mark_before_break_short
+        return (
+            self.headers[self.show_buffer][0]
+            + IntervalTimings.MBB
+            + IntervalTimings.MAF
         )
 
     @mark_before_break.setter
     def mark_before_break(self, val) -> None:
-        if self.mark_after_frame is False:
-            val = int(val) - self._MinimumTiming.mark_before_break_long
-            if val < 0:
-                raise ValueError(
-                    "'mark_before_break' is too low. Shall be at least {0} microseconds.".format(
-                        self._MinimumTiming.mark_before_break_long
-                    )
+        val = int(val) - IntervalTimings.MBB - IntervalTimings.MAF
+        if val < 0:
+            raise ValueError(
+                "'mark_before_break' is too low. Shall be at least {0} microseconds.".format(
+                    IntervalTimings.MBB + IntervalTimings.MAF
                 )
-        else:
-            val = int(val) - self._MinimumTiming.mark_before_break_short
-            if val < 0:
-                raise ValueError(
-                    "'mark_before_break' is too low. Shall be at least {0} microseconds.".format(
-                        self._MinimumTiming.mark_before_break_short
-                    )
-                )
+            )
         for header in self.headers:
             header[0] = val
 
@@ -275,15 +257,15 @@ class Payload_USITT_DMX512_A:  # pylint: disable=too-many-instance-attributes
 
         Minimum 4, Default 172, Standard minimum 88.
         """
-        return self.headers[self.show_buffer][1] + self._MinimumTiming.space_for_break
+        return self.headers[self.show_buffer][1] + IntervalTimings.BREAK
 
     @space_for_break.setter
     def space_for_break(self, val) -> None:
-        val = int(val) - self._MinimumTiming.space_for_break
+        val = int(val) - IntervalTimings.BREAK
         if val < 0:
             raise ValueError(
                 "'space_for_break' is too low. Shall be at least {0} microseconds.".format(
-                    self._MinimumTiming.space_for_break
+                    IntervalTimings.BREAK
                 )
             )
         for header in self.headers:
@@ -295,15 +277,19 @@ class Payload_USITT_DMX512_A:  # pylint: disable=too-many-instance-attributes
 
         Minimum 4, Default 8
         """
-        return self.headers[self.show_buffer][2] + self._MinimumTiming.mark_after_break
+        return (
+            self.headers[self.show_buffer][2]
+            + IntervalTimings.MAB
+            + IntervalTimings.ASTART
+        )
 
     @mark_after_break.setter
     def mark_after_break(self, val) -> None:
-        val = int(val) - self._MinimumTiming.mark_after_break
+        val = int(val) - IntervalTimings.MAB - IntervalTimings.ASTART
         if val < 0:
             raise ValueError(
                 "'mark_after_break' is too low. Shall be at least {0} microseconds.".format(
-                    self._MinimumTiming.mark_after_break
+                    IntervalTimings.MAB + IntervalTimings.ASTART
                 )
             )
         for header in self.headers:
@@ -329,15 +315,15 @@ class Payload_USITT_DMX512_A:  # pylint: disable=too-many-instance-attributes
         Minimum 5, Default 8, Maximum 260.
         """
         val = self.payloads[self.show_buffer][1]
-        return val + self._MinimumTiming.mark_between_slots
+        return val + IntervalTimings.STOP + IntervalTimings.ASTART
 
     @mark_after_start_code.setter
     def mark_after_start_code(self, val) -> None:
-        val = int(val) - self._MinimumTiming.mark_between_slots
+        val = int(val) - IntervalTimings.STOP - IntervalTimings.ASTART
         if val < 0:
             raise ValueError(
                 "'mark_after_start_code' is too low. Shall be at least {0} microseconds.".format(
-                    self._MinimumTiming.mark_between_slots
+                    IntervalTimings.STOP + IntervalTimings.ASTART
                 )
             )
         for payload in self.payloads:
@@ -354,15 +340,15 @@ class Payload_USITT_DMX512_A:  # pylint: disable=too-many-instance-attributes
         """
         # This has a instance variable because the array
         # won't have storage for this variable if slots == 1.
-        return self._mark_between_slots + self._MinimumTiming.mark_between_slots
+        return self._mark_between_slots + IntervalTimings.STOP + IntervalTimings.ASTART
 
     @mark_between_slots.setter
     def mark_between_slots(self, val) -> None:
-        val = int(val) - self._MinimumTiming.mark_between_slots
+        val = int(val) - IntervalTimings.STOP - IntervalTimings.ASTART
         if val < 0:
             raise ValueError(
                 "'mark_between_slots' is too low. Shall be at least {0} microseconds.".format(
-                    self._MinimumTiming.mark_between_slots
+                    IntervalTimings.STOP + IntervalTimings.ASTART
                 )
             )
         self._mark_between_slots = val
@@ -373,44 +359,9 @@ class Payload_USITT_DMX512_A:  # pylint: disable=too-many-instance-attributes
             # payload[3] is the post first slot bit mark length
             # payload[-3] is the penultimate slot bit mark length
             # payload[-2] is the last slot (frame end)
-            # payload[-1] is mark_after_frame mark length
-            # mark_after_frame mark length is ignored in this method.
+            # payload[-1] is mark_after_frame mark length (for stopping).
             for i in range(3, len(payload) - 2, 2):
                 payload[i] = val
-
-    @property
-    def mark_after_frame(self) -> int:
-        """How long to wait before disabling the transmitter. (microseconds)
-
-        If False, the state machine does not turn off the transmitter enable
-        timing pin, and proceeds to send the next frame.
-
-        Otherwise waits the specified microseconds to turn off the
-        transmitter pin.
-
-        Includes the two stop bits.
-
-        Minimum 6, Default 8, Maximum 260.
-        """
-        val = self.payloads[self.show_buffer][-1]
-        return (val + self._MinimumTiming.mark_after_frame) if val else False
-
-    @mark_after_frame.setter
-    def mark_after_frame(self, val) -> None:
-        if val is False:
-            val = 0
-        elif val is True:
-            val = self.mark_after_frame_default
-        else:
-            val = int(val) - self._MinimumTiming.mark_after_frame
-            if val < 1:
-                raise ValueError(
-                    "'mark_after_frame' is too low. Shall be at least {0} microseconds.".format(
-                        self._MinimumTiming.mark_after_frame + 1
-                    )
-                )
-        for payload in self.payloads:
-            payload[-1] = val
 
     @property
     def interval(self) -> int:
@@ -424,7 +375,6 @@ class Payload_USITT_DMX512_A:  # pylint: disable=too-many-instance-attributes
         If a longer interval is needed, adjust the timing parameters in the
         class constructor.
         """
-        # TODO revisit/simplify
         return (
             self.mark_before_break
             + self.space_for_break
@@ -441,9 +391,28 @@ class Payload_USITT_DMX512_A:  # pylint: disable=too-many-instance-attributes
             + 4  # 4 microseconds. Terminal slot start bit.
             + 32  # 32 microseconds. Eight terminal slot data bits.
             # Including the two stop bits & extra mark time.
-            # TODO
-            + (self.mark_after_frame if self.mark_after_frame is not False else 0)
         )
+
+    def clear(self, start=0, end=-1, step=1):
+        """Clear all values, or those specified.
+
+        :param int start: the first slot to clear. (Default: 0)
+        :param int end: the last slot to clear. (Default: -1)
+        :param int step: the step for each slot to clear. (Default: 1)
+        """
+        for slot in range(*slice(start, end, step).indices(len(self))):
+            self[slot] = 0
+
+    def fill(self, value, start=0, end=-1, step=1):
+        """Clear all values, or those specified.
+
+        :param int value: the value to be filled into each slot.
+        :param int start: the first slot to fill. (Default: 0)
+        :param int end: the last slot to fill. (Default: -1)
+        :param int step: the step for each slot to fill. (Default: 1)
+        """
+        for slot in range(*slice(start, end, step).indices(len(self))):
+            self[slot] = value
 
     def __len__(self):
         return self.slots

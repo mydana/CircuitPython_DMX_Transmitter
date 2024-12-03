@@ -48,6 +48,8 @@ deploy: deploy.py examples/fireworks.py $(LIBRARY_FILES)  ## Deploy libary to th
 	dmx_transmitter/payload_USITT_DMX512_A.py \
 	dmx_transmitter/machine_code.py
 
+# TODO process for converting spreadsheet to ssembly_code/assembly_code.txt.csv
+
 dmx_transmitter/machine_code.py: $(MACHINE_CODE_DEPS)  ## Convert assembly code to a python library.
 	source .venv/bin/activate; \
 	python3 assembly_code/reformat_pioasm.py \

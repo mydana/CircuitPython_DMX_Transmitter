@@ -111,15 +111,12 @@ class DMXTransmitter(Payload_USITT_DMX512_A):
                 )
             )
 
-    def stop(self, mark_time=None) -> None:
+    def stop(self) -> None:
         """Stop sending data down the wire.
         Go into a high impedance state, if enabled.
         """
-        # TODO implement
         self.state_machine.background_write()
-        self.get_stop_buffer(
-            callback=self.state_machine.background_write, mark_time=mark_time
-        )
+        self.get_stop_buffer(callback=self.state_machine.background_write)
 
     def deinit(self) -> None:
         """Turn off the state machine and release its resources."""

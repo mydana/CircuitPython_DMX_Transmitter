@@ -19,6 +19,6 @@ while True:
     dmx.clear()  # Turn off the light(s)
     dmx.show()
     time.sleep(1)
-    dmx[0:3] = 255  # Turn lights on full. DMX channels: 1, 2, 3,
+    dmx.fill(255, start=0, end=3)  # Turn lights on full. DMX channels: 1, 2, 3,
     dmx.show()
     time.sleep(1)
