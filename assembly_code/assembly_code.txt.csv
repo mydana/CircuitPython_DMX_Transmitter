@@ -42,5 +42,5 @@ term_bit:						0	0
 frame_stop:						0	0
 	jmp x--, frame_stop	0b01		WAIT	TERMINAL: Wait further.	1	1
 	pull block	0b00		WAIT	TERMINAL: Wait for data.	1	1
-							
+
 						28	Total operations (32 max)

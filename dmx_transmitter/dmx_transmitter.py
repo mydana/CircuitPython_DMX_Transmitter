@@ -117,7 +117,9 @@ class DMXTransmitter(Payload_USITT_DMX512_A):
         """
         # TODO implement
         self.state_machine.background_write()
-        self.get_stop_buffer(callback=self.state_machine.background_write, mark_time=mark_time)
+        self.get_stop_buffer(
+            callback=self.state_machine.background_write, mark_time=mark_time
+        )
 
     def deinit(self) -> None:
         """Turn off the state machine and release its resources."""
