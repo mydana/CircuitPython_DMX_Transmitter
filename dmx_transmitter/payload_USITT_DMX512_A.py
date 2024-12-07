@@ -298,7 +298,7 @@ class Payload_USITT_DMX512_A:  # pylint: disable=too-many-instance-attributes
     @property
     def slots(self) -> int:
         "Number slots of DMX data available. (count)"
-        return self.headers[self.show_buffer][2] + self.MIN_SLOTS  # Fit into 2 bytes
+        return self.headers[self.show_buffer][3] + self.MIN_SLOTS  # Fit into 2 bytes
 
     @property
     def start_code(self) -> int:

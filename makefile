@@ -37,7 +37,7 @@ install:  ## Install the development environment.
 	source .venv/bin/activate; \
 	python3 -m pip install --upgrade pip; \
 	pip install -Ur requirements.txt; \
-	pip install -Ur optional_requirements.txt;
+	pip install -Ur optional_requirements.txt
 
 .PHONY: deploy
 deploy: deploy.py examples/fireworks.py $(LIBRARY_FILES)  ## Deploy libary to the CircuitPython board.
@@ -76,10 +76,3 @@ c-test:  ## Run tests that can be checked using C python.
 check:  ## Check if this project is ready for publishing.
 	source .venv/bin/activate; \
 	pre-commit run --all-files
-
-.PHONY: clean
-clean: FORCE  ## Clean up the development environment.
-	find -iname "*.pyc" -delete
-	rm -rf docs/_build/html
-
-FORCE: ;
