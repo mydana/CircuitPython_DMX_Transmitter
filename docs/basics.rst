@@ -220,16 +220,7 @@ deinit
 .. code-block:: Python
 
    >>> dmx.deinit()
-   >>>
-
-reinit
-  Re-enable the state machine. May be used if the state machine is temporarily
-  needed for another purpose.
-
-.. code-block:: Python
-
-   >>> dmx.reinit()
-   >>>
+   >>
 
 Blinkenlights
 -------------
