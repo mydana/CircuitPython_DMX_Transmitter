@@ -41,8 +41,7 @@ you may use any available microcontroller pin you wish.
    >>> import board
    >>> from dmx_transmitter import dmx_transmitter
    >>> DMX_PIN = board.D0
-   >>> dmx = dmx_transmitter.DMXTransmitter(dmx_out_pin=DMX_PIN)
-   >>> dmx.run()
+   >>> dmx = dmx_transmitter.DMXTransmitter(dmx_out_pin=DMX_PIN, auto_write=True)
    >>>
 
 Unlike Python lists, the DMXTransmitter object is already initialized to 0:
