@@ -46,8 +46,6 @@ deploy: deploy.py examples/fireworks.py $(LIBRARY_FILES)  ## Deploy libary to th
 	--var DMX_PIN=board.D4 \
 	$(LIBRARY_FILES)
 
-# TODO process for converting spreadsheet to assembly_code/assembly_code.txt.csv
-
 dmx_transmitter/machine_code.py: $(MACHINE_CODE_DEPS)  ## Convert assembly code to a python library.
 	source .venv/bin/activate; \
 	python3 assembly_code/reformat_pioasm.py \

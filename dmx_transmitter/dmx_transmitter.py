@@ -116,9 +116,9 @@ class DMXTransmitter(DMXPayload):
         Changes are not seen until 'show' is called again.
         """
         if once is None:
-            self.get_show_buffer(self.state_machine.background_write)
+            self._send_show_buffer(self.state_machine.background_write)
         else:
-            self.get_show_buffer(
+            self._send_show_buffer(
                 lambda once=once, loop=None: self.state_machine.background_write(
                     once=once, loop=loop
                 )
@@ -129,7 +129,7 @@ class DMXTransmitter(DMXPayload):
         Go into a high impedance state, if enabled.
         """
         self.state_machine.background_write()
-        self.get_stop_buffer(callback=self.state_machine.background_write)
+        self._send_stop_buffer(callback=self.state_machine.background_write)
 
     def deinit(self) -> None:
         """Turn off the state machine and release its resources."""

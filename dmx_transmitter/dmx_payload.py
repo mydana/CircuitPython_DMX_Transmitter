@@ -185,10 +185,10 @@ class DMXPayload:  # pylint: disable=too-many-instance-attributes
             # Copy show buffer to the edit buffer.
             self.buffers[self.edit_buffer][:] = self.buffers[self.show_buffer][:]
 
-    def get_show_buffer(self, callback):
-        """Swaps buffers if desired, send buffer to the state machine via the callback.
+    def _send_show_buffer(self, callback):
+        """Internal method for sending data to the state machine.
 
-        callback needs a parameter called 'loop' that is appropriate buffer."""
+        Used to implement the .show() method."""
         if self.edit_buffer == self.show_buffer:
             # autowrite is True, one buffer, just send the show buffer.
             # we do this because there might be a 'once' buffer sent.
@@ -201,13 +201,10 @@ class DMXPayload:  # pylint: disable=too-many-instance-attributes
             # Copy show buffer to the edit buffer.
             self.buffers[self.edit_buffer][:] = self.buffers[self.show_buffer][:]
 
-    def get_stop_buffer(self, callback):
-        """Sends a once buffer to stop the operations.
+    def _send_stop_buffer(self, callback):
+        """Internal method for sending data to the state machine.
 
-        Callback needs a parameter called 'once' and one called 'loop'.
-
-        If autowrite is false, resets any changes not yet shown.
-        """
+        Used to implement the .stop() method."""
         if self.edit_buffer == self.show_buffer:
             # autowrite is True, we'll use an unused buffer.
             stop_buffer = 0 if self.show_buffer else 1
@@ -391,7 +388,7 @@ class DMXPayload:  # pylint: disable=too-many-instance-attributes
             # Including the two stop bits & extra mark time.
         )
 
-    def clear(self, start=0, end=-1, step=1):
+    def clear(self, start=None, end=None, step=None):
         """Clear all values, or those specified.
 
         :param int start: the first slot to clear. (Default: 0)
@@ -401,7 +398,7 @@ class DMXPayload:  # pylint: disable=too-many-instance-attributes
         for slot in range(*slice(start, end, step).indices(len(self))):
             self[slot] = 0
 
-    def fill(self, value, start=0, end=-1, step=1):
+    def fill(self, value, start=None, end=None, step=None):
         """Clear all values, or those specified.
 
         :param int value: the value to be filled into each slot.
