@@ -97,7 +97,7 @@ REQUIREMENTS
 * This library, dmx_transmitter, especially these files::
 
   * dmx_transmitter.mpy
-  * payload_USITT_DMX512_A.mpy
+  * dmx_payload.mpy
   * machine_code.mpy
 
 

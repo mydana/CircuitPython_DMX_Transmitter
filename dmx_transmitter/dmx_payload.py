@@ -1,10 +1,8 @@
 # SPDX-FileCopyrightText: Copyright (c) 2023 Dana Runge
 #
 # SPDX-License-Identifier: MIT
-# pylint: disable=invalid-name
-# pylint: enable=invalid-name
 """
-`dmx_transmitter.payload_USITT_DMX512_A`
+`dmx_transmitter.dmx_payload`
 ========================================
 
 Container that has data and timings for the state machine.
@@ -36,7 +34,7 @@ assert 4 == IntervalTimings.TSTART, "Terminal start bit SHALL be 4 µS"
 assert 4 == IntervalTimings.TDATA, "Terminal data bit SHALL be 4 µS"
 
 
-class Payload_USITT_DMX512_A:  # pylint: disable=too-many-instance-attributes
+class DMXPayload:  # pylint: disable=too-many-instance-attributes
     """This object mimics a list of byte values, and stores it and timing
     parameters into a data structure suitable for sending into a DMX512TxEngine
     state machine.

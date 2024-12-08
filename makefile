@@ -7,7 +7,7 @@ MACHINE_CODE_DEPS = \
 
 LIBRARY_FILES = \
   dmx_transmitter/dmx_transmitter.py \
-  dmx_transmitter/payload_USITT_DMX512_A.py \
+  dmx_transmitter/dmx_payload.py \
   dmx_transmitter/machine_code.py
 
 
@@ -44,9 +44,7 @@ deploy: deploy.py examples/fireworks.py $(LIBRARY_FILES)  ## Deploy libary to th
 	source .venv/bin/activate; \
 	python3 deploy.py --code=examples/fireworks.py \
 	--var DMX_PIN=board.D4 \
-	dmx_transmitter/dmx_transmitter.py \
-	dmx_transmitter/payload_USITT_DMX512_A.py \
-	dmx_transmitter/machine_code.py
+	$(LIBRARY_FILES)
 
 # TODO process for converting spreadsheet to assembly_code/assembly_code.txt.csv
 

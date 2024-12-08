@@ -24,14 +24,14 @@ Implementation Notes
 import rp2pio
 
 from .machine_code import machine_code, pio_kwargs
-from .payload_USITT_DMX512_A import Payload_USITT_DMX512_A
+from .dmx_payload import DMXPayload
 
 __author__ = "Dana Runge"
 __version__ = "0.0.0+auto.0"
 __repo__ = "https://github.com/mydana/CircuitPython_DMX_Transmitter"
 
 
-class DMXTransmitter(Payload_USITT_DMX512_A):
+class DMXTransmitter(DMXPayload):
     """Configure an RP2040 PIO state machine to drive the DMX512 protocol.
 
     :param ~microcontroller.Pin dmx_out_pin: the first pin for the
