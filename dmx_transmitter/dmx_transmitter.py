@@ -108,7 +108,7 @@ class DMXTransmitter(DMXPayload):
             first_sideset_pin=self.first_sideset_pin,
             exclusive_pin_use=self.exclusive_pin_use,
         )
-        self.show()
+        self._send_init(self.state_machine.background_write)
 
     def show(self, once=None) -> None:
         """Buffer DMX payload to the state machine and out the wire.

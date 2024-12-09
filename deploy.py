@@ -73,7 +73,7 @@ if args.code is not None:
     code = open(from_path, "r").readlines()  # pylint: disable=consider-using-with
     with open(to_path, "w") as write_file:
         for line in code:
-            for var, value in args.var.items():
+            for var, value in args.var.items() if args.var else []:
                 line_start = f"{var} ="
                 if line.startswith(line_start):
                     print(f"new global:{var} = {value}")

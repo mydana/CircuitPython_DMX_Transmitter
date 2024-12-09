@@ -185,15 +185,14 @@ class DMXPayload:  # pylint: disable=too-many-instance-attributes
             # Copy show buffer to the edit buffer.
             self.buffers[self.edit_buffer][:] = self.buffers[self.show_buffer][:]
 
+    def _send_init(self, callback):
+        callback(loop=self.buffers[self.show_buffer])
+
     def _send_show_buffer(self, callback):
         """Internal method for sending data to the state machine.
 
         Used to implement the .show() method."""
-        if self.edit_buffer == self.show_buffer:
-            # autowrite is True, one buffer, just send the show buffer.
-            # we do this because there might be a 'once' buffer sent.
-            callback(loop=self.buffers[self.show_buffer])
-        else:
+        if self.edit_buffer != self.show_buffer:
             # Swap buffers
             self.edit_buffer, self.show_buffer = (self.show_buffer, self.edit_buffer)
             # Send the new show buffer

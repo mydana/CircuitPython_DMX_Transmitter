@@ -63,6 +63,12 @@ docs:  ## Construct the documentation.
 osx-docs:  ## OSX: Open the docs in a web browser
 	open docs/_build/html/index.html
 
+.PHONY: benchmark
+benchmark: deploy.py examples/benchmark.py $(LIBRARY_FILES) ## Run benchmarks on the CircuitPython board.
+	source .venv/bin/activate; \
+	python3 deploy.py --code=examples/benchmark.py \
+	$(LIBRARY_FILES)
+
 .PHONY: c-test
 c-test:  ## Run tests that can be checked using C python.
 	source .venv/bin/activate; \
