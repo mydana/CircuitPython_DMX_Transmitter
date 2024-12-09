@@ -56,6 +56,7 @@ TEST_CASES = (
     ("128:True", {"slots": 128, "auto_write": True}),
 )
 
+
 def timeit(s, f):
     """A Simple Benchmark from Adafruit Learning System"""
     # https://learn.adafruit.com/ulab-crunch-numbers-fast-with-circuitpython/a-simple-benchmark
@@ -64,6 +65,7 @@ def timeit(s, f):
     t1 = time.monotonic_ns()
     r = (t1 - t0) * 1e-6 / n
     print("%s:%f:%d" % (s, r, n))
+
 
 #
 # Set up the state machines for testing
@@ -74,9 +76,11 @@ instantiated_cases = []
 for inx, pin in enumerate(PINS):
     test_case, attributes = TEST_CASES[inx % len(TEST_CASES)]
     try:
-        instantiated_cases.append((
-            test_case,
-            dmx_transmitter.DMXTransmitter(dmx_out_pin=pin, **attributes),)
+        instantiated_cases.append(
+            (
+                test_case,
+                dmx_transmitter.DMXTransmitter(dmx_out_pin=pin, **attributes),
+            )
         )
     except RuntimeError:
         print("Number of State Machines instantiated:")
@@ -85,33 +89,40 @@ for inx, pin in enumerate(PINS):
         print()
         break
 
+
 def set_values(dmx):
     for _ in range(1000):
         dmx[0] = 100
     return 1000
 
+
 def get_values(dmx):
     for _ in range(1000):
-        dmx[0]
+        dmx[0]  # pylint: disable=pointless-statement
     return 1000
+
 
 def clear_all(dmx):
     for _ in range(100):
         dmx.clear()
     return 100
 
+
 def fill_all(dmx):
     for _ in range(100):
         dmx.fill(255)
     return 100
+
 
 def show(dmx):
     for _ in range(100):
         dmx.show()
     return 500
 
+
 print("Slots:auto_write:Operation:Timing:Average over Cycles")
 for case_name, state_machine in instantiated_cases:
+    # pylint: disable=cell-var-from-loop
     timeit(f"{case_name}:Read a value to DMX", lambda: get_values(state_machine))
     timeit(f"{case_name}:Write a value to DMX", lambda: set_values(state_machine))
     timeit(f"{case_name}:Clear DMX", lambda: clear_all(state_machine))

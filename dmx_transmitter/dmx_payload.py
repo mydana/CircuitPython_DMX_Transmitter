@@ -394,8 +394,9 @@ class DMXPayload:  # pylint: disable=too-many-instance-attributes
         :param int end: the last slot to clear. (Default: -1)
         :param int step: the step for each slot to clear. (Default: 1)
         """
+        payload = self.payloads[self.edit_buffer]
         for slot in range(*slice(start, end, step).indices(len(self))):
-            self[slot] = 0
+            payload[slot * 2 + 2] = 0
 
     def fill(self, value, start=None, end=None, step=None):
         """Clear all values, or those specified.
@@ -405,8 +406,9 @@ class DMXPayload:  # pylint: disable=too-many-instance-attributes
         :param int end: the last slot to fill. (Default: -1)
         :param int step: the step for each slot to fill. (Default: 1)
         """
+        payload = self.payloads[self.edit_buffer]
         for slot in range(*slice(start, end, step).indices(len(self))):
-            self[slot] = value
+            payload[slot * 2 + 2] = value
 
     def __len__(self):
         return self.slots
