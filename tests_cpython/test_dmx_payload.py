@@ -40,6 +40,57 @@ class PayloadMixin:
             self.payload[len(self.payload) - 1], 42, "negative indexing is supported"
         )
         #
+        # Test the timing parameters
+        self.payload.init_timing_defaults()
+        #
+        self.assertEqual(
+            self.payload.mark_after_frame_stop, 50, "Incorrect mark_after_frame_stop"
+        )
+        self.payload.mark_after_frame_stop = 30
+        self.assertEqual(
+            self.payload.mark_after_frame_stop,
+            30,
+            "Error setting mark_after_frame_stop",
+        )
+        #
+        self.assertEqual(
+            self.payload.mark_before_break, 8, "Incorrect mark_before_break"
+        )
+        self.payload.mark_before_break = 12
+        self.assertEqual(
+            self.payload.mark_before_break, 12, "Error setting mark_before_break"
+        )
+        #
+        self.assertEqual(self.payload.space_for_break, 172, "Incorrect space_for_break")
+        self.payload.space_for_break = 88
+        self.assertEqual(
+            self.payload.space_for_break, 88, "Error setting space_for_break"
+        )
+        #
+        self.assertEqual(self.payload.mark_after_break, 8, "Incorrect mark_after_break")
+        self.payload.mark_after_break = 14
+        self.assertEqual(
+            self.payload.mark_after_break, 14, "Error setting mark_after_break"
+        )
+        #
+        self.assertEqual(
+            self.payload.mark_after_start_code, 8, "Incorrect mark_after_start_code"
+        )
+        self.payload.mark_after_start_code = 16
+        self.assertEqual(
+            self.payload.mark_after_start_code,
+            16,
+            "Error setting mark_after_start_code",
+        )
+        #
+        self.assertEqual(
+            self.payload.mark_between_slots, 8, "Incorrect mark_between_slots"
+        )
+        self.payload.mark_between_slots = 20
+        self.assertEqual(
+            self.payload.mark_between_slots, 20, "Error setting mark_between_slots"
+        )
+        #
         # This length is calculated
         self.assertEqual(len(self.payload), self.slots, "incorrect array length")
         #

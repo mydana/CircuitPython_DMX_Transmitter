@@ -40,7 +40,6 @@ assert 4 == IntervalTimings.TDATA, "Terminal data bit SHALL be 4 µS"
 
 # TODO revisit advanced documentation.
 
-# TODO timing parameters (enable & sense)
 # TODO Oscilloscope validation.
 # TODO timing logic sense.
 

@@ -63,10 +63,8 @@ class DMXTransmitter(DMXPayload):
         dmx_out_pin,
         slots=512,
         auto_write=False,
-        enable_out_pin=None,
-        invert_enable_out=False,
-        # timing_out_pin
-        # timing_out_control
+        timing_out_pin=None,
+        timing_out_control=False,
         exclusive_pin_use=True,
     ) -> None:
         super().__init__(slots=slots, buffers=2)
@@ -76,14 +74,16 @@ class DMXTransmitter(DMXPayload):
             # Ignore error if one buffer.
             pass
         # Figure out which code to use.
-        if enable_out_pin:
-            if invert_enable_out is False:
+        if timing_out_pin:
+            if timing_out_control is None or timing_out_control == 0:
                 self.code_index = 1
-            elif invert_enable_out is True:
+            elif timing_out_control is False or timing_out_control == 1:
+                self.code_index = 1
+            elif timing_out_control is True or timing_out_control == -1:
                 self.code_index = -1
-            elif invert_enable_out == 2:
+            elif timing_out_control == 2:
                 self.code_index = 2
-            elif invert_enable_out == -2:
+            elif timing_out_control == -2:
                 self.code_index = -2
             else:
                 raise ValueError("invert_enable_out must be False, True, 2, or -2")
@@ -92,7 +92,7 @@ class DMXTransmitter(DMXPayload):
         #
         # State machine parameters.
         self.dmx_out_pin = dmx_out_pin
-        self.first_sideset_pin = enable_out_pin
+        self.first_sideset_pin = timing_out_pin
         self.exclusive_pin_use = exclusive_pin_use
         #
         # Launch the state machine.
