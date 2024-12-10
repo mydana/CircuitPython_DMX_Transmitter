@@ -43,6 +43,7 @@ assert 4 == IntervalTimings.TDATA, "Terminal data bit SHALL be 4 µS"
 # TODO document the maximum timing
 # TODO - error messages show minimum and maximum timing.
 # TODO test timing parameters in the c-test
+# TODO timing parameters
 
 
 class DMXPayload:  # pylint: disable=too-many-instance-attributes
