@@ -37,13 +37,12 @@ assert 4 == IntervalTimings.TSTART, "Terminal start bit SHALL be 4 µS"
 assert 4 == IntervalTimings.TDATA, "Terminal data bit SHALL be 4 µS"
 
 # TODO CI fails
+
+# TODO revisit advanced documentation.
+
+# TODO timing parameters (enable & sense)
 # TODO Oscilloscope validation.
 # TODO timing logic sense.
-# TODO revisit advanced documentation.
-# TODO document the maximum timing
-# TODO - error messages show minimum and maximum timing.
-# TODO test timing parameters in the c-test
-# TODO timing parameters
 
 
 class DMXPayload:  # pylint: disable=too-many-instance-attributes
@@ -250,7 +249,7 @@ class DMXPayload:  # pylint: disable=too-many-instance-attributes
         """Timing from the last frame to before the SPACE FOR BREAK.
         (microseconds)
 
-        Minimum 2. Default 8.
+        Minimum 5. Default 8. Maximum 65540.
         """
         return (
             self.headers[self.show_buffer][0]
@@ -261,11 +260,11 @@ class DMXPayload:  # pylint: disable=too-many-instance-attributes
     @mark_before_break.setter
     def mark_before_break(self, val) -> None:
         val = int(val) - IntervalTimings.MBB - IntervalTimings.MAF
-        if val < 0:
+        if val < 0 or val >= 65536:
             raise ValueError(
-                "'mark_before_break' is too low. Shall be at least {0} microseconds.".format(
-                    IntervalTimings.MBB + IntervalTimings.MAF
-                )
+                "'mark_before_break' out of range. "
+                f"Shall be at least {IntervalTimings.MBB + IntervalTimings.MAF} microseconds, "
+                f"but less than {IntervalTimings.MBB + IntervalTimings.MAF + 65536} microseconds. "
             )
         for header in self.headers:
             header[0] = val
@@ -275,18 +274,18 @@ class DMXPayload:  # pylint: disable=too-many-instance-attributes
         """Time for a DMX SPACE FOR BREAK.
         Indicates data stream is restarting. (microseconds)
 
-        Minimum 4, Default 172, Standard minimum 88.
+        Minimum 4, Default 172, Standard minimum 88, Maximum 65539.
         """
         return self.headers[self.show_buffer][1] + IntervalTimings.BREAK
 
     @space_for_break.setter
     def space_for_break(self, val) -> None:
         val = int(val) - IntervalTimings.BREAK
-        if val < 0:
+        if val < 0 or val >= 65536:
             raise ValueError(
-                "'space_for_break' is too low. Shall be at least {0} microseconds.".format(
-                    IntervalTimings.BREAK
-                )
+                "'space_for_break' out of range. "
+                f"Shall be at least {IntervalTimings.BREAK} microseconds, "
+                f"but less than {IntervalTimings.BREAK + 65536} microseconds. "
             )
         for header in self.headers:
             header[1] = val
@@ -295,7 +294,7 @@ class DMXPayload:  # pylint: disable=too-many-instance-attributes
     def mark_after_break(self) -> int:
         """Time after a DMX SPACE FOR BREAK before serial data. (microseconds)
 
-        Minimum 4, Default 8
+        Minimum 4, Default 8, Maximum 65539.
         """
         return (
             self.headers[self.show_buffer][2]
@@ -306,11 +305,13 @@ class DMXPayload:  # pylint: disable=too-many-instance-attributes
     @mark_after_break.setter
     def mark_after_break(self, val) -> None:
         val = int(val) - IntervalTimings.MAB - IntervalTimings.ASTART
-        if val < 0:
+        if val < 0 or val >= 65536:
             raise ValueError(
-                "'mark_after_break' is too low. Shall be at least {0} microseconds.".format(
-                    IntervalTimings.MAB + IntervalTimings.ASTART
-                )
+                "'mark_after_break' out of range. "
+                "Shall be at least "
+                f"{IntervalTimings.MAB + IntervalTimings.ASTART} microseconds, "
+                "but less than "
+                f"{IntervalTimings.MAB + IntervalTimings.ASTART + 65536} microseconds."
             )
         for header in self.headers:
             header[2] = val
@@ -340,11 +341,13 @@ class DMXPayload:  # pylint: disable=too-many-instance-attributes
     @mark_after_start_code.setter
     def mark_after_start_code(self, val) -> None:
         val = int(val) - IntervalTimings.STOP - IntervalTimings.ASTART
-        if val < 0:
+        if val < 0 or val >= 256:
             raise ValueError(
-                "'mark_after_start_code' is too low. Shall be at least {0} microseconds.".format(
-                    IntervalTimings.STOP + IntervalTimings.ASTART
-                )
+                "'mark_after_start_code' out of range. "
+                "Shall be at least "
+                f"{IntervalTimings.STOP + IntervalTimings.ASTART} microseconds, "
+                "but less than "
+                f"{IntervalTimings.STOP + IntervalTimings.ASTART + 256} microseconds."
             )
         for payload in self.payloads:
             payload[1] = val
@@ -365,11 +368,13 @@ class DMXPayload:  # pylint: disable=too-many-instance-attributes
     @mark_between_slots.setter
     def mark_between_slots(self, val) -> None:
         val = int(val) - IntervalTimings.STOP - IntervalTimings.ASTART
-        if val < 0:
+        if val < 0 or val >= 256:
             raise ValueError(
-                "'mark_between_slots' is too low. Shall be at least {0} microseconds.".format(
-                    IntervalTimings.STOP + IntervalTimings.ASTART
-                )
+                "'mmark_between_slots' out of range. "
+                "Shall be at least "
+                f"{IntervalTimings.STOP + IntervalTimings.ASTART} microseconds, "
+                "but less than "
+                f"{IntervalTimings.STOP + IntervalTimings.ASTART + 256} microseconds."
             )
         self._mark_between_slots = val
         for payload in self.payloads:
