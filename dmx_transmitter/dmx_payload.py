@@ -36,10 +36,10 @@ assert (
 assert 4 == IntervalTimings.TSTART, "Terminal start bit SHALL be 4 µS"
 assert 4 == IntervalTimings.TDATA, "Terminal data bit SHALL be 4 µS"
 
-# TODO copy of the DMXPayload (for a subclass)
+# TODO CI fails
 # TODO Oscilloscope validation.
 # TODO timing logic sense.
-# TODO documentation index is just the page, not the whole library!!!
+# TODO revisit advanced documentation.
 # TODO document the maximum timing
 # TODO - error messages show minimum and maximum timing.
 # TODO test timing parameters in the c-test
