@@ -14,8 +14,10 @@ Implementation Notes
 
 **Hardware:**
 
-* `Any RP2040 CircuitPython board. I used the Adafruit KB2040
+* Any RP2040 CircuitPython board. I used the Adafruit KB2040
   <https://www.adafruit.com/product/5302>`_ (Product ID: <5302>)
+
+* A RP2350 CircuitPython board may work as well.
 
 * An isolated RS485 line driver. I used a Digilent PmodRS485.
 """
@@ -63,6 +65,8 @@ class DMXTransmitter(DMXPayload):
         auto_write=False,
         enable_out_pin=None,
         invert_enable_out=False,
+        # timing_out_pin
+        # timing_out_control
         exclusive_pin_use=True,
     ) -> None:
         super().__init__(slots=slots, buffers=2)
@@ -95,7 +99,7 @@ class DMXTransmitter(DMXPayload):
         self.reinit()
 
     def reinit(self):
-        "Re-connect the state machine"
+        "Re-connect and state machine to the pin, and start the state machine."
         self.state_machine = rp2pio.StateMachine(
             machine_code[self.code_index],
             **pio_kwargs(abs(self.code_index)),
@@ -111,9 +115,12 @@ class DMXTransmitter(DMXPayload):
         self._send_init(self.state_machine.background_write)
 
     def show(self, once=None) -> None:
-        """Buffer DMX payload to the state machine and out the wire.
+        """If auto_write is False, send changes down the wire.
 
-        Changes are not seen until 'show' is called again.
+        If auto_write is True, ignored.
+
+        'once' is an advanced parameter for sending Alternate START Codes,
+        and if you don't know what that means, don't worry about it.
         """
         if once is None:
             self._send_show_buffer(self.state_machine.background_write)
@@ -126,7 +133,8 @@ class DMXTransmitter(DMXPayload):
 
     def stop(self) -> None:
         """Stop sending data down the wire.
-        Go into a high impedance state, if enabled.
+
+        Advanced use: Disable the line driver, if configured.
         """
         self.state_machine.background_write()
         self._send_stop_buffer(callback=self.state_machine.background_write)

@@ -5,16 +5,19 @@
 `dmx_transmitter.dmx_payload`
 ========================================
 
-Container that has data and timings for the state machine.
+This module attempts to implement the data protocol standard for::
 
-Implements the USITT-DMX512-A standard's timings.
+    American National Standard
+    ANSI E1.11 –– 2008 (R2018)
+    Entertainment Technology––-USITT DMX512-A
+    Asynchronous Serial Digital Data
+    Transmission Standard for Controlling
+    Lighting Equipment and Accessories
 
-Basic usage is handled via convenience methods provided by
-the dmx_transmitter.dmx_transmitter.DMXTransmitter class.
+    ANSI Document number: CP/2007-1013r3.1
 
-This class can be used to adjust the DMX timing.
+aka DMX512 or DMX.
 
-* Author: Dana Runge
 """
 
 import array
@@ -33,28 +36,42 @@ assert (
 assert 4 == IntervalTimings.TSTART, "Terminal start bit SHALL be 4 µS"
 assert 4 == IntervalTimings.TDATA, "Terminal data bit SHALL be 4 µS"
 
+# TODO copy of the DMXPayload (for a subclass)
+# TODO Oscilloscope validation.
+# TODO timing logic sense.
+# TODO documentation index is just the page, not the whole library!!!
+# TODO document the maximum timing
+# TODO - error messages show minimum and maximum timing.
+# TODO test timing parameters in the c-test
+
 
 class DMXPayload:  # pylint: disable=too-many-instance-attributes
-    """This object mimics a list of byte values, and stores it and timing
-    parameters into a data structure suitable for sending into a DMX512TxEngine
-    state machine.
+    """Data Payload for the RP2040/RP2350 PIO state machine.
 
-    Unlike DMX512, this virtual list is 0-based, just like Python lists.
-    Therefore, there is an inherent off-by-one error between DMX addresses and
-    the list indexes.
+    The RP2040/RP2350 does not implement DMX512 directly, instead this library
+    implements machine code in state machines in the Programmable I/O (PIO)
+    peripheral. Unfortunately, that machine code cannot directly implement
+    DMX512 either, instead that machine code consumes a data structure that
+    combines data, timing, and quanity data usable by it.
 
-    Like Python lists, slicing is supported, but because of the fixed size,
-    slice assignment is limited. A slice assignment from a list-like object
-    of the same size is allowed.
+    This class implements that data structure, and gives the user an interface
+    that is friendly for Python programmers.
 
-    Timing parameters are set by decorators.
+    Unlike DMX512 which is 1-based, this object is 0-based, just like Python
+    lists. Therefore there is an inherent off-by-one error between DMX slot
+    addresses and this object's indeces.
+
+    This class is a superclass to the dmx_transmitter class, and implements much
+    of the public interface. As such, it can also carry two copies of the data
+    structure so that dmx_transmitter can implement double-buffering.
+
+    For more advanced users, this class can be subclassed to create classes that
+    implement alternative DMX timings, or Alternate START Codes.
 
     Caution: Several timing parameters include the stop bits. To meet the
     DMX standards include at least 8 microseconds in these parameters.
 
-    :param int slots: number of slots of DMX data available. (count)
-        Consumes two bytes per slot per buffer.
-        Minimum: 1. Default: 512. Maximum: 512.
+    * Author: Dana Runge
 
     """
 
@@ -95,7 +112,16 @@ class DMXPayload:  # pylint: disable=too-many-instance-attributes
         slots=None,
         buffers=1,
     ):
-        "Sets up default USITT DMX512-A timings."
+        """
+        construct a DMX payload state machine data structure.
+
+        :param int slots: number of slots of DMX data available. (count)
+            Consumes two bytes per slot per buffer.
+            Minimum: 1. Default: 512. Maximum: 512.
+
+        :param int buffers: how many data structures to implement.
+            Minimum: 1. Default: 1
+        """
         #
         # slots
         slots = int(slots) if slots is not None else self.MAX_SLOTS
@@ -135,12 +161,6 @@ class DMXPayload:  # pylint: disable=too-many-instance-attributes
         for header in self.headers:
             header[3] = slots - self.MIN_SLOTS
         self.init_timing_defaults()
-        if self.mark_after_frame_stop - IntervalTimings.MAF - IntervalTimings.WAIT < 1:
-            raise AssertionError(
-                "'mark_after_frame_stop' is too low. Shall be at least {0} microseconds.".format(
-                    IntervalTimings.MAF + IntervalTimings.WAIT + 1
-                )
-            )
         # Set up the start code.
         for payload in self.payloads:
             payload[0] = self.START_CODE
@@ -148,7 +168,8 @@ class DMXPayload:  # pylint: disable=too-many-instance-attributes
     def init_timing_defaults(self) -> None:
         """Intialize the USITT DMX512-A timing defaults.
 
-        Override this method to set different timings"""
+        Override this method to set different timings.
+        """
         # fmt: off
         self.mark_after_frame_stop = 50  # last slot mark time, for stopping
         # Set mark_after_frame before setting mark_before_break.
@@ -166,7 +187,8 @@ class DMXPayload:  # pylint: disable=too-many-instance-attributes
         """Enable or disable auto_write.
 
         If auto_write is True: Changes appear right away.
-        If auto_write is False: Call .show() for changes to appear."""
+        If auto_write is False: Call .show() for changes to appear.
+        """
         if self.buffers == 1:
             return True
         return self.edit_buffer == self.show_buffer
@@ -186,6 +208,9 @@ class DMXPayload:  # pylint: disable=too-many-instance-attributes
             self.buffers[self.edit_buffer][:] = self.buffers[self.show_buffer][:]
 
     def _send_init(self, callback):
+        """Internal method for sending data to the state machine.
+
+        Used to implement the .reinit() method."""
         callback(loop=self.buffers[self.show_buffer])
 
     def _send_show_buffer(self, callback):
@@ -363,11 +388,10 @@ class DMXPayload:  # pylint: disable=too-many-instance-attributes
         Indicates the calculated BREAK TO BREAK run time for each DMX frame.
         (microseconds)
 
-        The USITT DMX512-A standard defines an minimum BREAK TO BREAK time
-        of 1204 microseconds. Your equipment probably doesn't care.
+        The standard defines an minimum BREAK TO BREAK time of 1204 microseconds.
+        Your equipment probably doesn't care.
 
-        If a longer interval is needed, adjust the timing parameters in the
-        class constructor.
+        If a longer interval is needed, adjust the timing parameters.
         """
         return (
             self.mark_before_break
@@ -390,9 +414,9 @@ class DMXPayload:  # pylint: disable=too-many-instance-attributes
     def clear(self, start=None, end=None, step=None):
         """Clear all values, or those specified.
 
-        :param int start: the first slot to clear. (Default: 0)
-        :param int end: the last slot to clear. (Default: -1)
-        :param int step: the step for each slot to clear. (Default: 1)
+        :param int start: the first slot to clear.
+        :param int end: the last slot to clear.
+        :param int step: the step for each slot to clear.
         """
         payload = self.payloads[self.edit_buffer]
         for slot in range(*slice(start, end, step).indices(len(self))):
@@ -402,9 +426,9 @@ class DMXPayload:  # pylint: disable=too-many-instance-attributes
         """Clear all values, or those specified.
 
         :param int value: the value to be filled into each slot.
-        :param int start: the first slot to fill. (Default: 0)
-        :param int end: the last slot to fill. (Default: -1)
-        :param int step: the step for each slot to fill. (Default: 1)
+        :param int start: the first slot to fill.
+        :param int end: the last slot to fill.
+        :param int step: the step for each slot to fill.
         """
         payload = self.payloads[self.edit_buffer]
         for slot in range(*slice(start, end, step).indices(len(self))):
@@ -416,7 +440,7 @@ class DMXPayload:  # pylint: disable=too-many-instance-attributes
     def __getitem__(self, ixes: int) -> int:
         payload = self.payloads[self.edit_buffer]
         if isinstance(ixes, slice):
-            return [payload[ix * 2 + 1] for ix in range(*ixes.indices(len(self)))]
+            return [payload[ix * 2 + 2] for ix in range(*ixes.indices(len(self)))]
         try:
             ixes = int(ixes)
         except TypeError as exc:

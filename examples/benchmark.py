@@ -3,7 +3,7 @@
 # SPDX-FileCopyrightText: Copyright (c) 2024 Dana Runge
 #
 # SPDX-License-Identifier: MIT
-"Run the benchmarks on the dmx_transmitter"
+"Run the benchmarks on the dmx_transmitter. This is a tool for the developer."
 
 import time
 import sys
@@ -54,6 +54,10 @@ TEST_CASES = (
     ("128:False", {"slots": 128, "auto_write": False}),
     ("64:True", {"slots": 64, "auto_write": True}),
     ("128:True", {"slots": 128, "auto_write": True}),
+    ("8:False", {"slots": 8, "auto_write": False}),  # This should never be hit.
+    ("4:False", {"slots": 4, "auto_write": False}),  # This should never be hit.
+    ("8:True", {"slots": 8, "auto_write": True}),  # This should never be hit.
+    ("4:True", {"slots": 4, "auto_write": True}),  # This should never be hit.
 )
 
 
@@ -70,7 +74,6 @@ def timeit(s, f):
 #
 # Set up the state machines for testing
 #
-
 instantiated_cases = []
 
 for inx, pin in enumerate(PINS):

@@ -15,6 +15,31 @@ class PayloadMixin:
     def runTest(self):  # pylint: disable=invalid-name
         properties = {}
         #
+        # Test the examples in the documentation
+        self.assertEqual(self.payload[0], 0, "object is already initialized to 0")
+        with self.assertRaises(IndexError):
+            self.payload[512]  # pylint: disable=pointless-statement
+        if len(self.payload) >= 8:
+            self.assertEqual(
+                list(self.payload[0:8]),
+                [0, 0, 0, 0, 0, 0, 0, 0],
+                "object is already initialized to 0",
+            )
+            self.payload[0:5] = range(5)
+            self.assertEqual(
+                list(self.payload[0:8]),
+                [0, 1, 2, 3, 4, 0, 0, 0],
+                "slice assignment is allowed ",
+            )
+            with self.assertRaises(ValueError):
+                self.payload[0:8] = range(5)
+        with self.assertRaises(ValueError):
+            self.payload[0] = 256
+        self.payload[-1] = 42
+        self.assertEqual(
+            self.payload[len(self.payload) - 1], 42, "negative indexing is supported"
+        )
+        #
         # This length is calculated
         self.assertEqual(len(self.payload), self.slots, "incorrect array length")
         #
