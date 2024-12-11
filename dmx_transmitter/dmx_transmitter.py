@@ -17,7 +17,7 @@ Implementation Notes
 * Any RP2040 CircuitPython board. I used the Adafruit KB2040
   <https://www.adafruit.com/product/5302>`_ (Product ID: <5302>)
 
-* A RP2350 CircuitPython board may work as well.
+* An RP2350 CircuitPython board may work as well. It has not been tested yet.
 
 * An isolated RS485 line driver. I used a Digilent PmodRS485.
 """
@@ -34,10 +34,10 @@ __repo__ = "https://github.com/mydana/CircuitPython_DMX_Transmitter"
 
 
 class DMXTransmitter(DMXPayload):
-    """Configure an RP2040 PIO state machine to drive the DMX512 protocol.
+    """Configure an RP2040/RP2350 PIO state machine to drive the DMX512 protocol.
 
-    :param ~microcontroller.Pin dmx_out_pin: the first pin for the
-        first new DMX universe.
+    :param ~microcontroller.Pin dmx_out_pin: the DMX universe. Needs a RS485
+        line driver to work correctly. Check documentation.
 
     **Optional parameters:**
 
@@ -46,14 +46,9 @@ class DMXTransmitter(DMXPayload):
 
     :param int slots: How many DMX512 slots to implement (1 thru 512)
 
-    :param ~microcontroller.Pin enable_out_pin: a pin for enabling the line
-        driver.
+    :param ~microcontroller.Pin|Nine timing_out_pin: see Advanced Usage documention.
 
-    :param bool|int invert_enable: If True, invert the enable pin. If False,
-        don't invert the enable pin. If -2 or 2, also implements a second
-        enable_out_pin. (The next pin. If the enable_out_pin is D4, for example,
-        then this second pin is D5.) This second pin pulses during MARK AFTER
-        BREAK, which could be used to trigger an oscilloscope.
+    :param bool|int timing_out_control: see Advanced Usage documention.
 
     :param exclusive_pin_use: Used for debugging.
     """
@@ -76,17 +71,29 @@ class DMXTransmitter(DMXPayload):
         # Figure out which code to use.
         if timing_out_pin:
             if timing_out_control is None or timing_out_control == 0:
-                self.code_index = 1
-            elif timing_out_control is False or timing_out_control == 1:
-                self.code_index = 1
-            elif timing_out_control is True or timing_out_control == -1:
-                self.code_index = -1
-            elif timing_out_control == 2:
-                self.code_index = 2
-            elif timing_out_control == -2:
-                self.code_index = -2
+                self.code_index = 0
+                if timing_out_pin is not None:
+                    raise ValueError(
+                        "timing_out_pin cannot be set if timing_out_control is set"
+                    )
             else:
-                raise ValueError("invert_enable_out must be False, True, 2, or -2")
+                if timing_out_control is False or timing_out_control == 1:
+                    self.code_index = 1
+                elif timing_out_control is True or timing_out_control == -1:
+                    self.code_index = -1
+                elif timing_out_control == 2:
+                    self.code_index = 2
+                elif timing_out_control == -2:
+                    self.code_index = -2
+                else:
+                    raise ValueError(
+                        "timing_out_control must be None, False, True, -2, -1, 0, 1, or 2"
+                    )
+                if timing_out_pin is None:
+                    raise ValueError(
+                        "timing_out_control must be set if timing_out_pin is"
+                    )
+
         else:
             self.code_index = 0
         #

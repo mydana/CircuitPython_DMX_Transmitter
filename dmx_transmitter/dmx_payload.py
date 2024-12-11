@@ -38,10 +38,9 @@ assert 4 == IntervalTimings.TDATA, "Terminal data bit SHALL be 4 µS"
 
 # TODO CI fails
 
-# TODO revisit advanced documentation.
-
 # TODO Oscilloscope validation.
 # TODO timing logic sense.
+# TODO verify the sideset pin configuration
 
 
 class DMXPayload:  # pylint: disable=too-many-instance-attributes
@@ -262,8 +261,8 @@ class DMXPayload:  # pylint: disable=too-many-instance-attributes
         if val < 0 or val >= 65536:
             raise ValueError(
                 "'mark_before_break' out of range. "
-                f"Shall be at least {IntervalTimings.MBB + IntervalTimings.MAF} microseconds, "
-                f"but less than {IntervalTimings.MBB + IntervalTimings.MAF + 65536} microseconds. "
+                + f"Shall be at least {IntervalTimings.MBB + IntervalTimings.MAF} microseconds, "
+                + f"but less than {IntervalTimings.MBB + IntervalTimings.MAF + 65536} microseconds."
             )
         for header in self.headers:
             header[0] = val
@@ -283,8 +282,8 @@ class DMXPayload:  # pylint: disable=too-many-instance-attributes
         if val < 0 or val >= 65536:
             raise ValueError(
                 "'space_for_break' out of range. "
-                f"Shall be at least {IntervalTimings.BREAK} microseconds, "
-                f"but less than {IntervalTimings.BREAK + 65536} microseconds. "
+                + f"Shall be at least {IntervalTimings.BREAK} microseconds, "
+                + f"but less than {IntervalTimings.BREAK + 65536} microseconds."
             )
         for header in self.headers:
             header[1] = val
@@ -308,9 +307,9 @@ class DMXPayload:  # pylint: disable=too-many-instance-attributes
             raise ValueError(
                 "'mark_after_break' out of range. "
                 "Shall be at least "
-                f"{IntervalTimings.MAB + IntervalTimings.ASTART} microseconds, "
+                + f"{IntervalTimings.MAB + IntervalTimings.ASTART} microseconds, "
                 "but less than "
-                f"{IntervalTimings.MAB + IntervalTimings.ASTART + 65536} microseconds."
+                + f"{IntervalTimings.MAB + IntervalTimings.ASTART + 65536} microseconds."
             )
         for header in self.headers:
             header[2] = val
@@ -344,9 +343,9 @@ class DMXPayload:  # pylint: disable=too-many-instance-attributes
             raise ValueError(
                 "'mark_after_start_code' out of range. "
                 "Shall be at least "
-                f"{IntervalTimings.STOP + IntervalTimings.ASTART} microseconds, "
+                + f"{IntervalTimings.STOP + IntervalTimings.ASTART} microseconds, "
                 "but less than "
-                f"{IntervalTimings.STOP + IntervalTimings.ASTART + 256} microseconds."
+                + f"{IntervalTimings.STOP + IntervalTimings.ASTART + 256} microseconds."
             )
         for payload in self.payloads:
             payload[1] = val
@@ -371,9 +370,9 @@ class DMXPayload:  # pylint: disable=too-many-instance-attributes
             raise ValueError(
                 "'mmark_between_slots' out of range. "
                 "Shall be at least "
-                f"{IntervalTimings.STOP + IntervalTimings.ASTART} microseconds, "
+                + f"{IntervalTimings.STOP + IntervalTimings.ASTART} microseconds, "
                 "but less than "
-                f"{IntervalTimings.STOP + IntervalTimings.ASTART + 256} microseconds."
+                + f"{IntervalTimings.STOP + IntervalTimings.ASTART + 256} microseconds."
             )
         self._mark_between_slots = val
         for payload in self.payloads:

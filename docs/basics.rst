@@ -12,7 +12,7 @@ Getting started
 ---------------
 1. Buy an Adafruit microcontroller board built on the RP2040 chip.
    The DMX Transmitter needs one PIO (the RP2040 has two) and one GPIO pin.
-   (A microcontroller with built on a RP2350 may work too.)
+   (A microcontroller with built on an RP2350 may work too.)
 2. Read the "Primary Guide" for the selected board on the Adafruit website.
    This guide helps you getting started on CircuitPython programming.
 3. Install this library. Follow the Circup instructions in the main page,
