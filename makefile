@@ -3,7 +3,7 @@
 # SPDX-License-Identifier: Unlicense
 MACHINE_CODE_DEPS = \
   assembly_code/reformat_pioasm.py \
-  assembly_code/assembly_code.txt.csv
+  assembly_code/assembly_code.tsv
 
 LIBRARY_FILES = \
   dmx_transmitter/dmx_transmitter.py \
@@ -50,7 +50,7 @@ dmx_transmitter/machine_code.py: $(MACHINE_CODE_DEPS)  ## Convert assembly code 
 	source .venv/bin/activate; \
 	python3 assembly_code/reformat_pioasm.py \
 	--sideset-pins -2 \
-	--python assembly_code/assembly_code.txt.csv \
+	--python assembly_code/assembly_code.tsv \
 	--out dmx_transmitter/machine_code.py
 
 .PHONY: docs

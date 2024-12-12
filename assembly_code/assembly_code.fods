@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <office:document xmlns:presentation="urn:oasis:names:tc:opendocument:xmlns:presentation:1.0" xmlns:css3t="http://www.w3.org/TR/css3-text/" xmlns:grddl="http://www.w3.org/2003/g/data-view#" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xforms="http://www.w3.org/2002/xforms" xmlns:dom="http://www.w3.org/2001/xml-events" xmlns:script="urn:oasis:names:tc:opendocument:xmlns:script:1.0" xmlns:form="urn:oasis:names:tc:opendocument:xmlns:form:1.0" xmlns:math="http://www.w3.org/1998/Math/MathML" xmlns:meta="urn:oasis:names:tc:opendocument:xmlns:meta:1.0" xmlns:loext="urn:org:documentfoundation:names:experimental:office:xmlns:loext:1.0" xmlns:field="urn:openoffice:names:experimental:ooo-ms-interop:xmlns:field:1.0" xmlns:number="urn:oasis:names:tc:opendocument:xmlns:datastyle:1.0" xmlns:table="urn:oasis:names:tc:opendocument:xmlns:table:1.0" xmlns:chart="urn:oasis:names:tc:opendocument:xmlns:chart:1.0" xmlns:formx="urn:openoffice:names:experimental:ooxml-odf-interop:xmlns:form:1.0" xmlns:svg="urn:oasis:names:tc:opendocument:xmlns:svg-compatible:1.0" xmlns:rpt="http://openoffice.org/2005/report" xmlns:dr3d="urn:oasis:names:tc:opendocument:xmlns:dr3d:1.0" xmlns:tableooo="http://openoffice.org/2009/table" xmlns:draw="urn:oasis:names:tc:opendocument:xmlns:drawing:1.0" xmlns:of="urn:oasis:names:tc:opendocument:xmlns:of:1.2" xmlns:text="urn:oasis:names:tc:opendocument:xmlns:text:1.0" xmlns:style="urn:oasis:names:tc:opendocument:xmlns:style:1.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:calcext="urn:org:documentfoundation:names:experimental:calc:xmlns:calcext:1.0" xmlns:oooc="http://openoffice.org/2004/calc" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:drawooo="http://openoffice.org/2010/draw" xmlns:ooow="http://openoffice.org/2004/writer" xmlns:config="urn:oasis:names:tc:opendocument:xmlns:config:1.0" xmlns:fo="urn:oasis:names:tc:opendocument:xmlns:xsl-fo-compatible:1.0" xmlns:ooo="http://openoffice.org/2004/office" xmlns:office="urn:oasis:names:tc:opendocument:xmlns:office:1.0" office:version="1.3" office:mimetype="application/vnd.oasis.opendocument.spreadsheet">
- <office:meta><dc:date>2024-11-28T22:05:34.775603151</dc:date><meta:editing-duration>PT24M44S</meta:editing-duration><meta:editing-cycles>3</meta:editing-cycles><meta:generator>LibreOffice/24.2.5.2$MacOSX_AARCH64 LibreOffice_project/bffef4ea93e59bebbeaf7f431bb02b1a39ee8a59</meta:generator><meta:document-statistic meta:table-count="2" meta:cell-count="253" meta:object-count="0"/></office:meta>
+ <office:meta><dc:date>2024-12-11T16:08:24.111904806</dc:date><meta:editing-duration>PT25M53S</meta:editing-duration><meta:editing-cycles>5</meta:editing-cycles><meta:generator>LibreOffice/24.2.5.2$MacOSX_AARCH64 LibreOffice_project/bffef4ea93e59bebbeaf7f431bb02b1a39ee8a59</meta:generator><meta:document-statistic meta:table-count="2" meta:cell-count="253" meta:object-count="0"/></office:meta>
  <office:settings>
   <config:config-item-set config:name="ooo:view-settings">
    <config:config-item config:name="VisibleAreaTop" config:type="int">0</config:config-item>
@@ -31,12 +31,12 @@
       </config:config-item-map-entry>
       <config:config-item-map-entry config:name="assembly_code">
        <config:config-item config:name="CursorPositionX" config:type="int">0</config:config-item>
-       <config:config-item config:name="CursorPositionY" config:type="int">0</config:config-item>
+       <config:config-item config:name="CursorPositionY" config:type="int">44</config:config-item>
        <config:config-item config:name="ActiveSplitRange" config:type="short">2</config:config-item>
        <config:config-item config:name="PositionLeft" config:type="int">0</config:config-item>
        <config:config-item config:name="PositionRight" config:type="int">0</config:config-item>
        <config:config-item config:name="PositionTop" config:type="int">0</config:config-item>
-       <config:config-item config:name="PositionBottom" config:type="int">0</config:config-item>
+       <config:config-item config:name="PositionBottom" config:type="int">34</config:config-item>
        <config:config-item config:name="ZoomType" config:type="short">0</config:config-item>
        <config:config-item config:name="ZoomValue" config:type="int">100</config:config-item>
        <config:config-item config:name="PageViewZoomValue" config:type="int">60</config:config-item>
@@ -48,7 +48,7 @@
       </config:config-item-map-entry>
      </config:config-item-map-named>
      <config:config-item config:name="ActiveTable" config:type="string">assembly_code</config:config-item>
-     <config:config-item config:name="HorizontalScrollbarWidth" config:type="int">1031</config:config-item>
+     <config:config-item config:name="HorizontalScrollbarWidth" config:type="int">1321</config:config-item>
      <config:config-item config:name="ZoomType" config:type="short">0</config:config-item>
      <config:config-item config:name="ZoomValue" config:type="int">100</config:config-item>
      <config:config-item config:name="PageViewZoomValue" config:type="int">60</config:config-item>
@@ -530,6 +530,9 @@
   </loext:theme>
  </office:styles>
  <office:automatic-styles>
+  <style:style style:name="co9" style:family="table-column">
+   <style:table-column-properties fo:break-before="auto" style:column-width="0.889in"/>
+  </style:style>
   <style:style style:name="co2" style:family="table-column">
    <style:table-column-properties fo:break-before="auto" style:column-width="1.352in"/>
   </style:style>
@@ -554,9 +557,6 @@
   <style:style style:name="co10" style:family="table-column">
    <style:table-column-properties fo:break-before="auto" style:column-width="1.65in"/>
   </style:style>
-  <style:style style:name="co9" style:family="table-column">
-   <style:table-column-properties fo:break-before="auto" style:column-width="0.889in"/>
-  </style:style>
   <style:style style:name="ro1" style:family="table-row">
    <style:table-row-properties style:row-height="0.178in" fo:break-before="auto" style:use-optimal-row-height="true"/>
   </style:style>
@@ -569,52 +569,31 @@
   <number:text-style style:name="N100">
    <number:text-content/>
   </number:text-style>
-  <style:style style:name="ce1" style:family="table-cell" style:parent-style-name="Default">
-   <style:text-properties style:font-name="Liberation Sans"/>
-  </style:style>
-  <style:style style:name="ce2" style:family="table-cell" style:parent-style-name="Default" style:data-style-name="N0">
-   <style:table-cell-properties style:cell-protect="protected" style:print-content="true" style:diagonal-bl-tr="none" style:diagonal-tl-br="none" style:text-align-source="value-type" style:repeat-content="false" fo:wrap-option="no-wrap" fo:border="0.74pt solid #ffffff" style:direction="ltr" style:rotation-angle="0" style:rotation-align="none" style:shrink-to-fit="false" style:vertical-align="top" loext:vertical-justify="auto"/>
-   <style:paragraph-properties css3t:text-justify="auto" fo:margin-left="0in" style:writing-mode="page"/>
-   <style:text-properties style:use-window-font-color="true" style:text-outline="false" style:text-line-through-style="none" style:text-line-through-type="none" style:font-name="Liberation Sans" fo:font-size="10pt" fo:font-style="normal" fo:text-shadow="none" style:text-underline-style="none" fo:font-weight="normal" style:font-size-asian="10pt" style:font-style-asian="normal" style:font-weight-asian="normal" style:font-size-complex="10pt" style:font-style-complex="normal" style:font-weight-complex="normal"/>
-  </style:style>
-  <style:style style:name="ce3" style:family="table-cell" style:parent-style-name="Default" style:data-style-name="N100">
-   <style:table-cell-properties style:cell-protect="protected" style:print-content="true" style:diagonal-bl-tr="none" style:diagonal-tl-br="none" style:text-align-source="value-type" style:repeat-content="false" fo:wrap-option="no-wrap" fo:border="0.74pt solid #ffffff" style:direction="ltr" style:rotation-angle="0" style:rotation-align="none" style:shrink-to-fit="false" style:vertical-align="top" loext:vertical-justify="auto"/>
-   <style:paragraph-properties css3t:text-justify="auto" fo:margin-left="0in" style:writing-mode="page"/>
-   <style:text-properties style:use-window-font-color="true" style:text-outline="false" style:text-line-through-style="none" style:text-line-through-type="none" style:font-name="Liberation Sans" fo:font-size="10pt" fo:font-style="normal" fo:text-shadow="none" style:text-underline-style="none" fo:font-weight="normal" style:font-size-asian="10pt" style:font-style-asian="normal" style:font-weight-asian="normal" style:font-size-complex="10pt" style:font-style-complex="normal" style:font-weight-complex="normal"/>
-  </style:style>
-  <style:style style:name="ce4" style:family="table-cell" style:parent-style-name="Default" style:data-style-name="N0">
-   <style:table-cell-properties style:cell-protect="protected" style:print-content="true" style:text-align-source="value-type" style:repeat-content="false" fo:wrap-option="no-wrap" style:direction="ltr" style:rotation-angle="0" style:rotation-align="none" style:shrink-to-fit="false" style:vertical-align="top" loext:vertical-justify="auto"/>
-   <style:paragraph-properties css3t:text-justify="auto" fo:margin-left="0in" style:writing-mode="page"/>
-   <style:text-properties style:use-window-font-color="true" style:text-outline="false" style:text-line-through-style="none" style:text-line-through-type="none" style:font-name="Liberation Sans" fo:font-size="10pt" fo:font-style="normal" fo:text-shadow="none" style:text-underline-style="none" fo:font-weight="normal" style:font-size-asian="10pt" style:font-style-asian="normal" style:font-weight-asian="normal" style:font-size-complex="10pt" style:font-style-complex="normal" style:font-weight-complex="normal"/>
-  </style:style>
-  <style:style style:name="ce5" style:family="table-cell" style:parent-style-name="Default" style:data-style-name="N0">
-   <style:text-properties style:font-name="Liberation Sans"/>
-  </style:style>
-  <style:style style:name="ce29" style:family="table-cell" style:parent-style-name="Pivot_20_Table_20_Field">
+  <style:style style:name="ce15" style:family="table-cell" style:parent-style-name="Pivot_20_Table_20_Field">
    <style:table-cell-properties fo:border-bottom="0.99pt solid #000000" fo:border-left="2.01pt solid #000000" fo:border-right="0.99pt solid #000000" fo:border-top="2.01pt solid #000000"/>
   </style:style>
-  <style:style style:name="ce30" style:family="table-cell" style:parent-style-name="Pivot_20_Table_20_Category" style:data-style-name="N0">
+  <style:style style:name="ce16" style:family="table-cell" style:parent-style-name="Pivot_20_Table_20_Category" style:data-style-name="N0">
    <style:table-cell-properties fo:border-bottom="none" fo:border-left="2.01pt solid #000000" fo:border-right="0.99pt solid #000000" fo:border-top="0.99pt solid #000000"/>
   </style:style>
-  <style:style style:name="ce31" style:family="table-cell" style:parent-style-name="Pivot_20_Table_20_Category" style:data-style-name="N0">
+  <style:style style:name="ce17" style:family="table-cell" style:parent-style-name="Pivot_20_Table_20_Category" style:data-style-name="N0">
    <style:table-cell-properties fo:border-bottom="none" fo:border-left="2.01pt solid #000000" fo:border-right="0.99pt solid #000000" fo:border-top="none"/>
   </style:style>
-  <style:style style:name="ce32" style:family="table-cell" style:parent-style-name="Pivot_20_Table_20_Title" style:data-style-name="N0">
+  <style:style style:name="ce18" style:family="table-cell" style:parent-style-name="Pivot_20_Table_20_Title" style:data-style-name="N0">
    <style:table-cell-properties fo:border-bottom="2.01pt solid #000000" fo:border-left="2.01pt solid #000000" fo:border-right="0.99pt solid #000000" fo:border-top="0.99pt solid #000000"/>
   </style:style>
-  <style:style style:name="ce33" style:family="table-cell" style:parent-style-name="Pivot_20_Table_20_Corner">
+  <style:style style:name="ce19" style:family="table-cell" style:parent-style-name="Pivot_20_Table_20_Corner">
    <style:table-cell-properties fo:border-bottom="0.99pt solid #000000" fo:border-left="0.99pt solid #000000" fo:border-right="2.01pt solid #000000" fo:border-top="2.01pt solid #000000"/>
   </style:style>
-  <style:style style:name="ce34" style:family="table-cell" style:parent-style-name="Pivot_20_Table_20_Value" style:data-style-name="N0">
+  <style:style style:name="ce29" style:family="table-cell" style:parent-style-name="Pivot_20_Table_20_Value" style:data-style-name="N0">
    <style:table-cell-properties fo:border-bottom="none" fo:border-left="0.99pt solid #000000" fo:border-right="2.01pt solid #000000" fo:border-top="0.99pt solid #000000"/>
   </style:style>
-  <style:style style:name="ce35" style:family="table-cell" style:parent-style-name="Pivot_20_Table_20_Value" style:data-style-name="N0">
+  <style:style style:name="ce30" style:family="table-cell" style:parent-style-name="Pivot_20_Table_20_Value" style:data-style-name="N0">
    <style:table-cell-properties fo:border-bottom="none" fo:border-left="0.99pt solid #000000" fo:border-right="2.01pt solid #000000" fo:border-top="none"/>
   </style:style>
-  <style:style style:name="ce36" style:family="table-cell" style:parent-style-name="Pivot_20_Table_20_Value" style:data-style-name="N0">
+  <style:style style:name="ce31" style:family="table-cell" style:parent-style-name="Pivot_20_Table_20_Value" style:data-style-name="N0">
    <style:table-cell-properties fo:border-bottom="0.99pt solid #000000" fo:border-left="0.99pt solid #000000" fo:border-right="2.01pt solid #000000" fo:border-top="none"/>
   </style:style>
-  <style:style style:name="ce37" style:family="table-cell" style:parent-style-name="Pivot_20_Table_20_Result" style:data-style-name="N0">
+  <style:style style:name="ce32" style:family="table-cell" style:parent-style-name="Pivot_20_Table_20_Result" style:data-style-name="N0">
    <style:table-cell-properties fo:border-bottom="2.01pt solid #000000" fo:border-left="0.99pt solid #000000" fo:border-right="2.01pt solid #000000" fo:border-top="0.99pt solid #000000"/>
   </style:style>
   <style:style style:name="ce20" style:family="table-cell" style:parent-style-name="Default">
@@ -650,19 +629,19 @@
   <style:style style:name="ce28" style:family="table-cell" style:parent-style-name="Pivot_20_Table_20_Title" style:data-style-name="N0">
    <style:table-cell-properties fo:border-bottom="2.01pt solid #000000" fo:border-left="2.01pt solid #000000" fo:border-right="0.99pt solid #000000" fo:border-top="0.99pt solid #000000"/>
   </style:style>
-  <style:style style:name="ce38" style:family="table-cell" style:parent-style-name="Pivot_20_Table_20_Corner">
+  <style:style style:name="ce33" style:family="table-cell" style:parent-style-name="Pivot_20_Table_20_Corner">
    <style:table-cell-properties fo:border-bottom="0.99pt solid #000000" fo:border-left="0.99pt solid #000000" fo:border-right="2.01pt solid #000000" fo:border-top="2.01pt solid #000000"/>
   </style:style>
-  <style:style style:name="ce39" style:family="table-cell" style:parent-style-name="Pivot_20_Table_20_Value" style:data-style-name="N0">
+  <style:style style:name="ce34" style:family="table-cell" style:parent-style-name="Pivot_20_Table_20_Value" style:data-style-name="N0">
    <style:table-cell-properties fo:border-bottom="none" fo:border-left="0.99pt solid #000000" fo:border-right="2.01pt solid #000000" fo:border-top="0.99pt solid #000000"/>
   </style:style>
-  <style:style style:name="ce40" style:family="table-cell" style:parent-style-name="Pivot_20_Table_20_Value" style:data-style-name="N0">
+  <style:style style:name="ce35" style:family="table-cell" style:parent-style-name="Pivot_20_Table_20_Value" style:data-style-name="N0">
    <style:table-cell-properties fo:border-bottom="none" fo:border-left="0.99pt solid #000000" fo:border-right="2.01pt solid #000000" fo:border-top="none"/>
   </style:style>
-  <style:style style:name="ce41" style:family="table-cell" style:parent-style-name="Pivot_20_Table_20_Value" style:data-style-name="N0">
+  <style:style style:name="ce36" style:family="table-cell" style:parent-style-name="Pivot_20_Table_20_Value" style:data-style-name="N0">
    <style:table-cell-properties fo:border-bottom="0.99pt solid #000000" fo:border-left="0.99pt solid #000000" fo:border-right="2.01pt solid #000000" fo:border-top="none"/>
   </style:style>
-  <style:style style:name="ce42" style:family="table-cell" style:parent-style-name="Pivot_20_Table_20_Result" style:data-style-name="N0">
+  <style:style style:name="ce37" style:family="table-cell" style:parent-style-name="Pivot_20_Table_20_Result" style:data-style-name="N0">
    <style:table-cell-properties fo:border-bottom="2.01pt solid #000000" fo:border-left="0.99pt solid #000000" fo:border-right="2.01pt solid #000000" fo:border-top="0.99pt solid #000000"/>
   </style:style>
   <style:page-layout style:name="pm1">
@@ -707,7 +686,7 @@
      <text:p><text:sheet-name>???</text:sheet-name><text:s/>(<text:title>???</text:title>)</text:p>
     </style:region-left>
     <style:region-right>
-     <text:p><text:date style:data-style-name="N2" text:date-value="2024-11-28">00/00/0000</text:date>, <text:time style:data-style-name="N2" text:time-value="22:12:46.211545524">00:00:00</text:time></text:p>
+     <text:p><text:date style:data-style-name="N2" text:date-value="2024-12-11">00/00/0000</text:date>, <text:time style:data-style-name="N2" text:time-value="16:08:08.211097674">00:00:00</text:time></text:p>
     </style:region-right>
    </style:header>
    <style:header-left style:display="false"/>
@@ -1113,7 +1092,7 @@
       <text:p>pull ifempty block</text:p>
      </table:table-cell>
      <table:table-cell office:value-type="string" calcext:value-type="string">
-      <text:p>0b11</text:p>
+      <text:p>0b01</text:p>
      </table:table-cell>
      <table:table-cell/>
      <table:table-cell table:style-name="ce22" office:value-type="string" calcext:value-type="string">
@@ -1626,14 +1605,16 @@
     </table:table-row>
     <table:table-row table:style-name="ro1">
      <table:table-cell table:number-columns-repeated="4"/>
-     <table:table-cell table:style-name="ce21"/>
-     <table:table-cell table:number-columns-repeated="16379"/>
+     <table:table-cell table:style-name="ce22"/>
+     <table:table-cell/>
+     <table:table-cell table:style-name="ce24" table:number-columns-repeated="2"/>
+     <table:table-cell table:number-columns-repeated="16376"/>
     </table:table-row>
     <table:table-row table:style-name="ro1">
      <table:table-cell table:number-columns-repeated="4"/>
      <table:table-cell table:style-name="ce21"/>
      <table:table-cell/>
-     <table:table-cell table:formula="of:=SUM([.G2:.G45])" office:value-type="float" office:value="28" calcext:value-type="float">
+     <table:table-cell table:formula="of:=SUM([.G2:.G44])" office:value-type="float" office:value="28" calcext:value-type="float">
       <text:p>28</text:p>
      </table:table-cell>
      <table:table-cell office:value-type="string" calcext:value-type="string">
@@ -1650,12 +1631,12 @@
    </table:table>
    <table:table table:name="Pivot Table_assembly_code_1" table:style-name="ta1">
     <table:table-column table:style-name="co9" table:default-cell-style-name="ce27"/>
-    <table:table-column table:style-name="co9" table:default-cell-style-name="ce40"/>
+    <table:table-column table:style-name="co9" table:default-cell-style-name="ce35"/>
     <table:table-row table:style-name="ro1">
      <table:table-cell table:style-name="ce25" office:value-type="string" calcext:value-type="string">
       <text:p>Interval</text:p>
      </table:table-cell>
-     <table:table-cell table:style-name="ce38" office:value-type="string" calcext:value-type="string">
+     <table:table-cell table:style-name="ce33" office:value-type="string" calcext:value-type="string">
       <text:p>Sum - Tics</text:p>
      </table:table-cell>
     </table:table-row>
@@ -1663,7 +1644,7 @@
      <table:table-cell table:style-name="ce26" office:value-type="string" calcext:value-type="string">
       <text:p>ASTART</text:p>
      </table:table-cell>
-     <table:table-cell table:style-name="ce39" office:value-type="float" office:value="1" calcext:value-type="float">
+     <table:table-cell table:style-name="ce34" office:value-type="float" office:value="1" calcext:value-type="float">
       <text:p>1</text:p>
      </table:table-cell>
     </table:table-row>
@@ -1759,7 +1740,7 @@
      <table:table-cell office:value-type="string" calcext:value-type="string">
       <text:p>(empty)</text:p>
      </table:table-cell>
-     <table:table-cell table:style-name="ce41" office:value-type="float" office:value="0" calcext:value-type="float">
+     <table:table-cell table:style-name="ce36" office:value-type="float" office:value="0" calcext:value-type="float">
       <text:p>0</text:p>
      </table:table-cell>
     </table:table-row>
@@ -1767,7 +1748,7 @@
      <table:table-cell table:style-name="ce28" office:value-type="string" calcext:value-type="string">
       <text:p>Total Result</text:p>
      </table:table-cell>
-     <table:table-cell table:style-name="ce42" office:value-type="float" office:value="36" calcext:value-type="float">
+     <table:table-cell table:style-name="ce37" office:value-type="float" office:value="36" calcext:value-type="float">
       <text:p>36</text:p>
      </table:table-cell>
     </table:table-row>
@@ -1775,7 +1756,7 @@
    <table:named-expressions/>
    <table:data-pilot-tables>
     <table:data-pilot-table table:name="DataPilot1" table:application-data="" table:target-range-address="&apos;Pivot Table_assembly_code_1&apos;.A1:&apos;Pivot Table_assembly_code_1&apos;.B15" table:buttons="&apos;Pivot Table_assembly_code_1&apos;.A1" table:show-filter-button="false" table:drill-down-on-double-click="false">
-     <table:source-cell-range table:cell-range-address="assembly_code.A1:assembly_code.H45"/>
+     <table:source-cell-range table:cell-range-address="assembly_code.A1:assembly_code.H44"/>
      <table:data-pilot-field table:source-field-name="" table:is-data-layout-field="true" table:orientation="column" table:used-hierarchy="-1" table:function="auto">
       <table:data-pilot-level table:show-empty="true" calcext:repeat-item-labels="false"/>
      </table:data-pilot-field>

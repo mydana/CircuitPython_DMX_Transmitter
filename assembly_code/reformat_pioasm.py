@@ -205,7 +205,6 @@ def make_sideset_mask(prog, sideset_pins=None):
             "Remove some sideset pins, maybe."
             code = word & sideset_hole
             sideset = (word & sideset_mask) >> sideset_base
-            # TODO we don't know if the sideset logic really works correctly or not.
             # sideset = sideset >> diff  # Shift the bits over
             # or should this be a inverse bits?
             sideset = sideset & small_mask

@@ -74,7 +74,7 @@ class DMXTransmitter(DMXPayload):
                 self.code_index = 0
                 if timing_out_pin is not None:
                     raise ValueError(
-                        "timing_out_pin cannot be set if timing_out_control is set"
+                        "timing_out_pin cannot be set if timing_out_control is not set"
                     )
             else:
                 if timing_out_control is False or timing_out_control == 1:
@@ -91,7 +91,7 @@ class DMXTransmitter(DMXPayload):
                     )
                 if timing_out_pin is None:
                     raise ValueError(
-                        "timing_out_control must be set if timing_out_pin is"
+                        "timing_out_control cannot be set if timing_out_pin is set"
                     )
 
         else:

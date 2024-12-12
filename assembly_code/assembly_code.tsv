@@ -18,7 +18,7 @@ mark_after_break:						0	0
 	out y, 16	0b11		MAB	Ctrl: Get the number of slots we'll display	1	1
 						0	0
 data_byte:						0	0
-	pull ifempty block	0b11		ASTART	DATA: Present (Alt. Start)	1	1
+	pull ifempty block	0b01		ASTART	DATA: Present (Alt. Start)	1	1
 	mov pins, null	0b01	2	START	DATA: Start bit (STA)	1	3
 	set x, 7	0b01		START	DATA: Set up 8 bits	1	1
 data_bit:						0	0

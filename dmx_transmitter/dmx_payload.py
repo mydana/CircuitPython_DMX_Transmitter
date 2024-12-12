@@ -38,9 +38,9 @@ assert 4 == IntervalTimings.TDATA, "Terminal data bit SHALL be 4 µS"
 
 # TODO CI fails
 
-# TODO Oscilloscope validation.
-# TODO timing logic sense.
-# TODO verify the sideset pin configuration
+# TODO document that oscilloscope pulse is 1 microsecond shorter than MAB
+
+# TODO document that stop does not turn off the enable pin, this is a bug!
 
 
 class DMXPayload:  # pylint: disable=too-many-instance-attributes
