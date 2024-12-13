@@ -10,9 +10,10 @@ User population
 
 Getting started
 ---------------
-1. Buy an Adafruit microcontroller board built on the RP2040 chip.
-   The DMX Transmitter needs one PIO (the RP2040 has two) and one GPIO pin.
-   (A microcontroller with built on an RP2350 may work too.)
+1. Buy an Adafruit microcontroller board built on the RP2040 chip. (A
+   microcontroller board built with the RP2350 may work too.) This library
+   requires at least one Programmable Input-Output (PIO) subsystem
+   available. The RP2040 has two, and the RP2350 has three.
 2. Read the "Primary Guide" for the selected board on the Adafruit website.
    This guide helps you getting started on CircuitPython programming.
 3. Install this library. Follow the Circup instructions in the main page,
@@ -31,7 +32,7 @@ Fire up a microcontroller if you want to follow along, no wiring nor lights
 are needed for this tutorial.
 
 Set up the tutorial: A KB2040 is not required, any rp2040 board will work.
-RP2350 boards may work also, but not yet tested by me.
+RP2350 boards may work also, but are not yet tested.
 DMX_PIN is shown as board.D0 to conform with the example wiring schematic
 you may use any available microcontroller pin you wish.
 
@@ -160,11 +161,11 @@ Purchase an RS485 line driver and a female XLR connector::
 
 DMX Personality
 ---------------
-Every DMX light model may have a different DMX personality, that is, a
+Every DMX light model will likely have a different DMX personality, that is, a
 different purpose for each available channel. A your light's manual
 should show the "DMX personality" for your light model.
 
-This example table is the DMX personality of the lights used in the
+This example table is the DMX personality of my own lights used in the
 code examples. Adjust the code examples for your light's personality.
 
 Code Examples DMX Personality::

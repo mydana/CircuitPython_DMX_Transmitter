@@ -44,9 +44,9 @@ class DMXTransmitter(DMXPayload):
     :param bool auto_write: If True, output all changes immediately.
         If False, use the show method to output changes.
 
-    :param int slots: How many DMX512 slots to implement (1 thru 512)
+    :param int slots: How many DMX512 SLOTs to implement (1 thru 512)
 
-    :param ~microcontroller.Pin|Nine timing_out_pin: see Advanced Usage documention.
+    :param ~microcontroller.Pin|None timing_out_pin: see Advanced Usage documention.
 
     :param bool|int timing_out_control: see Advanced Usage documention.
 
@@ -106,7 +106,7 @@ class DMXTransmitter(DMXPayload):
         self.reinit()
 
     def reinit(self):
-        "Re-connect and state machine to the pin, and start the state machine."
+        "Re-connect and state machine to the pin(s), and start the state machine."
         self.state_machine = rp2pio.StateMachine(
             machine_code[self.code_index],
             **pio_kwargs(abs(self.code_index)),
@@ -126,8 +126,7 @@ class DMXTransmitter(DMXPayload):
 
         If auto_write is True, ignored.
 
-        'once' is an advanced parameter for sending Alternate START Codes,
-        and if you don't know what that means, don't worry about it.
+        'once' is an advanced parameter for sending Alternate START Codes.
         """
         if once is None:
             self._send_show_buffer(self.state_machine.background_write)
@@ -141,7 +140,9 @@ class DMXTransmitter(DMXPayload):
     def stop(self) -> None:
         """Stop sending data down the wire.
 
-        Advanced use: Disable the line driver, if configured.
+        Advanced use: Disable the line driver, if enable pin is connected to the line driver.
+
+        This feature doesn't work correctly yet.
         """
         self.state_machine.background_write()
         self._send_stop_buffer(callback=self.state_machine.background_write)

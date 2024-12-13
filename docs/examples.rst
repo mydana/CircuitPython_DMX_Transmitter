@@ -77,11 +77,11 @@ fireworks.py
    # Configuration
    # Note: The dmx index numbers are one (1) less than the DMX channel
    #       number. This is by design.
-   rockets = (1, 2, 3, 9, 10, 11)  # Slot numbers we want to show.
+   rockets = (1, 2, 3, 9, 10, 11)  # SLOT numbers we want to show.
    main_dimmers = (
        0,
        8,
-   )  # Slot numbers for the main dimmers
+   )  # SLOT numbers for the main dimmers
 
    # Setup
    tick = 0

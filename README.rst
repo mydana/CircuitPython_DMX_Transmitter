@@ -86,7 +86,7 @@ REQUIREMENTS
 * `Any RP2040 CircuitPython board. I used the Adafruit KB2040
   <https://www.adafruit.com/product/5302>`_ (Product ID: <5302>)
 
-* I suppose an RP2350 CircuitPython board might work, but I haven't tested one yet.
+* An RP2350 CircuitPython board might work, but I haven't tested one yet.
 
 * An isolated RS485 line driver. I used a Digilent PmodRS485.
 
