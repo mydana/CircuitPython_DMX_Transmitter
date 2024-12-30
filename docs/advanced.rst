@@ -31,111 +31,144 @@ constructor. This reduces the load on resources as such::
 
   Each slot consumes some of the microcontroller processing time.
 
-  Each slot consumes 40 microseconds from each DMX512 packet.
+  Each slot consumes 40 microseconds of time for each DMX512 packet.
 
 Be aware that the DMX512 standard requires a minimum packet duration of
 1204 microseconds, although your equipment probably doesn't care. See
 the 'interval' property documentation, or more information about DMX Timing,
 below.
 
-Switch from auto_write = False to auto_write = True
----------------------------------------------------
+Turn off double-buffering
+-------------------------
 
-By default the library double-buffers the DMX512 data. Requiring the 'show'
-method for pending changes to become visible. Each show operation swaps one
-buffer for showing to another for editing. This swap consumes time, but also
-the show buffer needs to be copied to the edit buffer, which takes more time.
+By default the library double-buffers the DMX512 data, that means there are
+two copies of the intermediate data structure, and that one is used for
+editing the DMX512 slot data values, and the other one is used to show the
+slot data values on the state machine, and play the data down the wire to
+the lights. This is indicated by having the 'auto_write' property as False.
+In this state, any changes will not visible until on the lights until the
+'show' method is called. When that happens, the two buffers swap roles, the
+one that was editing slot data will now show it, and vice-versa.
 
-If auto_write is set to True, only one buffer is used, and any changes go
-directly to the one buffer that is also shown to the state machine.
+This swap takes time. There is a delay for the existing buffer to finish
+playing down the wire before the other buffer can start, and there is also a
+delay to copy slot values from one buffer to another.
 
-auto_write may be changed in the constructor, but can also be changed by
-setting the auto_write property.
+If the 'auto_write' property is set True, then the library uses one buffer for
+both editing and playing the data down the wire. This is significantly faster
+because neither the delay nor the copy operation is needed. In this state
+the 'show' method is ignored.
+
+Double-buffering also consumes memory. There are two copies of the DMX512 data.
+If the 'buffers' parameter in DXMTransmitter can be set to 1. If this done,
+the library is forced to 'auto_write' to True, and double-buffering becomes
+impossible.
+
+The DMXTransmitter 'buffers' parameter can be set to more than 2 (the default)
+more buffers are constructed, but the DMXPayload class won't use them.
 
 How to implement multiple DMX512 Universes
 ==========================================
-Implement multiple DMXTransmitter objects.
+Implement multiple DMXTransmitter objects, one for each DMX512 Universe
+
+In theory the designer can implement 8 DMX512 Universes for each RP2040,
+and implement 12 DMX512 Universes for each RP2350, but a realistic
+number may be significantly less.
 
 This library uses an RP2040/RP2350 subsystem called the Programmable
-Input/Output. (PIO) Each PIO has machine code, and four available state machines.
-The RP2040 contains two PIOs, and the RP2350 contains three PIOs. Note
-that the PIO shares the same machine code for each state machine.
+Input/Output. (PIO) Each PIO hosts machine code that defines a wire protcol,
+and four state machines that executes the machine code. These state machines
+are connected to microcontoller GPIO pins. In this library, each state machine
+is connected to one 'dmx_output_pin', then subsequently to a line driver,
+and ultimately to the controlled lights. (Timing pins, described below, also
+connect to one state machine.)
 
-In theory the designer can implement one DMX512 Universe for each state machine,
-therefore an RP2040 can implement 8 DMX512 Universes, and the RP2350 can
-implement 12 DMX512 Universes. A realistic number may be significantly less.
+What's important is that each PIO has one machine code memory that is shared
+among all the state machines in that PIO. The code from this library
+consumes almost all the available machine code memory, this practically means
+that that a PIO used for this library cannot be re-used for another application.
+This means that if one state machine is used for one DMX512 Universe, then four
+state machines and therefore four DMX512 Universes are available. Further,
+if five DMX512 Unverses are implemented, then state machines for eight DMX512
+Universes are available.
 
-First, the designer needs to consider the microcontroller performance, it
-might be possible that an RP2350 can indeed drive 12 Universes for generally
-static lighting, such as architectural lighting. However, although the benchmark
-tests that I'd run on an RP2040 did instantiate 8 DMXTransmitter objects, I've
-not tested them actually running lighting on any more that one Universe at one
-time. If you do this test, let me know the results.
+Be aware, however, that other RP2040/RP2350 applications may also use PIOs, but
+if the applications' machine code is small enough, the applications may be
+shared together in one PIO. (This appears to happen with the RP2040. In a
+preliminary test, I was able to load this library on a Adafruit Macropad even
+though the Macropad uses a PIO for both driving the NeoPixels as well as the
+rotary encoder.)
 
-The shared machine code may also significantly reduce the number of PIOs
-available. For example, the neopixel (R) library on the RP2040 consumes one PIO,
-therefore if that library is instantiated, then the maximum number of Universes
-drop to 4. This is true for any library that uses a PIO.
+Also, be aware that this library itself implements five variants of the state
+machine code. These are determined by the DMXTransmitter 'timing_pin_control'
+class constructor parameter. If implemeting more than one Universe, a good
+practice will be to use the same value for 'timing_pin_control' for each
+Universe. If not, a RuntimeError indicating that no available state machines
+may be raised.
 
-Another concern for shared machine code comes into play with the DMXTransmitter
-class itself. Internally, the library implements 5 varients of machine code, one
-for each combination of 5 possible timing_out_control values. Timing pins are
-implemented as PIO sideset pins, and have to be accounted for in the code.
-Therefore all state machines sharing a PIO need to have the same
-timing_out_control values. Because of this, a consequence of changing the
-timing_out_control of one state machine, and not changing it other state machines
-may cause the code to fail with a RuntimeError with all state machines in use.
+Finally, the designer needs to consider the microcontroller performance, while
+I've seen an RP2040 implement 8 universes in the benchmark tests that are
+available in the source code, but I'm skeptical that a practical application
+will have sufficient performance.
 
 DMX TIMING
 ==========
-By default, this library implements the USITT DMX512-A standard timings.
-All timings are the minimum, except for SPACE FOR BREAK which is at the
-recommended timing of 172 microseconds.
+Background
+----------
+DMX512 is an asychronous serial protocol. The first asynchronous serial
+communication protocol was Morse code, and the telegraohy terms, "mark", "space"
+and "break" used today still used today. A "mark" indicates that current is
+flowing. A "space" means that current is not flowing, and a "break" means that
+current has not be flowing for a longer time. In the days of the telegraph the
+the difference between a "space" and a "break" might be measured in minutes,
+whereas in DMX512 the difference is measured in microseconds.
 
-DMX512 is an asychronous serial protocol. Electronically the output is normally
-high, and sends pulses of low of defined durations to send data to the
-attached equipment. (Because DMX512 is a balanced protocol one wire is high when
-the other is low and vice-versa. We'll only consider one wire.) A high state is
-refered to a 'mark' state, and a low state is referred to a 'space' state. An
-extended low state is referred to a 'break'. (These names came from Morse's
-telegraph.)
+Asynchronous means that the line may stay idle betwen messages, and may stay idle
+between words as well. The line stays in the "mark" during idle periods. Both
+protocols, Morse code and DMX512 also use breaks to indicate when a messsage is
+coming. This is unusual for modern asynchronous serial protocols, most protocols
+format data packets using headers in the data stream instead of a hardware break.
+This incompatibility is why one cannot use a computer terminal to send DMX512
+data.
 
-The DMX512 transmitter repeatedly sends serial data in packets. Each packet
-starts with a header, consisting of a mark before break, a break, and a mark
-after break. Following the header, there is a start code, followed by slot data.
-All header sections are adjustable.
+After the break, called "SPACE FOR BREAK" in the specification, DMX512 sends up
+to 513 bytes of data. The first byte indicates the data type. This called the
+"NULL START" code in the specification. A null (a zero) indicates that the data
+packet is dimmer (and other lighting accessory) values, as opposed to diagnostics
+or other ancillary data.
 
-The start code, and slot data are 8 bits of data, preceeded by one start bit (a
-space), followed by two stop bits (each a mark), all of each are 4 microseconds
-in duration. The start bit, and the data bits are not adjustable, but the stop
-bits are. Stop bits may be "stretched" by adding additional time between each
-byte of slot data and between the start code and the slot data.
+Each byte is organzed into 11 bits of serial data, with each bit presented for
+4 microseconds. The fist bit, the start bit, is a "space" indicating that a
+word of data is forthcoming. The next 8 bits consist of a byte of data, least
+significant bit first. Finally at least 2 bits for the stop bits, where the line
+remains in "mark" state for at least 8 microseconds. The timing from the start
+bit to the end bit is critical, but after that the line may remain idle for some
+time, in a "mark" state, or the next byte of data may be sent.
 
-These adjustments are implemented as properties of the
-DMXPayload class, and are also visible in the DMXTransmitter class. The
-documenation for each property tells you the default, the minimum allowed,
-the maximum allowed, and if not already at the default, the recommended
-timing from the DMX512 standard. All durations are in microseconds.
+This ability for the line to remain idle after the stop bits allows for some
+adjustment of the DMX512 timing. Likewise, the standard allows for variable
+timing of the break that starts each packet.
+
+Adjustment
+----------
+By default, this library implements the minimum timings allowed by the standard,
+except for SPACE FOR BREAK, which is set to the recommended duration of 172
+microseconds.
+
+All of the timings are implemented as properties of the DMXPayload class, and
+are also visible in the DMXTransmitter class. The documenation for each property
+tells you the default, the minimum allowed, the maximum allowed, and if not
+already at the default, the duration recommended by the standard. All values
+are in microseconds.
 
 .. code-block:: Python
 
    >>> dmx.space_for_break
    172
-   >>> dmx.space_for_break = 500
+   >>> dmx.space_for_break = 88
    >>> dmx.space_for_break
-   500
+   88
    >>>
-
-Setting the timing duration below the standard
-----------------------------------------------
-While the libary allows for setting durations less than the minimums, you might
-want to do so to make the system more responsive. However, reducing the number
-of slots, descibed above, will also make the system more responsive. Be aware,
-setting timings below recommended minimums is not recommended, and may make your
-DMX Universe unreliable.
-
-If you do want to reduce the timing, reduce the space_for_break, because the
-default duration is longer than what's required.
 
 Minimum DMX512 packet duration
 ------------------------------
@@ -146,100 +179,112 @@ There is a read-only property available, 'interval' that shows the calculated
 DMX512 packet duration. The only way to adjust the duration is to change the
 DMX512 timing properties, or to increase the number of slots up to 512.
 
-Setting the timing duration above above the standard
-----------------------------------------------------
-Some, presumably older equipment is not exactly compatible with DMX512, some
-additional padding is needed. There is an art to adjusting these timings, and
-I welcome a Pull Request to elaborate what the best strategies are.
-
-Be aware too, that the library allows for long padding durations,
-260 microseconds (default 8 microseconds) between byte of slot data, and a
-header length in excess of 150,000 microseconds (default 188 microseconds).
-While the DMX512 standard allows these durations, some equipment may balk
-at durations this long.
-
 Timing pins
 ===========
 The state machines have a feature called sideset pins. Roughly, these are bits
 that may be added to the machine code, and as each instruction is executed, the
 bit values are sent out to additional pins. This library implements up to two
-sideset pins::
+sideset pins:
 
-  Transmitter enable::
+* Transmitter enable, and
+* Oscilloscope sync
 
-    If the timing_out_control parameter is set to True or 1, one timing pin is
-    implemented it is the transmitter enable pin. This pin can be connected to
-    the line driver circuit enable input. This feature can be used to switch
-    the DMX Universe from one transmitter to another. The stop method will stop
-    the state machine, and disable the connected line driver.
+Transmitter enable
+------------------
 
-    This is advanced feature only for an advanced DMX hacker.
+If the timing_out_control parameter is set to True or 1, one timing pin is
+implemented it is the transmitter enable pin. This pin can be connected to
+the line driver circuit enable input. This feature can be used to switch
+the DMX Universe from one transmitter to another. The stop method will stop
+the state machine, and disable the connected line driver.
 
-    If the timing_out_control parameter is set to False or -1, the same timing
-    pin is implemented, but the logic is complemented.
+This is advanced feature only for an advanced DMX hacker.
 
-    This pin is set by the timing_out_pin parameter.
+If the timing_out_control parameter is set to False or -1, the same timing
+pin is implemented, but the logic is complemented.
 
-  Oscilloscope sync::
+This pin is set by the timing_out_pin parameter.
 
-    If the timing_out_control parameter is set to 2, then two timing pins are
-    implemented, the first pin is the same transmitter pin, as descibed above.
-    The second pin is an oscilloscope sync pin. This pin is asserted during
-    MARK AFTER BREAK.  The intent is to use a digital oscilloscope to verify that
-    the timing is what it says it is.
+Oscilloscope sync
+-----------------
 
-    If the timing_out_control parameter is set to -2, then the same two timing
-    pins are implemented, but the logic of both pins is complemented.
+If the timing_out_control parameter is set to 2, then two timing pins are
+implemented, the first pin is the same transmitter pin, as descibed above.
+The second pin is an oscilloscope sync pin. This pin is asserted during
+MARK AFTER BREAK.  The intent is to use a digital oscilloscope to verify that
+the timing is what it says it is.
 
-    The two pins need to be consecutive. The first pin is the Transmitter enable,
-    and is specified by the timing_out_pin parameter. The second pin is not
-    specified by the library, instead the hardware automatically uses the next
-    pin in sequence.
+If the timing_out_control parameter is set to -2, then the same two timing
+pins are implemented, but the logic of both pins is complemented.
 
-  If the timing_out_control parameter is not set, then no timing pins are
-  implemented.
+The two pins need to be consecutive. The first pin is the Transmitter enable,
+and is specified by the timing_out_pin parameter. The second pin is not
+specified by the library, instead the hardware automatically uses the next
+pin in sequence.
+
+If the timing_out_control parameter is not set, then no timing pins are
+implemented.
 
 Warning when implementing multiple DMX512 Universes
 ---------------------------------------------------
-Be aware that if you intend to implement timing pins and use multiple
-DMX512 Universes, all Universes handled by the same PIO need to have
-the same value for the timing_out_control parameter. This is because
-the timing_out_control parameter chooses the version of the machine
-code to run on the state machine, and all state machines on the same
-PIO need to run the same machine code.
+Be aware of a technical limitation. If you intend to implement timing pins and
+implement multiple DMX512 Universes, all Universes handled by the same PIO need
+to have the same value for the timing_out_control parameter. See above.
 
-This limitation can cause unexpeced RuntimeError problems when debugging
-multiple DMX512 Universes.
+This limitation can cause unexpeced RuntimeError problems when debugging.
 
 How this library works
 ======================
 This library consists of three modules:
 
-* dmx_transmitter
-* dmx_payload
-* machine_code
+* dmx_transmitter.py aka dmx_transmitter.mpy
+* dmx_payload.py aka dmx_payload.mpy
+* machine_code.py aka machine_code.mpy
 
-together these allow an RP2040 (and presumably an RP2350) microcontroller's
+Together these allow an RP2040 (and presumably an RP2350) microcontroller's
 Programmable I/O (PIO) peripheral to output a DMX512 serial data stream.
 
-dmx_transmitter/machine_code is a machine-generated python library that contains three objects:
+dmx_transmitter/machine_code.py is a machine-generated python library that contains
+three objects:
 
-1. A class that contains variations of the assembled machine code that runs the PIO.
+1. A class that contains variations of the assembled machine code that runs the
+PIO.
 
-2. A function that synthesizes the pio_kwargs that the assembler would output.
+2. A function that synthesizes the pio_kwargs that Adafruit's assembler would
+output.
 
 3. A class that contains timing constants for various phases of the DMX waveform.
 
-While machine_code is machine-generated, the source code is available in source
-the package, in the assembly_code folder.
+In order to write PIO assembly code, a developer needs to be mindful of both
+the logic and the timing. This is difficult. To make it easier this developer
+used a spreadsheet program to use a pivot table to keep track of timings while
+focusing on the desired logic. While this program was not originally written
+in LibreOffice calc, it was copied to that application for sharing on GitHub,
+and can be found in the source code in the assembly_code folder.
+
+Since the timing was already available in the spreadsheet, this developer created
+a tool, reformat_pioasm, to assemble the machine code using Adafruit's assembler,
+and output the objects mentioned above in the dmx_transmitter/machine_code.mpy
+file.
+
+Finally, this tool also allows the developer to defer TODO
+
 
 * The ultimate source is in assembly_code/assembly_code.fods this file is the
   assembly code in a LibreOffice document.
-* The next file, assembly_code/assembly_code.txt.csv is a text-separated file
-  exported the LibreOffice document.
-* A script assembly_code/reformat_pioasm formats, assembles it, and writes the
-  output into dmx_transmitter/machine_code.
-* The makefile contains all the commands to run this pipeline, and others.
+* The next file, assembly_code/assembly_code.tsv is a text-separated file
+  exported from the LibreOffice document.
+* A script assembly_code/reformat_pioasm.py that uses Adafruit's assemble to
+  assemble it, and writes the output into dmx_transmitter/machine_code.
+* The makefile contains all the commands to build the machine code.
+
+
+
+
+
+
+
+
 
 This pipeline was implemented to tie timing information with the assembly code in
 a way that's easy for the developer to work on the logic and the timing. It also

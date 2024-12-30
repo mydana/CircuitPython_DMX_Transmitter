@@ -46,6 +46,8 @@ class DMXTransmitter(DMXPayload):
 
     :param int slots: How many DMX512 SLOTs to implement (1 thru 512)
 
+    :param int buffers: How many data buffers. Default 2. See Advanced Usage documentation.
+
     :param ~microcontroller.Pin|None timing_out_pin: see Advanced Usage documention.
 
     :param bool|int timing_out_control: see Advanced Usage documention.
@@ -58,11 +60,12 @@ class DMXTransmitter(DMXPayload):
         dmx_out_pin,
         slots=512,
         auto_write=False,
+        buffers=2,
         timing_out_pin=None,
         timing_out_control=False,
         exclusive_pin_use=True,
     ) -> None:
-        super().__init__(slots=slots, buffers=2)
+        super().__init__(slots=slots, buffers=buffers)
         try:
             self.auto_write = auto_write
         except ValueError:

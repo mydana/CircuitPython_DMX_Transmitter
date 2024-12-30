@@ -32,6 +32,10 @@ GLOSSARY
   A standard digital theatrical lighting protocol. It's also used for
   architectural lighting, and other non-lighting devices.
 
+* GPIO - General-Purpose Input Output.
+  The hardware for Input Output on a microcontroller. These are the "pins"
+  connecting the microcontroller to the associated electrical circuit.
+
 * Line driver - hardware that converts electrical levels from logic levels to
   RS485 levels. For a DMX network an isolated line driver is advised. This is
   to isolate the DMX wiring from the microcontroller and any connected
@@ -43,6 +47,9 @@ GLOSSARY
 
 * Mark - a term from telegraphy, and also used for asyncronous serial
   communication. It indicates the line is on, and corresponds to a logic high.
+
+* Packet - A collection of data sent down the wire. A DMX512 packet consists of
+  a break, a START CODE, followed by up to 512 bytes of slot data.
 
 * PIO - Programmable I/O hardware
   A subsystem of the RP2040 microcontroller. There are two PIO in each RP2040.
@@ -67,6 +74,11 @@ GLOSSARY
 * Start bit - a low bit (space) that ends a mark, and indicates that a byte of
   data will follow. all DMX start bits are 4 microseconds long, and are
   implemeted in the machine code.
+
+* Start code - the first byte of data in a DMX512 packet. The start code
+  determines the data type of a packet. This libary implements the "NULL START"
+  code (defined in the DMX512 standard) that indicates the packet is dimmer
+  and other lighting equipment data values.
 
 * State machine - the hardware that formats the DMX data into serial data for
   sending down the wire.

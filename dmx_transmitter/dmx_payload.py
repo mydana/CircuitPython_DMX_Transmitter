@@ -128,7 +128,9 @@ class DMXPayload:  # pylint: disable=too-many-instance-attributes
             raise ValueError(
                 f"'slots' is too high. Shall be {self.MIN_SLOTS} to {self.MAX_SLOTS}"
             )
-        self.num_buffers = buffers
+        self.num_buffers = int(buffers)
+        if self.num_buffers < 1:
+            raise ValueError("At least 1 buffer must be instantiated.")
         self.edit_buffer = 0  # User-facing data.
         self.show_buffer = (
             1 if self.num_buffers > 1 else 0
