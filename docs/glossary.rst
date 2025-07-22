@@ -95,3 +95,6 @@ GLOSSARY
 * Universe (DMX) - the set of addresses and values sent down one cable. Also
   could refer to the cable, lights, and other hardware connected to that
   cable.
+
+* Wire protocol - A defined means to communicate data between computer systems over
+  a shared electrical connections. DMX512 is a wire protocol.

@@ -76,7 +76,18 @@ and implement 12 DMX512 Universes for each RP2350, but a realistic
 number may be significantly less.
 
 This library uses an RP2040/RP2350 subsystem called the Programmable
-Input/Output. (PIO) Each PIO hosts machine code that defines a wire protcol,
+Input/Output. (PIO) Each PIO hosts machine code memory that implements a
+wire protocol, and four state machines that execute that machine code. These
+state machines are in-turn connected to the microcontroller GPIO pins, with
+one DMX512 universe for each 
+
+If the applications' machine code is small enough, multiple different
+applications can be shared within a PIO. However, this library's machine code
+uses almost all of the available machine code, so that it's unlikely that an
+another application can share the same PIO.
+
+
+ Each PIO hosts machine code that defines a wire protcol,
 and four state machines that executes the machine code. These state machines
 are connected to microcontoller GPIO pins. In this library, each state machine
 is connected to one 'dmx_output_pin', then subsequently to a line driver,
@@ -87,6 +98,10 @@ What's important is that each PIO has one machine code memory that is shared
 among all the state machines in that PIO. The code from this library
 consumes almost all the available machine code memory, this practically means
 that that a PIO used for this library cannot be re-used for another application.
+
+
+
+
 This means that if one state machine is used for one DMX512 Universe, then four
 state machines and therefore four DMX512 Universes are available. Further,
 if five DMX512 Unverses are implemented, then state machines for eight DMX512
