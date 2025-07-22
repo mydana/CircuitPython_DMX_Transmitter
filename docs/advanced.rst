@@ -79,7 +79,7 @@ This library uses an RP2040/RP2350 subsystem called the Programmable
 Input/Output. (PIO) Each PIO hosts machine code memory that implements a
 wire protocol, and four state machines that execute that machine code. These
 state machines are in-turn connected to the microcontroller GPIO pins, with
-one DMX512 universe for each 
+one DMX512 universe for each
 
 If the applications' machine code is small enough, multiple different
 applications can be shared within a PIO. However, this library's machine code
